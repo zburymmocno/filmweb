@@ -1,21 +1,29 @@
-<div class="widget">
+<md-content layout-padding>
     <h3 class="widget__title">Rejestracja</h3>
-    <form name="registerForm" class="form form--block">
-        <div class="form__group">
-            <label for="login" class="form__label">Nazwa użytkowika</label>
-            <input ng-model="form.nick" type="text" id="login" class="form__in form--input" required>
-        </div>
-        <div class="form__group">
-            <label for="email" class="form__label">E-mail</label>
-            <input ng-model="form.email" type="email" id="email" class="form__in form--input" required>
-        </div>
-        <div class="form__group">
-            <label for="password" class="form__label">Hasło</label>
-            <input ng-model="form.haslo" type="password" id="password" class="form__in form--input" required>
-        </div>
-        <div class="form__group">
-            <input ng-disabled="!registerForm.$valid" ng-click="submit()" class="form__submit"  type="submit" value="Rejestracja">
+    <form name="registerForm" layout="column">
+        <md-input-container>
+            <label>Nazwa użytkowika</label>
+            <input ng-model="form.nick" required>
+            <div ng-messages="loginForm.form">
+                <div ng-message="required">To pole jest wymagane</div>
+            </div>
+        </md-input-container>
+        <md-input-container>
+            <label>Hasło</label>
+            <input ng-model="form.haslo" type="password" required>
+            <div ng-messages="loginForm.form">
+                <div ng-message="required">To pole jest wymagane</div>
+            </div>
+        </md-input-container>
+        <md-input-container>
+            <label>Hasło</label>
+            <input ng-model="form.email" type="email" required>
+            <div ng-messages="loginForm.email">
+                <div ng-message="required">To pole jest wymagane</div>
+            </div>
+        </md-input-container>
+        <div>
+            <md-button type="submit" ng-click="submit()" ng-disabled="!registerForm.$valid">Rejestruj</md-button>
         </div>
     </form>
-    <p>Posiadzasz już konto? <a href="#!/rejestracja">Zaloguj się!</a></p>
-</div>
+</md-content>

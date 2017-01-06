@@ -1,38 +1,62 @@
-<form name="filmForm" novalidate class="form form--block">
-    <div class="form__group">
-        <label class="form__label" for="title">Tytuł filmu</label>
-        <input ng-model="form.tytul" id="title" class="form__in form--input" type="text" required>
-    </div>
-    <div class="form__group">
-        <label class="form__label" for="rok_premiery">Rok premiery</label>
-        <input ng-model="form.rok_premiery" id="rok_premiery" class="form__in form--input" type="number" required>
-    </div>
-    <div class="form__group">
-        <label class="form__label" for="genres">Gatunki</label>
-        <select ng-model="form.gatunki" ng-options="genre.nazwa for genre in genres" multiple id="genres"
-                class="form__in form--select" required></select>
-    </div>
-    <div class="form__group">
-        <label class="form__label" for="url_p">Plakat</label>
-        <input ng-model="form.url_p" id="url_p" class="form__in form--input" type="text" required>
-    </div>
-    <div class="form__group">
-        <label class="form__label" for="kraj">Kraje</label>
-        <select ng-model="form.kraje" ng-options="country.nazwa for country in countries" id="kraj"
-                class="form__in form--select"
-                multiple required></select>
-    </div>
-    <div class="form__group">
-        <label class="form__label" for="url_z">Zwiastun</label>
-        <input ng-model="form.url_z" id="url_z" class="form__in form--input" type="text" required>
-    </div>
+<div layout="column" ng-cloak>
 
-    <div class="form__group">
-        <label class="form__label" for="opis">Opis filmu</label>
-        <textarea ng-model="form.opis" id="opis" class="form__in form--textarea" rows="10" required></textarea>
-    </div>
-    <div class="form__group">
-        <input ng-disabled="!filmForm.$valid" type="submit" ng-click="send()" class="form__submit" value="Zapisz">
-    </div>
+    <md-content md-theme="docs-dark" layout-gt-sm="column" layout-padding>
+
+        <md-input-container class="md-block">
+            <label>Tytuł</label>
+            <input ng-model="form.tytul" required>
+        </md-input-container>
+
+        <md-input-container class="md-block">
+            <label>Rok premiery</label>
+            <input ng-model="form.rok_premiery" required>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+            <label>Gatunki</label>
+            <md-select multiple ng-model="form.gatunki">
+                <md-option ng-repeat="genre in genres" value="{{genre}}">
+                    {{genre.nazwa}}
+                </md-option>
+            </md-select>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+            <label>Kraje</label>
+            <md-select multiple ng-model="form.kraje" required>
+                <md-option ng-repeat="country in countries" value="{{country}}">
+                    {{country.nazwa}}
+                </md-option>
+            </md-select>
+        </md-input-container>
+
+
+        <md-input-container class="md-block">
+            <label>Plakat</label>
+            <input ng-model="form.url_p" required>
+        </md-input-container>
+
+    </md-content>
+
+</div>
+
+
+<div class="form__group">
+    <label class="form__label" for="url_p">Plakat</label>
+    <input ng-model="form.url_p" id="url_p" class="form__in form--input" type="text" required>
+</div>
+
+<div class="form__group">
+    <label class="form__label" for="url_z">Zwiastun</label>
+    <input ng-model="form.url_z" id="url_z" class="form__in form--input" type="text" required>
+</div>
+
+<div class="form__group">
+    <label class="form__label" for="opis">Opis filmu</label>
+    <textarea ng-model="form.opis" id="opis" class="form__in form--textarea" rows="10" required></textarea>
+</div>
+<div class="form__group">
+    <input ng-disabled="!filmForm.$valid" type="submit" ng-click="send()" class="form__submit" value="Zapisz">
+</div>
 </form>
 
