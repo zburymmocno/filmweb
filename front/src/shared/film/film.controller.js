@@ -1,19 +1,19 @@
 angular
     .module('app.film', [])
-    .directive('film', function () {
+    .directive('films', function () {
         return {
-            controller: 'film',
+            controller: 'films',
             template: require('./film.component.html'),
             scope: {
-                details: '='
+                array: '='
             },
             link: function (scope, element, attrs) {
 
             }
         };
-    }).controller('film', [
+    }).controller('films', [
     '$scope', function ($scope) {
-        
+
     }
 ])
 ;

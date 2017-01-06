@@ -7,11 +7,13 @@
 </head>
 <body class="flex flex--wrap">
 
-<page-nav class="flex__xs-12"></page-nav>
-<ui-view class="flex__xs-12 flex__lg-9">
-    Loading app...
-</ui-view>
-<side-bar class="flex__xs-12 flex__lg-3"></side-bar>
+<page-nav></page-nav>
+<div layout="row" layout-xs="column">
+    <ui-view flex="70">
+        Loading app...
+    </ui-view>
+    <side-bar flex="30"></side-bar>
 
+</div>
 </body>
 </html>

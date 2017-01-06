@@ -11,15 +11,7 @@ angular
         };
     }).controller('pageNav', [
     '$scope', function ($scope) {
-        $scope.references = [
-            {
-                name: 'Strona główna',
-                href: '#!/'
-            }, {
-                name: 'Dodaj film',
-                href: '#!/films/add'
-            }
-        ]
+
     }
 ])
 ;

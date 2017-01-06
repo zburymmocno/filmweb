@@ -22,6 +22,7 @@ angular
                     if (status == "success") {
                         $rootScope.user = output.data;
                     }
+                    
                     console.log(response);
                 }, function errorCallback(response) {
                     errorCallbackProvider(response);

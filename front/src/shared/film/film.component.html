@@ -1,18 +1,27 @@
-<div class="film-short">
-    <img class="film-short__image" ng-src="{{details.url_p}}" alt="alt">
-    <div class="film-short__details">
-        <h2 class="film-short__title">{{details.tytul}}</h2>
-        <p class="film-short__desc">{{details.opis}}</p>
-        <a class="film-short__link" href="#!/films/{{details.film_id}}">Zobacz całość</a>
+<div ng-cloak>
+    <md-content class="md-padding" layout-xs="column" layout="row">
+        <div layout="row" layout-wrap layout-align="center" layout-xs="column">
+            <md-card flex="45" ng-repeat="film in array">
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline">{{film.tytul}}</span>
+                        <span class="md-subhead">{{film.rok_premiery}}</span>
+                        <span class="md-subhead">
+                            <span ng-repeat="genre in film.gatunki">{{genre.nazwa}}, </span>
+                        </span>
 
-        <!--<ul>-->
-        <!--<li ng-repeat="country in details.kraje">{{country.nazwa}}</li>-->
-        <!--</ul>-->
-        <!--<h1>Gatunki</h1>-->
-        <!--<ul>-->
-        <!--<li ng-repeat="genre in details.gatunki">{{genre.nazwa}}</li>-->
-        <!--</ul>-->
-        <!--<h1>Rok</h1>-->
-        <!--<p>{{details.rok_premiery}}</p>-->
-    </div>
+                    </md-card-title-text>
+                    <md-card-title-media>
+                        <div class="md-media-md card-media">
+                            <img class="film-short__image" ng-src="{{film.url_p}}"
+                                 alt="alt">
+                        </div>
+                    </md-card-title-media>
+                </md-card-title>
+                <md-card-actions layout="row" layout-align="end center">
+                    <md-button ng-href="#!/films/{{film.film_id}}">Szczegóły</md-button>
+                </md-card-actions>
+            </md-card>
+        </div>
+    </md-content>
 </div>
