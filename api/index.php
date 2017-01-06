@@ -56,8 +56,8 @@ if($uri === $path.'/films') {
 	if(pg_fetch_all($result)){
 
 		$row = pg_fetch_assoc($result);
-		$row['genres'] = pg_fetch_all($obj->listGenres($row['film_id']));
-		$row['countries'] = pg_fetch_all($obj->listCOuntries($row['film_id']));
+		$row['gatunki'] = pg_fetch_all($obj->listGenres($row['film_id']));
+		$row['kraje'] = pg_fetch_all($obj->listCOuntries($row['film_id']));
 		$tab = $row;
 		$status = new JSendResponse('success', $row);
 	}else{ 
@@ -126,7 +126,9 @@ if($uri === $path.'/films') {
 	$obj->addUser($_POST);  
 }elseif($uri === $path.'/users/login'){
 	$data_from_json = json_decode(file_get_contents('php://input'), true);
+	//print_r($data_from_json);
 	if($data = $obj->login($data_from_json)){
+		echo $data['nick'];
 		$status = new JSendResponse('success', $data);
 	}
 	else{

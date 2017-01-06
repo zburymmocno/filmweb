@@ -28,7 +28,7 @@ class Model
 	}
 
 	function listMovie($id){
-		$result = pg_query("SELECT * FROM film WHERE film_id = '$id'");
+		$result = pg_query("SELECT f.film_id, f.tytul, f.rok_premiery, f.opis, fp.url as url_p, fz.url as url_z FROM film f LEFT JOIN film_plakat fp ON f.film_id = fp.film_id LEFT JOIN film_zwiastun fz ON f.film_id = fz.film_id WHERE f.film_id = '$id'");
 		return $result;
 	}
 
@@ -90,8 +90,11 @@ class Model
 	}
 
 	function login($data){
-
+echo $data[0];
 		$res = pg_fetch_array(pg_query("SELECT * FROM uzytkownicy WHERE  nick = '" . $data['nick'] . "' AND haslo = '" . md5($data['haslo']) . "'"));
+		//echo "SAdas22222".$data['nick'].$data['haslo']."ASdasd";
+//print_r($data);
+//echo $data['nick'];
 		if ($res){
         		session_start();
         		$_SESSION["ident"] = $data['nick'];
