@@ -94,7 +94,7 @@ class Model
 		if ($res){
         		session_start();
         		$_SESSION["ident"] = $data['nick'];
-			return true;
+			return array("nick"=>$data['nick']);
 		}
 		else {
 			return false;	
@@ -143,6 +143,7 @@ echo $data['nazwa'];
 		$result = pg_query("UPDATE film SET tytul='" . $data['tytul'] . "', rok_premiery='" . $data['rok_premiery'] . "', opis='" . $data['opis'] . "' WHERE film_id = " . $id);
 
 		$result2 = pg_query("DELETE FROM film_gatunek where film_id = " . $id);
+		$result3 = pg_query("DELETE FROM film_kraj where film_id = " . $id);
 
 		$res2 = true;
 		foreach ($data['gatunki'] as &$value) {
@@ -150,6 +151,16 @@ echo $data['nazwa'];
 
 			if(!pg_query("INSERT into film_gatunek values ('$id' , '$g_id' )")){
 				$res2 = false;
+			}
+		}
+
+		$res3 = true;
+print_r($data['kraje']);
+		foreach ($data['kraje'] as &$value) {
+		    	$k_id = pg_fetch_array( pg_query("SELECT kraj_id from kraj WHERE nazwa = '" . $value . "'"))['kraj_id'];
+echo $k_id;
+			if(!pg_query("INSERT into film_kraj values ('$id' , '$k_id' )")){
+				$res3 = false;
 			}
 		}
 

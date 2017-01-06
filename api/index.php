@@ -125,8 +125,8 @@ if($uri === $path.'/films') {
 }elseif($uri === $path.'/users/add'){
 	$obj->addUser($_POST);  
 }elseif($uri === $path.'/users/login'){
-	if($obj->login($_POST)){
-		$status = new JSendResponse('success', array("message"=>"Logowanie poprawne"));
+	if($data = $obj->login($_POST)){
+		$status = new JSendResponse('success', $data);
 	}
 	else{
 		$status = new JSendResponse('fail', array("message"=>"Błąd logowania"));		
