@@ -5,7 +5,7 @@ require_once('config.php');
 require_once('JSendResponse.php');
 
 
-$obj = new Model("127.0.0.1", "5432", "filmweb", "postgres", "postgres");
+$obj = new Model("tantor.db.elephantsql.com", "5432", "hxrnzqnh", "hxrnzqnh", "xMhZTJrVOz9zI6MU46M1sGFfyE1JkBlf");
 
 $path = '/filmweb/api/index.php';
 $pathreg = '\/filmweb\/api\/index.php';
@@ -74,10 +74,10 @@ if($uri === $path.'/films') {
 		$status = new JSendResponse('success', array("message"=>"Film dodano poprawnie"));
 	}
 	elseif($response == 0){
-		$status = new JSendResponse('error', array("message"=>"Film o takim tytule juz istnieje"), 'Not cool.', 9001);		
+		$status = new JSendResponse('error', array("message"=>"Film o takim tytule juz istnieje"), 'Not cool.');		
 	}
 	elseif($response == 2){
-		$status = new JSendResponse('error', array("message"=>"Błąd walidacji"), 'Not cool.', 9001);		
+		$status = new JSendResponse('error', array("message"=>"Błąd walidacji"), 'Not cool.');		
 	}
 	else{
 		$status = new JSendResponse('fail', array("message"=>"Błąd serwera"));
@@ -91,7 +91,7 @@ if($uri === $path.'/films') {
 		$status = new JSendResponse('success', array("message"=>"Kraj dodano poprawnie"));
 	}
 	elseif($response == 0){
-		$status = new JSendResponse('error', array("message"=>"Taki kraj już istnieje"), 'Not cool.', 9001);		
+		$status = new JSendResponse('error', array("message"=>"Taki kraj już istnieje"), 'Not cool.');		
 	}
 	else{
 		$status = new JSendResponse('fail', array("message"=>"Błąd serwera"));		
@@ -155,13 +155,20 @@ if($uri === $path.'/films') {
 }elseif(preg_match("/^".$pathreg."\/films\/edit\/[0-9]{1,}$/", $uri, $match)) {
 	preg_match('!\d+!', $uri, $matches);
 
-	if($obj->updateMovie($matches[0], $_POST)){
+	$data_from_json = json_decode(file_get_contents('php://input'), true);
+	$response = $obj->updateMovie($matches[0], $data_from_json);
+
+	if($response == 1){
 		$status = new JSendResponse('success', array("message"=>"Edycja filmu przebiegła pomyślnie"));
+	}	
+	elseif($response == 2){
+		$status = new JSendResponse('error', array("message"=>"Błąd walidacji"), 'Not cool.');		
 	}
 	else{
-		$status = new JSendResponse('fail', array("message"=>"Błąd edycji filmu"));		
+		$status = new JSendResponse('fail', array("message"=>"Błąd serwera"));
 	}
 	echo json_encode($status);
+
 
 }else{
 	header('HTTP/1.1 404 Not Found');
