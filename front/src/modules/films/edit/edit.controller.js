@@ -4,7 +4,7 @@ angular.module('app.filmsEdit', [
     .config([
         '$stateProvider', function ($stateProvider) {
             $stateProvider.state('filmsEdit', {
-                name: 'filmsAdd',
+                name: 'filmsEdit',
                 url: '/films/edit/{id}',
                 controller: 'filmsEditCtrl',
                 template: require('./edit.component.html')
@@ -12,10 +12,10 @@ angular.module('app.filmsEdit', [
         }
     ])
     .controller('filmsEditCtrl',
-        ['$scope', 'filmService', 'countriesService', 'genresService', 'errorCallbackProvider', '$stateProvider',
-            function ($scope, filmService, countriesService, genresService, errorCallbackProvider, $stateProvider) {
+        ['$scope', 'filmService', 'countriesService', 'genresService', 'errorCallbackProvider', '$stateParams',
+            function ($scope, filmService, countriesService, genresService, errorCallbackProvider, $stateParams) {
                 $scope.form = {};
-                var id = $stateProvider.id;
+                var id = $stateParams.id;
 
                 countriesService.getAll()
                     .then(function successCallback(response) {
