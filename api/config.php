@@ -101,6 +101,31 @@ class Model
 		}
 	}
 
+	function listAllCountries(){
+		$result = pg_query("SELECT nazwa FROM kraj");
+		return $result;
+	}
+
+	function listAllGenres(){
+		$result = pg_query("SELECT nazwa FROM gatunek");
+		return $result;
+	}
+
+	function addCountry($data){
+//$id = pg_query("SELECT * from kraj WHERE nazwa = '". $data['nazwa'] ."'");
+//$war = pg_fetch_result($id, 1, 0);
+echo pg_fetch_array( pg_query("SELECT * from kraj WHERE nazwa = '". $data['nazwa'] ."'"))['nazwa'];
+
+		if(pg_fetch_array(pg_query("SELECT * from kraj WHERE nazwa = '". $data['nazwa'] ."'"))){
+			return 0;
+		}
+		elseif(pg_query("INSERT into kraj (nazwa) values ('" . $data['nazwa'] . "' )")){
+			return 1;
+		}
+		else{
+			return false;
+		}
+	}
 
 }
 
