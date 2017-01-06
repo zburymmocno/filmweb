@@ -24,10 +24,12 @@ angular
                     headers: {'Content-Type': 'application/json'}
                 });
             },
-            delete: function (id) {
+            edit: function (id, data) {
                 return $http({
-                    method: 'GET',
-                    url: apiProvider() + "/films/remove/" + id
+                    method: 'POST',
+                    data: JSON.stringify(data),
+                    url: apiProvider() + "/films/edit/" + id,
+                    headers: {'Content-Type': 'application/json'}
                 });
             }
         }

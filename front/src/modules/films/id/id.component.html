@@ -1,8 +1,37 @@
-<div class="film-content">
+<div class="film-full">
+    <div class="flex flex--wrap">
+        <div class="flex__xs-12 flex__md-3">
+            <img class="film-full__image" ng-src="{{film.url_p}}" alt="asds">
+        </div>
+        <div class="flex__xs-12 flex__md-9">
+            <h1 class="film-full__title">{{film.tytul}} <span class="film-full__year">{{film.rok_premiery}}</span></h1>
 
+            <div class="film-full__detail">
+                <h3 class="detail__name">Gatunek</h3>
+                <ul class="detail__list detail--genres">
+                    <li ng-repeat="genre in film.gatunki" class="detail__item detail--genre">
+                        {{genre.nazwa}}
+                    </li>
+                </ul>
+            </div>
+            <div class="film-full__detail">
+                <h3 class="detail__name">Kraj produkcji</h3>
+                <ul class="detail__list detail--countries">
+                    <li ng-repeat="country in film.kraje" class="detail__item detail--country">
+                        {{country.nazwa}}
+                    </li>
+                </ul>
+            </div>
+
+            <div class="film-full__detail">
+                <a ng-href="{{film.url_z}}" class="detail__omen" target="_blank">Zobacz zwiastun</a>
+            </div>
+        </div>
+        <div class="flex__xs-12">
+            <h2 class="">Recenzja</h2>
+            <p>
+                {{film.opis}}
+            </p>
+        </div>
+    </div>
 </div>
-<h1 class="">{{film.tytul}}</h1>
-
-<pre>
-    {{film | json}}
-</pre>

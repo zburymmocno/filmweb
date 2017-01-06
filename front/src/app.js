@@ -9,6 +9,7 @@ angular
         'app.pageNav',
         'app.sideBar',
         'app.film',
+        'app.alert',
 
         'app.widgetLogin',
         'app.widgetRegister',
@@ -21,6 +22,7 @@ angular
 
         'app.filmsAdd',
         'app.filmsId',
+        'app.filmsEdit',
         'app.mainCtrl'
 
     ])
