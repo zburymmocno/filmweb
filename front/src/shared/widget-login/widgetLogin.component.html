@@ -1,0 +1,23 @@
+<div class="widget">
+    <pre>
+        {{user | json}}
+    </pre>
+    <h3 class="widget__title">Logowanie</h3>
+    <form class="form form--block">
+        <div class="form__group">
+            <label for="login" class="form__label">Nazwa użytkowika</label>
+            <input ng-model="form.login" type="text" id="login" class="form__in form--input">
+        </div>
+        <div class="form__group">
+            <label for="password" class="form__label">Hasło</label>
+            <input ng-model="form.password" type="password" id="password" class="form__in form--input">
+        </div>
+        <div class="form__group">
+            <input ng-click="submit()" type="submit" value="Zaloguj się">
+        </div>
+        <pre>
+            {{form | json}}
+        </pre>
+        <p>Nie posiadasz konta? <a href="#!/rejestracja">Zarejestuj się!</a></p>
+    </form>
+</div>

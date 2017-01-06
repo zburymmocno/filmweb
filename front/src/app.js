@@ -10,6 +10,11 @@ angular
         'app.sideBar',
         'app.film',
 
+        'app.widgetLogin',
+
+
+        'users.service',
+
         'countries.service',
         'genres.service',
         'film.service',
@@ -24,6 +29,22 @@ angular
 
         }
     ])
+
+    .run(['$rootScope', 'usersService', 'errorCallbackProvider', function ($rootScope, usersService, errorCallbackProvider) {
+            usersService.info()
+                .then(function successCallback() {
+                    var output = response.data;
+                    var status = output.status;
+                    if (status == 'success') {
+                        $rootScope.user = output.data
+                    } else if (status == "error") {
+                        $rootScope.user = {};
+                    }
+                }, function errorCallback(response) {
+                    errorCallbackProvider(response);
+                });
+        }]
+    )
 ;
 
 
