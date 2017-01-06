@@ -17,13 +17,13 @@ webpackJsonp([0],[
 	    reqSharedJS(key);
 	});
 	// load all .js file from services
-	var reqServicesJS = __webpack_require__(22);
+	var reqServicesJS = __webpack_require__(24);
 	reqServicesJS.keys().forEach(function (key) {
 	    reqServicesJS(key);
 	});
 
 	//load angular app
-	__webpack_require__(29);
+	__webpack_require__(31);
 
 /***/ },
 /* 1 */
@@ -487,6 +487,13 @@ webpackJsonp([0],[
 	    ])
 	    .controller('filmsIdCtrl', ['$scope', '$stateParams', 'filmService', 'errorCallbackProvider', function ($scope, $stateParams, filmService, errorCallbackProvider) {
 	        var id = $stateParams.id;
+
+	        $scope.response =
+	            JSON.parse(
+	                '{"status":"success","data":{"film_id":"43","tytul":"Co robimy w ukryciu","rok_premiery":"2015","opis":"","url_p":"http:\/\/1.fwcdn.pl\/po\/72\/86\/707286\/7673270.4.jpg","url_z":"http:\/\/m.filmweb.pl\/video\/zwiastun\/nr+1+%28polski%29-35083","gatunki":[{"nazwa":"Horror"},{"nazwa":"Komedia"}],"kraje":[{"nazwa":"USA"}]}}'
+	            );
+	        $scope.film = $scope.response.data;
+
 	        filmService.get(id)
 	            .then(function successCallback(response) {
 	                var output = response.data;
@@ -510,7 +517,7 @@ webpackJsonp([0],[
 /* 9 */
 /***/ function(module, exports) {
 
-	module.exports = "<h1>Test FILMU</h1>\n<h2>Wszystkie dane:</h2>\n<pre>\n    {{film | json}}\n</pre>";
+	module.exports = "<div class=\"film-content\">\n\n</div>\n<h1 class=\"\">{{film.tytul}}</h1>\n\n<pre>\n    {{film | json}}\n</pre>";
 
 /***/ },
 /* 10 */
@@ -590,7 +597,8 @@ webpackJsonp([0],[
 		"./film/film.controller.js": 14,
 		"./page-nav/pageNav.controller.js": 16,
 		"./side-bar/sideBar.controller.js": 18,
-		"./widget-login/widgetLogin.controller.js": 20
+		"./widget-login/widgetLogin.controller.js": 20,
+		"./widget-register/widgetRegister.controller.js": 22
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -698,7 +706,7 @@ webpackJsonp([0],[
 /* 19 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"side-bar\">\n    <div class=\"widget\">\n        <h3 class=\"widget__title\">Title</h3>\n        <ul class=\"widget__list\">\n            <li class=\"widget__item\">\n                <a class=\"widget__link\">\n                    LINK\n                </a>\n            </li>\n        </ul>\n    </div>\n    <widget-login></widget-login>\n</div>";
+	module.exports = "<div class=\"side-bar\">\n    <div class=\"widget\">\n        <h3 class=\"widget__title\">Title</h3>\n        <ul class=\"widget__list\">\n            <li class=\"widget__item\">\n                <a class=\"widget__link\">\n                    LINK\n                </a>\n            </li>\n        </ul>\n    </div>\n    <widget-login></widget-login>\n    <widget-register></widget-register>\n</div>";
 
 /***/ },
 /* 20 */
@@ -741,19 +749,62 @@ webpackJsonp([0],[
 /* 21 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"widget\">\n    <pre>\n        {{user | json}}\n    </pre>\n    <h3 class=\"widget__title\">Logowanie</h3>\n    <form class=\"form form--block\">\n        <div class=\"form__group\">\n            <label for=\"login\" class=\"form__label\">Nazwa użytkowika</label>\n            <input ng-model=\"form.login\" type=\"text\" id=\"login\" class=\"form__in form--input\">\n        </div>\n        <div class=\"form__group\">\n            <label for=\"password\" class=\"form__label\">Hasło</label>\n            <input ng-model=\"form.password\" type=\"password\" id=\"password\" class=\"form__in form--input\">\n        </div>\n        <div class=\"form__group\">\n            <input ng-click=\"submit()\" type=\"submit\" value=\"Zaloguj się\">\n        </div>\n        <pre>\n            {{form | json}}\n        </pre>\n        <p>Nie posiadasz konta? <a href=\"#!/rejestracja\">Zarejestuj się!</a></p>\n    </form>\n</div>";
+	module.exports = "<div class=\"widget\">\n    <pre>\n        {{user | json}}\n    </pre>\n    <h3 class=\"widget__title\">Logowanie</h3>\n    <form class=\"form form--block\">\n        <div class=\"form__group\">\n            <label for=\"login\" class=\"form__label\">Nazwa użytkowika</label>\n            <input ng-model=\"form.nick\" type=\"text\" id=\"login\" class=\"form__in form--input\">\n        </div>\n        <div class=\"form__group\">\n            <label for=\"password\" class=\"form__label\">Hasło</label>\n            <input ng-model=\"form.haslo\" type=\"password\" id=\"password\" class=\"form__in form--input\">\n        </div>\n        <div class=\"form__group\">\n            <input ng-click=\"submit()\" type=\"submit\" value=\"Zaloguj się\">\n        </div>\n        <pre>\n            {{form | json}}\n        </pre>\n        <p>Nie posiadasz konta? <a href=\"#!/rejestracja\">Zarejestuj się!</a></p>\n    </form>\n</div>";
 
 /***/ },
 /* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
+	angular
+	    .module('app.widgetRegister', [])
+	    .directive('widgetRegister', function () {
+	        return {
+	            controller: 'widgetRegister',
+	            template: __webpack_require__(23),
+	            scope: {},
+	            link: function (scope, element, attrs) {
+
+	            }
+	        };
+	    }).controller('widgetRegister', [
+	    '$scope', 'usersService', '$rootScope', 'errorCallbackProvider',
+	    function ($scope, usersService, $rootScope, errorCallbackProvider) {
+	        $scope.form = {};
+
+	        $scope.submit = function () {
+	            usersService.add($scope.form)
+	                .then(function successCallback(response) {
+	                    var output = response.data;
+	                    var status = output.status;
+	                    if (status == "success") {
+	                        $rootScope.user = output.data;
+	                    }
+	                    console.log(response);
+	                }, function errorCallback(response) {
+	                    errorCallbackProvider(response);
+	                })
+	        }
+	    }
+	])
+	;
+
+/***/ },
+/* 23 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"widget\">\n    <pre>\n        {{user | json}}\n    </pre>\n    <h3 class=\"widget__title\">Rejestracja</h3>\n    <form class=\"form form--block\">\n        <div class=\"form__group\">\n            <label for=\"login\" class=\"form__label\">Nazwa użytkowika</label>\n            <input ng-model=\"form.nick\" type=\"text\" id=\"login\" class=\"form__in form--input\">\n        </div>\n        <div class=\"form__group\">\n            <label for=\"email\" class=\"form__label\">E-mail</label>\n            <input ng-model=\"form.email\" type=\"password\" id=\"email\" class=\"form__in form--input\">\n        </div>\n        <div class=\"form__group\">\n            <label for=\"password\" class=\"form__label\">Hasło</label>\n            <input ng-model=\"form.haslo\" type=\"password\" id=\"password\" class=\"form__in form--input\">\n        </div>\n        <div class=\"form__group\">\n            <input ng-click=\"submit()\" type=\"submit\" value=\"Zaloguj się\">\n        </div>\n        <pre>\n            {{form | json}}\n        </pre>\n    </form>\n    <p>Posiadzasz już konto? <a href=\"#!/rejestracja\">Zaloguj się!</a></p>\n</div>";
+
+/***/ },
+/* 24 */
+/***/ function(module, exports, __webpack_require__) {
+
 	var map = {
-		"./api.provider.js": 23,
-		"./countries.service.js": 24,
-		"./errorCallback.provider.js": 25,
-		"./film.service.js": 26,
-		"./genres.service.js": 27,
-		"./user.service.js": 28
+		"./api.provider.js": 25,
+		"./countries.service.js": 26,
+		"./errorCallback.provider.js": 27,
+		"./film.service.js": 28,
+		"./genres.service.js": 29,
+		"./user.service.js": 30
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -766,11 +817,11 @@ webpackJsonp([0],[
 	};
 	webpackContext.resolve = webpackContextResolve;
 	module.exports = webpackContext;
-	webpackContext.id = 22;
+	webpackContext.id = 24;
 
 
 /***/ },
-/* 23 */
+/* 25 */
 /***/ function(module, exports) {
 
 	angular
@@ -793,7 +844,7 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 24 */
+/* 26 */
 /***/ function(module, exports) {
 
 	angular
@@ -833,7 +884,7 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 25 */
+/* 27 */
 /***/ function(module, exports) {
 
 	angular
@@ -848,7 +899,7 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 26 */
+/* 28 */
 /***/ function(module, exports) {
 
 	angular
@@ -888,7 +939,7 @@ webpackJsonp([0],[
 	    }]);
 
 /***/ },
-/* 27 */
+/* 29 */
 /***/ function(module, exports) {
 
 	angular
@@ -928,7 +979,7 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 28 */
+/* 30 */
 /***/ function(module, exports) {
 
 	angular
@@ -969,7 +1020,7 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 29 */
+/* 31 */
 /***/ function(module, exports) {
 
 	angular
@@ -985,7 +1036,7 @@ webpackJsonp([0],[
 	        'app.film',
 
 	        'app.widgetLogin',
-
+	        'app.widgetRegister',
 
 	        'users.service',
 
