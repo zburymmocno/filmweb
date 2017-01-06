@@ -5,7 +5,7 @@ require_once('config.php');
 require_once('JSendResponse.php');
 
 
-$obj = new Model("127.0.0.1", "5432", "filmweb", "postgres", "postgres");
+$obj = new Model("tantor.db.elephantsql.com", "5432", "hxrnzqnh", "hxrnzqnh", "xMhZTJrVOz9zI6MU46M1sGFfyE1JkBlf");
 
 $path = '/filmweb/api/index.php';
 $pathreg = '\/filmweb\/api\/index.php';
