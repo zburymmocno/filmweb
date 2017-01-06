@@ -94,6 +94,23 @@ if($uri === $path.'/films') {
 		$status = new JSendResponse('fail', array("message"=>"Nie dodano kraju"));		
 	}
 	echo json_encode($status);
+}elseif($uri === $path.'/genres/add'){
+	//$data = json_decode($_POST, true);
+	//echo $_POST["tytul"];
+	//print_r($_POST);
+
+	$response = $obj->addGenre($_POST);
+
+	if($response == 1){ // za $_POST ma isc $data
+		$status = new JSendResponse('success', array("message"=>"Gatunek dodano poprawnie"));
+	}
+	elseif($response == 0){
+		$status = new JSendResponse('error', array("message"=>"Taki gatunek już istnieje"), 'Not cool.');		
+	}
+	else{
+		$status = new JSendResponse('fail', array("message"=>"Nie dodano kraju"));		
+	}
+	echo json_encode($status);
 }elseif(preg_match("/^".$pathreg."\/films\/remove\/[0-9]{1,}$/", $uri, $match)){
 	preg_match('!\d+!', $uri, $matches);
 	//echo $matches[0];
@@ -115,6 +132,18 @@ if($uri === $path.'/films') {
 		$status = new JSendResponse('fail', array("message"=>"Błąd logowania"));		
 	}
 	echo json_encode($status);
+}elseif(preg_match("/^".$pathreg."\/films\/edit\/[0-9]{1,}$/", $uri, $match)) {
+	preg_match('!\d+!', $uri, $matches);
+echo $matches[0];
+
+	if($obj->updateMovie($matches[0], $_POST)){
+		$status = new JSendResponse('success', array("message"=>"Edycja filmu przebiegła pomyślnie"));
+	}
+	else{
+		$status = new JSendResponse('fail', array("message"=>"Błąd edycji filmu"));		
+	}
+	echo json_encode($status);
+
 }else{
 	header('HTTP/1.1 404 Not Found');
 	echo '<html><body><h1>Page Not Found</h1></body></html>';
