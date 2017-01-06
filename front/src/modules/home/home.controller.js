@@ -14,7 +14,7 @@ angular.module('app.mainCtrl', [
     '$scope', 'filmService', function ($scope, filmService) {
         filmService.getAll()
             .then(function successCallback(response) {
-                alert(response);
+                console.log(response);
                 if (response.status == "success")
                     $scope.films = response.data;
                 else {
@@ -22,6 +22,7 @@ angular.module('app.mainCtrl', [
                 }
             })
             .then(function errorCallback(response) {
+                console.log(response);
                 alert(response);
             });
     }])
