@@ -69,8 +69,8 @@ if($uri === $path.'/films') {
 	//$data = json_decode($_POST, true);
 	//echo $_POST["tytul"];
 	//print_r($_POST);
-	    
-	if($obj->addMovie($_POST)){ // za $_POST ma isc $data
+	    $data_from_json = json_decode(file_get_contents('php://input'), true);
+	if($obj->addMovie($data_from_json)){ // za $_POST ma isc $data
 		$status = new JSendResponse('success', array("message"=>"Film dodano poprawnie"));
 	}
 	else{
