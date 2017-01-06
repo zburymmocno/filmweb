@@ -161,9 +161,6 @@ if($uri === $path.'/films') {
 	if($response == 1){
 		$status = new JSendResponse('success', array("message"=>"Edycja filmu przebiegła pomyślnie"));
 	}	
-	elseif($response == 0){
-		$status = new JSendResponse('error', array("message"=>"Film o takim tytule juz istnieje"), 'Not cool.');		
-	}
 	elseif($response == 2){
 		$status = new JSendResponse('error', array("message"=>"Błąd walidacji"), 'Not cool.');		
 	}

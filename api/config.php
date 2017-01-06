@@ -155,10 +155,6 @@ class Model
 
 	function updateMovie($id, $data){
 
-		if(pg_fetch_array(pg_query("SELECT * from film WHERE tytul = '". $data['tytul'] ."'"))){
-			return 0;
-		}
-
 		pg_query("BEGIN") or die("Could not start transaction\n");
 
 		$res1 = pg_query("UPDATE film SET tytul='" . $data['tytul'] . "', rok_premiery='" . $data['rok_premiery'] . "', opis='" . $data['opis'] . "' WHERE film_id = " . $id);
@@ -168,7 +164,7 @@ class Model
 
 		$res2 = true;
 		foreach ($data['gatunki'] as &$value) {
-		    	$g_id = pg_fetch_array( pg_query("SELECT gatunek_id from gatunek WHERE nazwa = '" . $value . "'"))['gatunek_id'];
+		    	$g_id = pg_fetch_array( pg_query("SELECT gatunek_id from gatunek WHERE nazwa = '" . $value['nazwa'] . "'"))['gatunek_id'];
 
 			if(!pg_query("INSERT into film_gatunek values ('$id' , '$g_id' )")){
 				$res2 = false;
@@ -177,7 +173,7 @@ class Model
 
 		$res3 = true;
 		foreach ($data['kraje'] as &$value) {
-		    	$k_id = pg_fetch_array( pg_query("SELECT kraj_id from kraj WHERE nazwa = '" . $value . "'"))['kraj_id'];
+		    	$k_id = pg_fetch_array( pg_query("SELECT kraj_id from kraj WHERE nazwa = '" . $value['nazwa'] . "'"))['kraj_id'];
 
 			if(!pg_query("INSERT into film_kraj values ('$id' , '$k_id' )")){
 				$res3 = false;
