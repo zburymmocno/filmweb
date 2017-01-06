@@ -478,7 +478,7 @@ webpackJsonp([0],[
 	    .config([
 	        '$stateProvider', function ($stateProvider) {
 	            $stateProvider.state('filmsEdit', {
-	                name: 'filmsAdd',
+	                name: 'filmsEdit',
 	                url: '/films/edit/{id}',
 	                controller: 'filmsEditCtrl',
 	                template: __webpack_require__(9)
@@ -486,10 +486,10 @@ webpackJsonp([0],[
 	        }
 	    ])
 	    .controller('filmsEditCtrl',
-	        ['$scope', 'filmService', 'countriesService', 'genresService', 'errorCallbackProvider', '$stateProvider',
-	            function ($scope, filmService, countriesService, genresService, errorCallbackProvider, $stateProvider) {
+	        ['$scope', 'filmService', 'countriesService', 'genresService', 'errorCallbackProvider', '$stateParams',
+	            function ($scope, filmService, countriesService, genresService, errorCallbackProvider, $stateParams) {
 	                $scope.form = {};
-	                var id = $stateProvider.id;
+	                var id = $stateParams.id;
 
 	                countriesService.getAll()
 	                    .then(function successCallback(response) {
@@ -545,7 +545,7 @@ webpackJsonp([0],[
 /* 9 */
 /***/ function(module, exports) {
 
-	module.exports = "<h1>Edit</h1>\n<form name=\"filmForm\" novalidate class=\"form form--block\">\n    <div class=\"form__group\">\n        <label class=\"form__label\" for=\"title\">Tytuł filmu</label>\n        <input ng-model=\"form.tytul\" id=\"title\" class=\"form__in form--input\" type=\"text\" required>\n    </div>\n    <div class=\"form__group\">\n        <label class=\"form__label\" for=\"rok_premiery\">Rok premiery</label>\n        <input ng-model=\"form.rok_premiery\" id=\"rok_premiery\" class=\"form__in form--input\" type=\"number\" required>\n    </div>\n    <div class=\"form__group\">\n        <label class=\"form__label\" for=\"genres\">Gatunki</label>\n        <select ng-model=\"form.gatunki\" ng-options=\"genre.nazwa for genre in genres\" multiple id=\"genres\"\n                class=\"form__in form--select\" required></select>\n    </div>\n    <div class=\"form__group\">\n        <label class=\"form__label\" for=\"url_p\">Plakat</label>\n        <input ng-model=\"form.url_p\" id=\"url_p\" class=\"form__in form--input\" type=\"text\" required>\n    </div>\n    <div class=\"form__group\">\n        <label class=\"form__label\" for=\"kraj\">Kraje</label>\n        <select ng-model=\"form.kraje\" ng-options=\"country.nazwa for country in countries\" id=\"kraj\"\n                class=\"form__in form--select\"\n                multiple required></select>\n    </div>\n    <div class=\"form__group\">\n        <label class=\"form__label\" for=\"url_z\">Zwiastun</label>\n        <input ng-model=\"form.url_z\" id=\"url_z\" class=\"form__in form--input\" type=\"text\" required>\n    </div>\n\n    <div class=\"form__group\">\n        <label class=\"form__label\" for=\"opis\">Opis filmu</label>\n        <textarea ng-model=\"form.opis\" id=\"opis\" class=\"form__in form--textarea\" rows=\"10\" required></textarea>\n    </div>\n    <div class=\"form__group\">\n        <input ng-disabled=\"!filmForm.$valid\" type=\"submit\" ng-click=\"send()\" class=\"form__submit\" value=\"Zapisz\">\n    </div>\n</form>\n\n";
+	module.exports = "<form name=\"filmForm\" novalidate class=\"form form--block\">\n    <div class=\"form__group\">\n        <label class=\"form__label\" for=\"title\">Tytuł filmu</label>\n        <input ng-model=\"form.tytul\" id=\"title\" class=\"form__in form--input\" type=\"text\" required>\n    </div>\n    <div class=\"form__group\">\n        <label class=\"form__label\" for=\"rok_premiery\">Rok premiery</label>\n        <input ng-model=\"form.rok_premiery\" id=\"rok_premiery\" class=\"form__in form--input\" type=\"number\" required>\n    </div>\n    <div class=\"form__group\">\n        <label class=\"form__label\" for=\"genres\">Gatunki</label>\n        <select ng-model=\"form.gatunki\" ng-options=\"genre.nazwa for genre in genres\" multiple id=\"genres\"\n                class=\"form__in form--select\" required></select>\n    </div>\n    <div class=\"form__group\">\n        <label class=\"form__label\" for=\"url_p\">Plakat</label>\n        <input ng-model=\"form.url_p\" id=\"url_p\" class=\"form__in form--input\" type=\"text\" required>\n    </div>\n    <div class=\"form__group\">\n        <label class=\"form__label\" for=\"kraj\">Kraje</label>\n        <select ng-model=\"form.kraje\" ng-options=\"country.nazwa for country in countries\" id=\"kraj\"\n                class=\"form__in form--select\"\n                multiple required></select>\n    </div>\n    <div class=\"form__group\">\n        <label class=\"form__label\" for=\"url_z\">Zwiastun</label>\n        <input ng-model=\"form.url_z\" id=\"url_z\" class=\"form__in form--input\" type=\"text\" required>\n    </div>\n\n    <div class=\"form__group\">\n        <label class=\"form__label\" for=\"opis\">Opis filmu</label>\n        <textarea ng-model=\"form.opis\" id=\"opis\" class=\"form__in form--textarea\" rows=\"10\" required></textarea>\n    </div>\n    <div class=\"form__group\">\n        <input ng-disabled=\"!filmForm.$valid\" type=\"submit\" ng-click=\"send()\" class=\"form__submit\" value=\"Zapisz\">\n    </div>\n</form>\n\n";
 
 /***/ },
 /* 10 */
@@ -564,26 +564,27 @@ webpackJsonp([0],[
 	            })
 	        }
 	    ])
-	    .controller('filmsIdCtrl', ['$scope', '$stateParams', 'filmService', 'errorCallbackProvider', function ($scope, $stateParams, filmService, errorCallbackProvider) {
-	        var id = $stateParams.id;
+	    .controller('filmsIdCtrl', ['$scope', '$stateParams', 'filmService', 'errorCallbackProvider',
+	        function ($scope, $stateParams, filmService, errorCallbackProvider) {
+	            var id = $stateParams.id;
 
-	        filmService.get(id)
-	            .then(function successCallback(response) {
-	                var output = response.data;
-	                var status = output.status;
-	                if (status == "success") {
-	                    $scope.film = output.data;
+	            filmService.get(id)
+	                .then(function successCallback(response) {
+	                    var output = response.data;
+	                    var status = output.status;
+	                    if (status == "success") {
+	                        $scope.film = output.data;
 
-	                } else if (status == "fail") {
-	                    alert("Error - check console");
-	                    console.log(output.data);
-	                }
-	            }, function errorCallback(response) {
-	                errorCallbackProvider(response);
-	            });
+	                    } else if (status == "fail") {
+	                        alert("Error - check console");
+	                        console.log(output.data);
+	                    }
+	                }, function errorCallback(response) {
+	                    errorCallbackProvider(response);
+	                });
 
 
-	    }])
+	        }])
 	;
 
 /***/ },
