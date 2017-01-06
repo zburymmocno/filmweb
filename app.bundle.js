@@ -12,18 +12,18 @@ webpackJsonp([0],[
 	    reqModuleJS(key);
 	});
 	// load all .js file from shared
-	var reqSharedJS = __webpack_require__(13);
+	var reqSharedJS = __webpack_require__(14);
 	reqSharedJS.keys().forEach(function (key) {
 	    reqSharedJS(key);
 	});
 	// load all .js file from services
-	var reqServicesJS = __webpack_require__(24);
+	var reqServicesJS = __webpack_require__(27);
 	reqServicesJS.keys().forEach(function (key) {
 	    reqServicesJS(key);
 	});
 
 	//load angular app
-	__webpack_require__(31);
+	__webpack_require__(34);
 
 /***/ },
 /* 1 */
@@ -60,7 +60,7 @@ webpackJsonp([0],[
 
 
 	// module
-	exports.push([module.id, "/* http://meyerweb.com/eric/tools/css/reset/\n   v2.0 | 20110126\n   License: none (public domain)\n*/\nhtml, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\nb, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed,\nfigure, figcaption, footer, header, hgroup,\nmain, menu, nav, output, ruby, section, summary,\ntime, mark, audio, video {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  font-size: 100%;\n  font: inherit;\n  vertical-align: baseline; }\n\n/* HTML5 display-role reset for older browsers */\narticle, aside, details, figcaption, figure,\nfooter, header, hgroup, main, menu, nav, section {\n  display: block; }\n\nbody {\n  line-height: 1; }\n\nol, ul {\n  list-style: none; }\n\nblockquote, q {\n  quotes: none; }\n  blockquote:before, blockquote:after, q:before, q:after {\n    content: '';\n    content: none; }\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0; }\n\n.flex {\n  display: flex;\n  width: 100%; }\n  .flex--wrap {\n    flex-wrap: wrap; }\n  .flex--center {\n    justify-content: center;\n    align-items: center;\n    align-content: center; }\n  .flex--center-justify {\n    justify-content: center; }\n  .flex--center-items {\n    align-items: center; }\n  .flex--center-align {\n    align-content: center; }\n  .flex--center-content {\n    align-content: center; }\n  .flex__xs-1 {\n    width: 8.33333%; }\n  .flex__xs-order-1 {\n    order: 1; }\n  .flex__xs-2 {\n    width: 16.66667%; }\n  .flex__xs-order-2 {\n    order: 2; }\n  .flex__xs-3 {\n    width: 25%; }\n  .flex__xs-order-3 {\n    order: 3; }\n  .flex__xs-4 {\n    width: 33.33333%; }\n  .flex__xs-order-4 {\n    order: 4; }\n  .flex__xs-5 {\n    width: 41.66667%; }\n  .flex__xs-order-5 {\n    order: 5; }\n  .flex__xs-6 {\n    width: 50%; }\n  .flex__xs-order-6 {\n    order: 6; }\n  .flex__xs-7 {\n    width: 58.33333%; }\n  .flex__xs-order-7 {\n    order: 7; }\n  .flex__xs-8 {\n    width: 66.66667%; }\n  .flex__xs-order-8 {\n    order: 8; }\n  .flex__xs-9 {\n    width: 75%; }\n  .flex__xs-order-9 {\n    order: 9; }\n  .flex__xs-10 {\n    width: 83.33333%; }\n  .flex__xs-order-10 {\n    order: 10; }\n  .flex__xs-11 {\n    width: 91.66667%; }\n  .flex__xs-order-11 {\n    order: 11; }\n  .flex__xs-12 {\n    width: 100%; }\n  .flex__xs-order-12 {\n    order: 12; }\n  @media screen and (min-width: 500px) {\n    .flex__sm-1 {\n      width: 8.33333%; }\n    .flex__sm-order-1 {\n      order: 1; }\n    .flex__sm-2 {\n      width: 16.66667%; }\n    .flex__sm-order-2 {\n      order: 2; }\n    .flex__sm-3 {\n      width: 25%; }\n    .flex__sm-order-3 {\n      order: 3; }\n    .flex__sm-4 {\n      width: 33.33333%; }\n    .flex__sm-order-4 {\n      order: 4; }\n    .flex__sm-5 {\n      width: 41.66667%; }\n    .flex__sm-order-5 {\n      order: 5; }\n    .flex__sm-6 {\n      width: 50%; }\n    .flex__sm-order-6 {\n      order: 6; }\n    .flex__sm-7 {\n      width: 58.33333%; }\n    .flex__sm-order-7 {\n      order: 7; }\n    .flex__sm-8 {\n      width: 66.66667%; }\n    .flex__sm-order-8 {\n      order: 8; }\n    .flex__sm-9 {\n      width: 75%; }\n    .flex__sm-order-9 {\n      order: 9; }\n    .flex__sm-10 {\n      width: 83.33333%; }\n    .flex__sm-order-10 {\n      order: 10; }\n    .flex__sm-11 {\n      width: 91.66667%; }\n    .flex__sm-order-11 {\n      order: 11; }\n    .flex__sm-12 {\n      width: 100%; }\n    .flex__sm-order-12 {\n      order: 12; } }\n  @media screen and (min-width: 900px) {\n    .flex__md-1 {\n      width: 8.33333%; }\n    .flex__md-order-1 {\n      order: 1; }\n    .flex__md-2 {\n      width: 16.66667%; }\n    .flex__md-order-2 {\n      order: 2; }\n    .flex__md-3 {\n      width: 25%; }\n    .flex__md-order-3 {\n      order: 3; }\n    .flex__md-4 {\n      width: 33.33333%; }\n    .flex__md-order-4 {\n      order: 4; }\n    .flex__md-5 {\n      width: 41.66667%; }\n    .flex__md-order-5 {\n      order: 5; }\n    .flex__md-6 {\n      width: 50%; }\n    .flex__md-order-6 {\n      order: 6; }\n    .flex__md-7 {\n      width: 58.33333%; }\n    .flex__md-order-7 {\n      order: 7; }\n    .flex__md-8 {\n      width: 66.66667%; }\n    .flex__md-order-8 {\n      order: 8; }\n    .flex__md-9 {\n      width: 75%; }\n    .flex__md-order-9 {\n      order: 9; }\n    .flex__md-10 {\n      width: 83.33333%; }\n    .flex__md-order-10 {\n      order: 10; }\n    .flex__md-11 {\n      width: 91.66667%; }\n    .flex__md-order-11 {\n      order: 11; }\n    .flex__md-12 {\n      width: 100%; }\n    .flex__md-order-12 {\n      order: 12; } }\n  @media screen and (min-width: 1200px) {\n    .flex__lg-1 {\n      width: 8.33333%; }\n    .flex__lg-order-1 {\n      order: 1; }\n    .flex__lg-2 {\n      width: 16.66667%; }\n    .flex__lg-order-2 {\n      order: 2; }\n    .flex__lg-3 {\n      width: 25%; }\n    .flex__lg-order-3 {\n      order: 3; }\n    .flex__lg-4 {\n      width: 33.33333%; }\n    .flex__lg-order-4 {\n      order: 4; }\n    .flex__lg-5 {\n      width: 41.66667%; }\n    .flex__lg-order-5 {\n      order: 5; }\n    .flex__lg-6 {\n      width: 50%; }\n    .flex__lg-order-6 {\n      order: 6; }\n    .flex__lg-7 {\n      width: 58.33333%; }\n    .flex__lg-order-7 {\n      order: 7; }\n    .flex__lg-8 {\n      width: 66.66667%; }\n    .flex__lg-order-8 {\n      order: 8; }\n    .flex__lg-9 {\n      width: 75%; }\n    .flex__lg-order-9 {\n      order: 9; }\n    .flex__lg-10 {\n      width: 83.33333%; }\n    .flex__lg-order-10 {\n      order: 10; }\n    .flex__lg-11 {\n      width: 91.66667%; }\n    .flex__lg-order-11 {\n      order: 11; }\n    .flex__lg-12 {\n      width: 100%; }\n    .flex__lg-order-12 {\n      order: 12; } }\n\n*, *:before, *:after {\n  box-sizing: border-box; }\n\na {\n  cursor: pointer; }\n\nbody {\n  background-color: #ececec; }\n\n/*================= */\n/*  typotography */\n/*================= */\ninput, textarea, select {\n  display: inline-block;\n  padding: 5px 10px;\n  border-radius: 5px;\n  outline: none;\n  border: none;\n  font-size: inherit;\n  font-family: inherit; }\n\nlabel {\n  display: inline-block; }\n\ntextarea {\n  resize: vertical; }\n\ninput[type=\"button\"] {\n  display: inline-block;\n  width: auto; }\n\n/*================= */\n/*  page nav */\n/*================= */\n.page-nav {\n  background: #9797a8;\n  display: flex;\n  justify-content: space-between; }\n  .page-nav__logo {\n    padding: 25px 40px; }\n  .page-nav__item {\n    display: inline-block;\n    padding: 25px 40px; }\n  .page-nav__link {\n    text-decoration: none; }\n\n/*================= */\n/*  jumbotron */\n/*================= */\n.jumbotron {\n  text-align: center;\n  padding: 50px 10px; }\n  .jumbotron__title {\n    padding-bottom: 30px;\n    font-size: 3em; }\n\n/*================= */\n/*  side bar */\n/*================= */\n.side-bar {\n  background: #907c70;\n  padding: 20px; }\n\n/*================= */\n/*  widget */\n/*================= */\n.widget {\n  margin-bottom: 35px; }\n  .widget:last-child {\n    margin-bottom: 0; }\n  .widget__title {\n    font-size: 2em;\n    padding-bottom: 10px;\n    border-bottom: 2px solid #000;\n    margin-bottom: 10px; }\n  .widget__item {\n    margin-left: 50px;\n    padding-left: 20px;\n    list-style-type: decimal; }\n  .widget__link {\n    text-decoration: underline; }\n\n/*================= */\n/*  films */\n/*================= */\n.film {\n  display: flex;\n  margin-bottom: 50px; }\n  .film__title {\n    font-weight: bold;\n    font-size: 1.5em;\n    text-align: left;\n    padding-bottom: 15px; }\n  .film__details {\n    width: calc(100% - 100px); }\n  .film__image {\n    width: 100px;\n    height: 100%;\n    margin-right: 15px; }\n  .film__desc {\n    text-align: justify; }\n  .film__link {\n    display: block;\n    padding-top: 15px;\n    text-align: right; }\n\n/*================= */\n/*  form */\n/*================= */\n.form {\n  font-size: 1em; }\n  .form__group {\n    margin: 10px 0; }\n\n.form--block .form__in {\n  width: 100%;\n  display: block; }\n\n.form--block .form__label {\n  padding-top: 15px;\n  padding-bottom: 5px; }\n", ""]);
+	exports.push([module.id, "/* http://meyerweb.com/eric/tools/css/reset/\n   v2.0 | 20110126\n   License: none (public domain)\n*/\nhtml, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\nb, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed,\nfigure, figcaption, footer, header, hgroup,\nmain, menu, nav, output, ruby, section, summary,\ntime, mark, audio, video {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  font-size: 100%;\n  font: inherit;\n  vertical-align: baseline; }\n\n/* HTML5 display-role reset for older browsers */\narticle, aside, details, figcaption, figure,\nfooter, header, hgroup, main, menu, nav, section {\n  display: block; }\n\nbody {\n  line-height: 1; }\n\nol, ul {\n  list-style: none; }\n\nblockquote, q {\n  quotes: none; }\n  blockquote:before, blockquote:after, q:before, q:after {\n    content: '';\n    content: none; }\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0; }\n\n.flex {\n  display: flex;\n  width: 100%; }\n  .flex--wrap {\n    flex-wrap: wrap; }\n  .flex--center {\n    justify-content: center;\n    align-items: center;\n    align-content: center; }\n  .flex--center-justify {\n    justify-content: center; }\n  .flex--center-items {\n    align-items: center; }\n  .flex--center-align {\n    align-content: center; }\n  .flex--center-content {\n    align-content: center; }\n  .flex__xs-1 {\n    width: 8.33333%; }\n  .flex__xs-order-1 {\n    order: 1; }\n  .flex__xs-2 {\n    width: 16.66667%; }\n  .flex__xs-order-2 {\n    order: 2; }\n  .flex__xs-3 {\n    width: 25%; }\n  .flex__xs-order-3 {\n    order: 3; }\n  .flex__xs-4 {\n    width: 33.33333%; }\n  .flex__xs-order-4 {\n    order: 4; }\n  .flex__xs-5 {\n    width: 41.66667%; }\n  .flex__xs-order-5 {\n    order: 5; }\n  .flex__xs-6 {\n    width: 50%; }\n  .flex__xs-order-6 {\n    order: 6; }\n  .flex__xs-7 {\n    width: 58.33333%; }\n  .flex__xs-order-7 {\n    order: 7; }\n  .flex__xs-8 {\n    width: 66.66667%; }\n  .flex__xs-order-8 {\n    order: 8; }\n  .flex__xs-9 {\n    width: 75%; }\n  .flex__xs-order-9 {\n    order: 9; }\n  .flex__xs-10 {\n    width: 83.33333%; }\n  .flex__xs-order-10 {\n    order: 10; }\n  .flex__xs-11 {\n    width: 91.66667%; }\n  .flex__xs-order-11 {\n    order: 11; }\n  .flex__xs-12 {\n    width: 100%; }\n  .flex__xs-order-12 {\n    order: 12; }\n  @media screen and (min-width: 500px) {\n    .flex__sm-1 {\n      width: 8.33333%; }\n    .flex__sm-order-1 {\n      order: 1; }\n    .flex__sm-2 {\n      width: 16.66667%; }\n    .flex__sm-order-2 {\n      order: 2; }\n    .flex__sm-3 {\n      width: 25%; }\n    .flex__sm-order-3 {\n      order: 3; }\n    .flex__sm-4 {\n      width: 33.33333%; }\n    .flex__sm-order-4 {\n      order: 4; }\n    .flex__sm-5 {\n      width: 41.66667%; }\n    .flex__sm-order-5 {\n      order: 5; }\n    .flex__sm-6 {\n      width: 50%; }\n    .flex__sm-order-6 {\n      order: 6; }\n    .flex__sm-7 {\n      width: 58.33333%; }\n    .flex__sm-order-7 {\n      order: 7; }\n    .flex__sm-8 {\n      width: 66.66667%; }\n    .flex__sm-order-8 {\n      order: 8; }\n    .flex__sm-9 {\n      width: 75%; }\n    .flex__sm-order-9 {\n      order: 9; }\n    .flex__sm-10 {\n      width: 83.33333%; }\n    .flex__sm-order-10 {\n      order: 10; }\n    .flex__sm-11 {\n      width: 91.66667%; }\n    .flex__sm-order-11 {\n      order: 11; }\n    .flex__sm-12 {\n      width: 100%; }\n    .flex__sm-order-12 {\n      order: 12; } }\n  @media screen and (min-width: 900px) {\n    .flex__md-1 {\n      width: 8.33333%; }\n    .flex__md-order-1 {\n      order: 1; }\n    .flex__md-2 {\n      width: 16.66667%; }\n    .flex__md-order-2 {\n      order: 2; }\n    .flex__md-3 {\n      width: 25%; }\n    .flex__md-order-3 {\n      order: 3; }\n    .flex__md-4 {\n      width: 33.33333%; }\n    .flex__md-order-4 {\n      order: 4; }\n    .flex__md-5 {\n      width: 41.66667%; }\n    .flex__md-order-5 {\n      order: 5; }\n    .flex__md-6 {\n      width: 50%; }\n    .flex__md-order-6 {\n      order: 6; }\n    .flex__md-7 {\n      width: 58.33333%; }\n    .flex__md-order-7 {\n      order: 7; }\n    .flex__md-8 {\n      width: 66.66667%; }\n    .flex__md-order-8 {\n      order: 8; }\n    .flex__md-9 {\n      width: 75%; }\n    .flex__md-order-9 {\n      order: 9; }\n    .flex__md-10 {\n      width: 83.33333%; }\n    .flex__md-order-10 {\n      order: 10; }\n    .flex__md-11 {\n      width: 91.66667%; }\n    .flex__md-order-11 {\n      order: 11; }\n    .flex__md-12 {\n      width: 100%; }\n    .flex__md-order-12 {\n      order: 12; } }\n  @media screen and (min-width: 1200px) {\n    .flex__lg-1 {\n      width: 8.33333%; }\n    .flex__lg-order-1 {\n      order: 1; }\n    .flex__lg-2 {\n      width: 16.66667%; }\n    .flex__lg-order-2 {\n      order: 2; }\n    .flex__lg-3 {\n      width: 25%; }\n    .flex__lg-order-3 {\n      order: 3; }\n    .flex__lg-4 {\n      width: 33.33333%; }\n    .flex__lg-order-4 {\n      order: 4; }\n    .flex__lg-5 {\n      width: 41.66667%; }\n    .flex__lg-order-5 {\n      order: 5; }\n    .flex__lg-6 {\n      width: 50%; }\n    .flex__lg-order-6 {\n      order: 6; }\n    .flex__lg-7 {\n      width: 58.33333%; }\n    .flex__lg-order-7 {\n      order: 7; }\n    .flex__lg-8 {\n      width: 66.66667%; }\n    .flex__lg-order-8 {\n      order: 8; }\n    .flex__lg-9 {\n      width: 75%; }\n    .flex__lg-order-9 {\n      order: 9; }\n    .flex__lg-10 {\n      width: 83.33333%; }\n    .flex__lg-order-10 {\n      order: 10; }\n    .flex__lg-11 {\n      width: 91.66667%; }\n    .flex__lg-order-11 {\n      order: 11; }\n    .flex__lg-12 {\n      width: 100%; }\n    .flex__lg-order-12 {\n      order: 12; } }\n\n*, *:before, *:after {\n  box-sizing: border-box; }\n\na {\n  cursor: pointer; }\n\nimg {\n  max-width: 100%; }\n\nbody {\n  background-color: #dddddd; }\n\n/*================= */\n/*  typotography */\n/*================= */\ninput, textarea, select {\n  display: inline-block;\n  padding: 5px 10px;\n  border-radius: 5px;\n  outline: none;\n  border: none;\n  font-size: inherit;\n  font-family: inherit; }\n\nlabel {\n  display: inline-block; }\n\ntextarea {\n  resize: vertical; }\n\n/*================= */\n/*  page nav */\n/*================= */\n.page-nav {\n  background: #787878;\n  display: flex;\n  justify-content: space-between; }\n  .page-nav__logo {\n    padding: 25px 40px; }\n  .page-nav__item {\n    display: inline-block;\n    padding: 25px 40px; }\n  .page-nav__link {\n    text-decoration: none; }\n\n/*================= */\n/*  jumbotron */\n/*================= */\n.jumbotron {\n  text-align: center;\n  padding: 50px 10px; }\n  .jumbotron__title {\n    padding-bottom: 30px;\n    font-size: 3em; }\n\n/*================= */\n/*  side bar */\n/*================= */\n.side-bar {\n  background: #dddddd;\n  padding: 20px; }\n\n/*================= */\n/*  widget */\n/*================= */\n.widget {\n  margin-bottom: 35px; }\n  .widget:last-child {\n    margin-bottom: 0; }\n  .widget__title {\n    font-size: 2em;\n    padding-bottom: 10px;\n    border-bottom: 2px solid #000;\n    margin-bottom: 10px; }\n  .widget__item {\n    margin-left: 50px;\n    padding-left: 20px;\n    list-style-type: decimal; }\n  .widget__link {\n    text-decoration: underline; }\n\n/*================= */\n/*  film-short */\n/*================= */\n.film-short {\n  display: flex;\n  margin-bottom: 50px; }\n  .film-short__title {\n    font-weight: bold;\n    font-size: 1.5em;\n    text-align: left;\n    padding-bottom: 15px; }\n  .film-short__details {\n    width: calc(100% - 100px); }\n  .film-short__image {\n    width: 100px;\n    height: 100%;\n    margin-right: 15px; }\n  .film-short__desc {\n    text-align: justify; }\n  .film-short__link {\n    display: block;\n    padding-top: 15px;\n    text-align: right; }\n\n/*================= */\n/*  film-short */\n/*================= */\n.film-full__title {\n  font-size: 3em; }\n\n.film-full__year {\n  font-size: .4em; }\n  .film-full__year:before {\n    content: '('; }\n  .film-full__year:after {\n    content: ')'; }\n\n.film-full__image {\n  width: 100%;\n  height: auto; }\n\n.detail__name {\n  margin-top: 15px;\n  font-size: 1.3em; }\n\n.detail__list {\n  margin-left: 25px;\n  list-style: disc; }\n\n.detail__item {\n  padding: 3px 0; }\n\n.detail__omen {\n  display: inline-block;\n  padding: 10px 15px; }\n\n/*================= */\n/*  form */\n/*================= */\n.form {\n  font-size: 1em; }\n  .form__group {\n    margin: 5px 0; }\n  .form__submit {\n    display: block;\n    margin-left: auto; }\n\n.form--block .form__in {\n  width: 100%;\n  display: block; }\n\n.form--block .form__label {\n  padding-top: 15px;\n  padding-bottom: 5px; }\n\n/*================= */\n/*  alert */\n/*================= */\n.alert {\n  padding: 5px 10px;\n  background: #a94442;\n  border-radius: 10px; }\n", ""]);
 
 	// exports
 
@@ -379,9 +379,9 @@ webpackJsonp([0],[
 
 	var map = {
 		"./films/add/add.controller.js": 6,
-		"./films/id/id.controller.js": 8,
-		"./films/id/id.service.js": 10,
-		"./home/home.controller.js": 11
+		"./films/edit/edit.controller.js": 8,
+		"./films/id/id.controller.js": 10,
+		"./home/home.controller.js": 12
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -466,10 +466,89 @@ webpackJsonp([0],[
 /* 7 */
 /***/ function(module, exports) {
 
-	module.exports = "<form novalidate class=\"form form--block\">\n    <div class=\"form__group\">\n        <label class=\"form__label\" for=\"title\">Tytuł filmu</label>\n        <input ng-model=\"form.tytul\" id=\"title\" class=\"form__in form--input\" type=\"text\">\n    </div>\n    <div class=\"form__group\">\n        <label class=\"form__label\" for=\"rok_premiery\">Rok premiery</label>\n        <input ng-model=\"form.rok_premiery\" id=\"rok_premiery\" class=\"form__in form--input\" type=\"number\">\n    </div>\n    <div class=\"form__group\">\n        <label class=\"form__label\" for=\"genres\">Gatunki</label>\n        <select ng-model=\"form.gatunki\" ng-options=\"genre.nazwa for genre in genres\" multiple id=\"genres\"\n                class=\"form__in form--select\"></select>\n    </div>\n    <div class=\"form__group\">\n        <label class=\"form__label\" for=\"url_p\">Plakat</label>\n        <input ng-model=\"form.url_p\" id=\"url_p\" class=\"form__in form--input\" type=\"text\">\n    </div>\n    <div class=\"form__group\">\n        <label class=\"form__label\" for=\"kraj\">Kraje</label>\n        <select ng-model=\"form.kraje\" ng-options=\"country.nazwa for country in countries\" id=\"kraj\"\n                class=\"form__in form--select\"\n                multiple></select>\n    </div>\n    <div class=\"form__group\">\n        <label class=\"form__label\" for=\"url_z\">Zwiastun</label>\n        <input ng-model=\"form.url_z\" id=\"url_z\" class=\"form__in form--input\" type=\"text\">\n    </div>\n\n    <div class=\"form__group\">\n        <label class=\"form__label\" for=\"opis\">Opis filmu</label>\n        <textarea ng-model=\"form.opis\" id=\"opis\" class=\"form__in form--textarea\" rows=\"10\"></textarea>\n    </div>\n    <input type=\"button\" ng-click=\"send()\" value=\"Zapisz\">\n</form>\n\n<film details=\"form\"></film>\n\n";
+	module.exports = "<form name=\"filmForm\" novalidate class=\"form form--block\">\n    <div class=\"form__group\">\n        <label class=\"form__label\" for=\"title\">Tytuł filmu</label>\n        <input ng-model=\"form.tytul\" id=\"title\" class=\"form__in form--input\" type=\"text\" required>\n    </div>\n    <div class=\"form__group\">\n        <label class=\"form__label\" for=\"rok_premiery\">Rok premiery</label>\n        <input ng-model=\"form.rok_premiery\" id=\"rok_premiery\" class=\"form__in form--input\" type=\"number\" required>\n    </div>\n    <div class=\"form__group\">\n        <label class=\"form__label\" for=\"genres\">Gatunki</label>\n        <select ng-model=\"form.gatunki\" ng-options=\"genre.nazwa for genre in genres\" multiple id=\"genres\"\n                class=\"form__in form--select\" required></select>\n    </div>\n    <div class=\"form__group\">\n        <label class=\"form__label\" for=\"url_p\">Plakat</label>\n        <input ng-model=\"form.url_p\" id=\"url_p\" class=\"form__in form--input\" type=\"text\" required>\n    </div>\n    <div class=\"form__group\">\n        <label class=\"form__label\" for=\"kraj\">Kraje</label>\n        <select ng-model=\"form.kraje\" ng-options=\"country.nazwa for country in countries\" id=\"kraj\"\n                class=\"form__in form--select\"\n                multiple required></select>\n    </div>\n    <div class=\"form__group\">\n        <label class=\"form__label\" for=\"url_z\">Zwiastun</label>\n        <input ng-model=\"form.url_z\" id=\"url_z\" class=\"form__in form--input\" type=\"text\" required>\n    </div>\n\n    <div class=\"form__group\">\n        <label class=\"form__label\" for=\"opis\">Opis filmu</label>\n        <textarea ng-model=\"form.opis\" id=\"opis\" class=\"form__in form--textarea\" rows=\"10\" required></textarea>\n    </div>\n    <div class=\"form__group\">\n        <input ng-disabled=\"!filmForm.$valid\" type=\"submit\" ng-click=\"send()\" class=\"form__submit\" value=\"Zapisz\">\n    </div>\n</form>\n\n";
 
 /***/ },
 /* 8 */
+/***/ function(module, exports, __webpack_require__) {
+
+	angular.module('app.filmsEdit', [
+	    'ui.router'
+	])
+	    .config([
+	        '$stateProvider', function ($stateProvider) {
+	            $stateProvider.state('filmsEdit', {
+	                name: 'filmsAdd',
+	                url: '/films/edit/{id}',
+	                controller: 'filmsEditCtrl',
+	                template: __webpack_require__(9)
+	            })
+	        }
+	    ])
+	    .controller('filmsEditCtrl',
+	        ['$scope', 'filmService', 'countriesService', 'genresService', 'errorCallbackProvider', '$stateProvider',
+	            function ($scope, filmService, countriesService, genresService, errorCallbackProvider, $stateProvider) {
+	                $scope.form = {};
+	                var id = $stateProvider.id;
+
+	                countriesService.getAll()
+	                    .then(function successCallback(response) {
+	                        var output = response.data;
+	                        var status = output.status;
+	                        console.log(response);
+
+	                        if (status == "success") {
+	                            $scope.countries = output.data;
+	                        } else if (status == "fail") {
+	                            alert("Error - check console");
+	                            console.log(output.data);
+	                        }
+	                    }, function errorCallback(response) {
+	                        errorCallbackProvider(response);
+	                    });
+
+	                genresService.getAll()
+	                    .then(function successCallback(response) {
+	                        var output = response.data;
+	                        var status = output.status;
+	                        if (status == "success") {
+	                            $scope.genres = output.data;
+
+	                        } else if (status == "fail") {
+	                            alert("Error - check console");
+	                            console.log(output.data);
+	                        }
+	                    }, function errorCallback(response) {
+	                        errorCallbackProvider(response);
+	                    });
+
+	                filmService.get(id)
+	                    .then(function (response) {
+	                        $scope.form = response.data.data;
+	                    }, function (response) {
+	                        errorCallbackProvider(response);
+	                    });
+
+	                $scope.send = function () {
+	                    console.log($scope.form);
+	                    filmService.edit(id, $scope.form)
+	                        .then(function (response) {
+	                            console.log(response);
+	                        }, function (response) {
+	                            errorCallbackProvider(response);
+	                        });
+	                };
+	            }])
+	;
+
+/***/ },
+/* 9 */
+/***/ function(module, exports) {
+
+	module.exports = "<h1>Edit</h1>\n<form name=\"filmForm\" novalidate class=\"form form--block\">\n    <div class=\"form__group\">\n        <label class=\"form__label\" for=\"title\">Tytuł filmu</label>\n        <input ng-model=\"form.tytul\" id=\"title\" class=\"form__in form--input\" type=\"text\" required>\n    </div>\n    <div class=\"form__group\">\n        <label class=\"form__label\" for=\"rok_premiery\">Rok premiery</label>\n        <input ng-model=\"form.rok_premiery\" id=\"rok_premiery\" class=\"form__in form--input\" type=\"number\" required>\n    </div>\n    <div class=\"form__group\">\n        <label class=\"form__label\" for=\"genres\">Gatunki</label>\n        <select ng-model=\"form.gatunki\" ng-options=\"genre.nazwa for genre in genres\" multiple id=\"genres\"\n                class=\"form__in form--select\" required></select>\n    </div>\n    <div class=\"form__group\">\n        <label class=\"form__label\" for=\"url_p\">Plakat</label>\n        <input ng-model=\"form.url_p\" id=\"url_p\" class=\"form__in form--input\" type=\"text\" required>\n    </div>\n    <div class=\"form__group\">\n        <label class=\"form__label\" for=\"kraj\">Kraje</label>\n        <select ng-model=\"form.kraje\" ng-options=\"country.nazwa for country in countries\" id=\"kraj\"\n                class=\"form__in form--select\"\n                multiple required></select>\n    </div>\n    <div class=\"form__group\">\n        <label class=\"form__label\" for=\"url_z\">Zwiastun</label>\n        <input ng-model=\"form.url_z\" id=\"url_z\" class=\"form__in form--input\" type=\"text\" required>\n    </div>\n\n    <div class=\"form__group\">\n        <label class=\"form__label\" for=\"opis\">Opis filmu</label>\n        <textarea ng-model=\"form.opis\" id=\"opis\" class=\"form__in form--textarea\" rows=\"10\" required></textarea>\n    </div>\n    <div class=\"form__group\">\n        <input ng-disabled=\"!filmForm.$valid\" type=\"submit\" ng-click=\"send()\" class=\"form__submit\" value=\"Zapisz\">\n    </div>\n</form>\n\n";
+
+/***/ },
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	angular.module('app.filmsId', [
@@ -481,18 +560,12 @@ webpackJsonp([0],[
 	                name: 'filmsId',
 	                url: '/films/{id}',
 	                controller: 'filmsIdCtrl',
-	                template: __webpack_require__(9)
+	                template: __webpack_require__(11)
 	            })
 	        }
 	    ])
 	    .controller('filmsIdCtrl', ['$scope', '$stateParams', 'filmService', 'errorCallbackProvider', function ($scope, $stateParams, filmService, errorCallbackProvider) {
 	        var id = $stateParams.id;
-
-	        $scope.response =
-	            JSON.parse(
-	                '{"status":"success","data":{"film_id":"43","tytul":"Co robimy w ukryciu","rok_premiery":"2015","opis":"","url_p":"http:\/\/1.fwcdn.pl\/po\/72\/86\/707286\/7673270.4.jpg","url_z":"http:\/\/m.filmweb.pl\/video\/zwiastun\/nr+1+%28polski%29-35083","gatunki":[{"nazwa":"Horror"},{"nazwa":"Komedia"}],"kraje":[{"nazwa":"USA"}]}}'
-	            );
-	        $scope.film = $scope.response.data;
 
 	        filmService.get(id)
 	            .then(function successCallback(response) {
@@ -514,43 +587,13 @@ webpackJsonp([0],[
 	;
 
 /***/ },
-/* 9 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"film-content\">\n\n</div>\n<h1 class=\"\">{{film.tytul}}</h1>\n\n<pre>\n    {{film | json}}\n</pre>";
-
-/***/ },
-/* 10 */
-/***/ function(module, exports) {
-
-	// angular
-	//     .module('nerd.service', [])
-	//     .service('nerdService', ['$http', function ($http) {
-	//
-	//         return {
-	//             // call to get all nerds
-	//             get: function () {
-	//                 return $http.get('/api/nerds');
-	//             },
-	//
-	//
-	//             // these will work when more API routes are defined on the Node side of things
-	//             // call to POST and create a new nerd
-	//             create: function (nerdData) {
-	//                 return $http.post('/api/nerds', nerdData);
-	//             },
-	//
-	//             // call to DELETE a nerd
-	//             delete: function (id) {
-	//                 return $http.delete('/api/nerds/' + id);
-	//             }
-	//         }
-	//
-	//     }]);
-
-
-/***/ },
 /* 11 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"film-full\">\n    <div class=\"flex flex--wrap\">\n        <div class=\"flex__xs-12 flex__md-3\">\n            <img class=\"film-full__image\" ng-src=\"{{film.url_p}}\" alt=\"asds\">\n        </div>\n        <div class=\"flex__xs-12 flex__md-9\">\n            <h1 class=\"film-full__title\">{{film.tytul}} <span class=\"film-full__year\">{{film.rok_premiery}}</span></h1>\n\n            <div class=\"film-full__detail\">\n                <h3 class=\"detail__name\">Gatunek</h3>\n                <ul class=\"detail__list detail--genres\">\n                    <li ng-repeat=\"genre in film.gatunki\" class=\"detail__item detail--genre\">\n                        {{genre.nazwa}}\n                    </li>\n                </ul>\n            </div>\n            <div class=\"film-full__detail\">\n                <h3 class=\"detail__name\">Kraj produkcji</h3>\n                <ul class=\"detail__list detail--countries\">\n                    <li ng-repeat=\"country in film.kraje\" class=\"detail__item detail--country\">\n                        {{country.nazwa}}\n                    </li>\n                </ul>\n            </div>\n\n            <div class=\"film-full__detail\">\n                <a ng-href=\"{{film.url_z}}\" class=\"detail__omen\" target=\"_blank\">Zobacz zwiastun</a>\n            </div>\n        </div>\n        <div class=\"flex__xs-12\">\n            <h2 class=\"\">Recenzja</h2>\n            <p>\n                {{film.opis}}\n            </p>\n        </div>\n    </div>\n</div>";
+
+/***/ },
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	angular.module('app.mainCtrl', [
@@ -562,7 +605,7 @@ webpackJsonp([0],[
 	                name: 'home',
 	                url: '/',
 	                controller: 'homeCtrl',
-	                template: __webpack_require__(12)
+	                template: __webpack_require__(13)
 	            })
 	        }
 	    ]).controller('homeCtrl', [
@@ -584,21 +627,22 @@ webpackJsonp([0],[
 	;
 
 /***/ },
-/* 12 */
+/* 13 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"jumbotron\">\n    <h1 class=\"jumbotron__title\">Biblia filmów</h1>\n    <p class=\"jumbotron__desc\">\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget dapibus risus. Praesent vel volutpat metus.\n        Cras est mauris, sollicitudin quis ipsum quis, tempor ullamcorper velit. Pellentesque varius mauris nulla, eget\n        aliquam risus porttitor ac. Vestibulum vestibulum leo non augue gravida efficitur. Phasellus quis suscipit\n        lectus. Fusce molestie tortor vel nunc pulvinar cursus. Donec feugiat.\n    </p>\n</div>\n\n<div class=\"film-container\">\n    <h2>Najnowsze filmy</h2>\n    <film ng-repeat=\"film in films | orderBy:'tytul'\" details=\"film\"></film>\n</div>\n\n";
 
 /***/ },
-/* 13 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var map = {
-		"./film/film.controller.js": 14,
-		"./page-nav/pageNav.controller.js": 16,
-		"./side-bar/sideBar.controller.js": 18,
-		"./widget-login/widgetLogin.controller.js": 20,
-		"./widget-register/widgetRegister.controller.js": 22
+		"./alert/alert.controller.js": 15,
+		"./film/film.controller.js": 17,
+		"./page-nav/pageNav.controller.js": 19,
+		"./side-bar/sideBar.controller.js": 21,
+		"./widget-login/widgetLogin.controller.js": 23,
+		"./widget-register/widgetRegister.controller.js": 25
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -611,11 +655,42 @@ webpackJsonp([0],[
 	};
 	webpackContext.resolve = webpackContextResolve;
 	module.exports = webpackContext;
-	webpackContext.id = 13;
+	webpackContext.id = 14;
 
 
 /***/ },
-/* 14 */
+/* 15 */
+/***/ function(module, exports, __webpack_require__) {
+
+	angular
+	    .module('app.alert', [])
+	    .directive('alert', function () {
+	        return {
+	            controller: 'alert',
+	            template: __webpack_require__(16),
+	            scope: {
+	                message: '@',
+	                type: '@'
+	            },
+	            link: function (scope, element, attrs) {
+
+	            }
+	        };
+	    }).controller('alert', [
+	    '$scope', function ($scope) {
+
+	    }
+	])
+	;
+
+/***/ },
+/* 16 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"alert alert--{{type}}\">\n    <p>{{message}}</p>\n</div>";
+
+/***/ },
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	angular
@@ -623,7 +698,7 @@ webpackJsonp([0],[
 	    .directive('film', function () {
 	        return {
 	            controller: 'film',
-	            template: __webpack_require__(15),
+	            template: __webpack_require__(18),
 	            scope: {
 	                details: '='
 	            },
@@ -639,13 +714,13 @@ webpackJsonp([0],[
 	;
 
 /***/ },
-/* 15 */
+/* 18 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"film\">\n    <img class=\"film__image\" ng-src=\"{{details.url_p}}\" alt=\"alt\">\n    <div class=\"film__details\">\n        <h2 class=\"film__title\">{{details.tytul}}</h2>\n        <p class=\"film__desc\">{{details.opis}}</p>\n        <a class=\"film__link\" href=\"#!/films/{{details.film_id}}\">Zobacz całość</a>\n\n        <!--<ul>-->\n            <!--<li ng-repeat=\"country in details.kraje\">{{country.nazwa}}</li>-->\n        <!--</ul>-->\n        <!--<h1>Gatunki</h1>-->\n        <!--<ul>-->\n            <!--<li ng-repeat=\"genre in details.gatunki\">{{genre.nazwa}}</li>-->\n        <!--</ul>-->\n        <!--<h1>Rok</h1>-->\n        <!--<p>{{details.rok_premiery}}</p>-->\n    </div>\n</div>\n";
+	module.exports = "<div class=\"film-short\">\n    <img class=\"film-short__image\" ng-src=\"{{details.url_p}}\" alt=\"alt\">\n    <div class=\"film-short__details\">\n        <h2 class=\"film-short__title\">{{details.tytul}}</h2>\n        <p class=\"film-short__desc\">{{details.opis}}</p>\n        <a class=\"film-short__link\" href=\"#!/films/{{details.film_id}}\">Zobacz całość</a>\n\n        <!--<ul>-->\n        <!--<li ng-repeat=\"country in details.kraje\">{{country.nazwa}}</li>-->\n        <!--</ul>-->\n        <!--<h1>Gatunki</h1>-->\n        <!--<ul>-->\n        <!--<li ng-repeat=\"genre in details.gatunki\">{{genre.nazwa}}</li>-->\n        <!--</ul>-->\n        <!--<h1>Rok</h1>-->\n        <!--<p>{{details.rok_premiery}}</p>-->\n    </div>\n</div>\n";
 
 /***/ },
-/* 16 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	angular
@@ -653,7 +728,7 @@ webpackJsonp([0],[
 	    .directive('pageNav', function () {
 	        return {
 	            controller: 'pageNav',
-	            template: __webpack_require__(17),
+	            template: __webpack_require__(20),
 	            scope: {},
 	            link: function (scope, element, attrs) {
 
@@ -675,13 +750,13 @@ webpackJsonp([0],[
 	;
 
 /***/ },
-/* 17 */
+/* 20 */
 /***/ function(module, exports) {
 
 	module.exports = "<nav class=\"page-nav\">\n    <span class=\"page-nav__logo\">\n        <h1>FiLmY</h1>\n    </span>\n    <ul class=\"page-nav__list\">\n        <li class=\"page-nav__item\" ng-repeat=\"reference in references\">\n            <a class=\"page-nav__link\" ng-href=\"{{reference.href}}\">\n                {{reference.name}}\n            </a>\n        </li>\n    </ul>\n</nav>";
 
 /***/ },
-/* 18 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	angular
@@ -689,7 +764,7 @@ webpackJsonp([0],[
 	    .directive('sideBar', function () {
 	        return {
 	            controller: 'sideBar',
-	            template: __webpack_require__(19),
+	            template: __webpack_require__(22),
 	            scope: {},
 	            link: function (scope, element, attrs) {
 
@@ -703,13 +778,13 @@ webpackJsonp([0],[
 	;
 
 /***/ },
-/* 19 */
+/* 22 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"side-bar\">\n    <div class=\"widget\">\n        <h3 class=\"widget__title\">Title</h3>\n        <ul class=\"widget__list\">\n            <li class=\"widget__item\">\n                <a class=\"widget__link\">\n                    LINK\n                </a>\n            </li>\n        </ul>\n    </div>\n    <widget-login></widget-login>\n    <widget-register></widget-register>\n</div>";
 
 /***/ },
-/* 20 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	angular
@@ -717,7 +792,7 @@ webpackJsonp([0],[
 	    .directive('widgetLogin', function () {
 	        return {
 	            controller: 'widgetLogin',
-	            template: __webpack_require__(21),
+	            template: __webpack_require__(24),
 	            scope: {},
 	            link: function (scope, element, attrs) {
 
@@ -746,13 +821,13 @@ webpackJsonp([0],[
 	;
 
 /***/ },
-/* 21 */
+/* 24 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"widget\">\n    <pre>\n        {{user | json}}\n    </pre>\n    <h3 class=\"widget__title\">Logowanie</h3>\n    <form class=\"form form--block\">\n        <div class=\"form__group\">\n            <label for=\"login\" class=\"form__label\">Nazwa użytkowika</label>\n            <input ng-model=\"form.nick\" type=\"text\" id=\"login\" class=\"form__in form--input\">\n        </div>\n        <div class=\"form__group\">\n            <label for=\"password\" class=\"form__label\">Hasło</label>\n            <input ng-model=\"form.haslo\" type=\"password\" id=\"password\" class=\"form__in form--input\">\n        </div>\n        <div class=\"form__group\">\n            <input ng-click=\"submit()\" type=\"submit\" value=\"Zaloguj się\">\n        </div>\n        <pre>\n            {{form | json}}\n        </pre>\n        <p>Nie posiadasz konta? <a href=\"#!/rejestracja\">Zarejestuj się!</a></p>\n    </form>\n</div>";
+	module.exports = "<div class=\"widget\">\n\n    <h3 class=\"widget__title\">Logowanie</h3>\n    <form name=\"loginForm\" class=\"form form--block\">\n        <div class=\"form__group\">\n            <label for=\"login\" class=\"form__label\">Nazwa użytkowika</label>\n            <input ng-model=\"form.nick\" type=\"text\" id=\"login\" class=\"form__in form--input\" required>\n        </div>\n        <div class=\"form__group\">\n            <label for=\"password\" class=\"form__label\">Hasło</label>\n            <input ng-model=\"form.haslo\" type=\"password\" id=\"password\" class=\"form__in form--input\" required>\n        </div>\n        <div class=\"form__group\">\n            <input ng-click=\"submit()\" ng-disabled=\"!loginForm.$valid\" class=\"form__submit\" type=\"submit\" value=\"Zaloguj się\">\n        </div>\n\n        <p>Nie posiadasz konta? <a href=\"#!/rejestracja\">Zarejestuj się!</a></p>\n    </form>\n</div>";
 
 /***/ },
-/* 22 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	angular
@@ -760,7 +835,7 @@ webpackJsonp([0],[
 	    .directive('widgetRegister', function () {
 	        return {
 	            controller: 'widgetRegister',
-	            template: __webpack_require__(23),
+	            template: __webpack_require__(26),
 	            scope: {},
 	            link: function (scope, element, attrs) {
 
@@ -789,22 +864,22 @@ webpackJsonp([0],[
 	;
 
 /***/ },
-/* 23 */
+/* 26 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"widget\">\n    <pre>\n        {{user | json}}\n    </pre>\n    <h3 class=\"widget__title\">Rejestracja</h3>\n    <form class=\"form form--block\">\n        <div class=\"form__group\">\n            <label for=\"login\" class=\"form__label\">Nazwa użytkowika</label>\n            <input ng-model=\"form.nick\" type=\"text\" id=\"login\" class=\"form__in form--input\">\n        </div>\n        <div class=\"form__group\">\n            <label for=\"email\" class=\"form__label\">E-mail</label>\n            <input ng-model=\"form.email\" type=\"password\" id=\"email\" class=\"form__in form--input\">\n        </div>\n        <div class=\"form__group\">\n            <label for=\"password\" class=\"form__label\">Hasło</label>\n            <input ng-model=\"form.haslo\" type=\"password\" id=\"password\" class=\"form__in form--input\">\n        </div>\n        <div class=\"form__group\">\n            <input ng-click=\"submit()\" type=\"submit\" value=\"Zaloguj się\">\n        </div>\n        <pre>\n            {{form | json}}\n        </pre>\n    </form>\n    <p>Posiadzasz już konto? <a href=\"#!/rejestracja\">Zaloguj się!</a></p>\n</div>";
+	module.exports = "<div class=\"widget\">\n    <h3 class=\"widget__title\">Rejestracja</h3>\n    <form name=\"registerForm\" class=\"form form--block\">\n        <div class=\"form__group\">\n            <label for=\"login\" class=\"form__label\">Nazwa użytkowika</label>\n            <input ng-model=\"form.nick\" type=\"text\" id=\"login\" class=\"form__in form--input\" required>\n        </div>\n        <div class=\"form__group\">\n            <label for=\"email\" class=\"form__label\">E-mail</label>\n            <input ng-model=\"form.email\" type=\"email\" id=\"email\" class=\"form__in form--input\" required>\n        </div>\n        <div class=\"form__group\">\n            <label for=\"password\" class=\"form__label\">Hasło</label>\n            <input ng-model=\"form.haslo\" type=\"password\" id=\"password\" class=\"form__in form--input\" required>\n        </div>\n        <div class=\"form__group\">\n            <input ng-disabled=\"!registerForm.$valid\" ng-click=\"submit()\" class=\"form__submit\"  type=\"submit\" value=\"Rejestracja\">\n        </div>\n    </form>\n    <p>Posiadzasz już konto? <a href=\"#!/rejestracja\">Zaloguj się!</a></p>\n</div>";
 
 /***/ },
-/* 24 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var map = {
-		"./api.provider.js": 25,
-		"./countries.service.js": 26,
-		"./errorCallback.provider.js": 27,
-		"./film.service.js": 28,
-		"./genres.service.js": 29,
-		"./user.service.js": 30
+		"./api.provider.js": 28,
+		"./countries.service.js": 29,
+		"./errorCallback.provider.js": 30,
+		"./film.service.js": 31,
+		"./genres.service.js": 32,
+		"./user.service.js": 33
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -817,11 +892,11 @@ webpackJsonp([0],[
 	};
 	webpackContext.resolve = webpackContextResolve;
 	module.exports = webpackContext;
-	webpackContext.id = 24;
+	webpackContext.id = 27;
 
 
 /***/ },
-/* 25 */
+/* 28 */
 /***/ function(module, exports) {
 
 	angular
@@ -844,7 +919,7 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 26 */
+/* 29 */
 /***/ function(module, exports) {
 
 	angular
@@ -884,7 +959,7 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 27 */
+/* 30 */
 /***/ function(module, exports) {
 
 	angular
@@ -899,7 +974,7 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 28 */
+/* 31 */
 /***/ function(module, exports) {
 
 	angular
@@ -928,10 +1003,12 @@ webpackJsonp([0],[
 	                    headers: {'Content-Type': 'application/json'}
 	                });
 	            },
-	            delete: function (id) {
+	            edit: function (id, data) {
 	                return $http({
-	                    method: 'GET',
-	                    url: apiProvider() + "/films/remove/" + id
+	                    method: 'POST',
+	                    data: JSON.stringify(data),
+	                    url: apiProvider() + "/films/edit/" + id,
+	                    headers: {'Content-Type': 'application/json'}
 	                });
 	            }
 	        }
@@ -939,7 +1016,7 @@ webpackJsonp([0],[
 	    }]);
 
 /***/ },
-/* 29 */
+/* 32 */
 /***/ function(module, exports) {
 
 	angular
@@ -979,7 +1056,7 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 30 */
+/* 33 */
 /***/ function(module, exports) {
 
 	angular
@@ -1020,7 +1097,7 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 31 */
+/* 34 */
 /***/ function(module, exports) {
 
 	angular
@@ -1034,6 +1111,7 @@ webpackJsonp([0],[
 	        'app.pageNav',
 	        'app.sideBar',
 	        'app.film',
+	        'app.alert',
 
 	        'app.widgetLogin',
 	        'app.widgetRegister',
@@ -1046,6 +1124,7 @@ webpackJsonp([0],[
 
 	        'app.filmsAdd',
 	        'app.filmsId',
+	        'app.filmsEdit',
 	        'app.mainCtrl'
 
 	    ])

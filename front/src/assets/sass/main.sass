@@ -3,14 +3,20 @@
 @import "vars"
 @import "grid"
 
+$base-color: #dddddd
+$nav-bg: #787878
+
 *, *:before, *:after
   box-sizing: border-box
 
 a
   cursor: pointer
 
+img
+  max-width: 100%
+
 body
-  background-color: #ececec
+  background-color: $base-color
 
 /*=================
 /*  typotography
@@ -30,15 +36,12 @@ label
 textarea
   resize: vertical
 
-input[type="button"]
-  display: inline-block
-  width: auto
 
 /*=================
 /*  page nav
 /*=================
 .page-nav
-  background: #9797a8
+  background: $nav-bg
   display: flex
   justify-content: space-between
 
@@ -67,7 +70,7 @@ input[type="button"]
 /*  side bar
 /*=================
 .side-bar
-  background: #907c70
+  background: $base-color
   padding: 20px
 
 /*=================
@@ -91,9 +94,9 @@ input[type="button"]
     text-decoration: underline
 
 /*=================
-/*  films
+/*  film-short
 /*=================
-.film
+.film-short
   $img-width: 100px
   display: flex
   margin-bottom: 50px
@@ -117,13 +120,45 @@ input[type="button"]
     text-align: right
 
 /*=================
+/*  film-short
+/*=================
+.film-full
+  &__title
+    font-size: 3em
+  &__year
+    font-size: .4em
+    &:before
+      content: '('
+    &:after
+      content: ')'
+
+  &__image
+    width: 100%
+    height: auto
+  &__detail
+
+.detail
+  &__name
+    margin-top: 15px
+    font-size: 1.3em
+
+  &__list
+    margin-left: 25px
+    list-style: disc
+  &__item
+    padding: 3px 0
+  &__omen
+    display: inline-block
+    padding: 10px 15px
+
+/*=================
 /*  form
 /*=================
 .form
   font-size: 1em
 
   &__group
-    margin: 10px 0
+    margin: 5px 0
 
   &__label
 
@@ -133,6 +168,10 @@ input[type="button"]
 
   &__textarea
 
+  &__submit
+    display: block
+    margin-left: auto
+
 .form--block
   .form__in
     width: 100%
@@ -141,4 +180,10 @@ input[type="button"]
     padding-top: 15px
     padding-bottom: 5px
 
-
+/*=================
+/*  alert
+/*=================
+.alert
+  padding: 5px 10px
+  background: #a94442
+  border-radius: 10px
