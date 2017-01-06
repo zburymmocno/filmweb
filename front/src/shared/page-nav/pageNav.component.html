@@ -1,12 +1,4 @@
-<nav class="page-nav">
-    <span class="page-nav__logo">
-        <h1>FiLmY</h1>
-    </span>
-    <ul class="page-nav__list">
-        <li class="page-nav__item" ng-repeat="reference in references">
-            <a class="page-nav__link" ng-href="{{reference.href}}">
-                {{reference.name}}
-            </a>
-        </li>
-    </ul>
-</nav>
+<md-nav-bar md-selected-nav-item="currentNavItem">
+    <md-nav-item md-nav-href="#!/" name="page1">Strona główna</md-nav-item>
+    <md-nav-item md-nav-href="#!/films/add" name="page2">Dodaj nowy film</md-nav-item>
+</md-nav-bar>
