@@ -15,7 +15,7 @@ angular
         $scope.form = {};
 
         $scope.submit = function () {
-            usersService.add($scope.form)
+            usersService.login($scope.form)
                 .then(function successCallback(response) {
                     var output = response.data;
                     var status = output.status;
