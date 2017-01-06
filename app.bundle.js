@@ -17,13 +17,13 @@ webpackJsonp([0],[
 	    reqSharedJS(key);
 	});
 	// load all .js file from services
-	var reqServicesJS = __webpack_require__(20);
+	var reqServicesJS = __webpack_require__(22);
 	reqServicesJS.keys().forEach(function (key) {
 	    reqServicesJS(key);
 	});
 
 	//load angular app
-	__webpack_require__(26);
+	__webpack_require__(29);
 
 /***/ },
 /* 1 */
@@ -60,7 +60,7 @@ webpackJsonp([0],[
 
 
 	// module
-	exports.push([module.id, "/* http://meyerweb.com/eric/tools/css/reset/\n   v2.0 | 20110126\n   License: none (public domain)\n*/\nhtml, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\nb, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed,\nfigure, figcaption, footer, header, hgroup,\nmain, menu, nav, output, ruby, section, summary,\ntime, mark, audio, video {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  font-size: 100%;\n  font: inherit;\n  vertical-align: baseline; }\n\n/* HTML5 display-role reset for older browsers */\narticle, aside, details, figcaption, figure,\nfooter, header, hgroup, main, menu, nav, section {\n  display: block; }\n\nbody {\n  line-height: 1; }\n\nol, ul {\n  list-style: none; }\n\nblockquote, q {\n  quotes: none; }\n  blockquote:before, blockquote:after, q:before, q:after {\n    content: '';\n    content: none; }\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0; }\n\n.flex {\n  display: flex;\n  width: 100%; }\n  .flex--wrap {\n    flex-wrap: wrap; }\n  .flex--center {\n    justify-content: center;\n    align-items: center;\n    align-content: center; }\n  .flex--center-justify {\n    justify-content: center; }\n  .flex--center-items {\n    align-items: center; }\n  .flex--center-align {\n    align-content: center; }\n  .flex--center-content {\n    align-content: center; }\n  .flex__xs-1 {\n    width: 8.33333%; }\n  .flex__xs-order-1 {\n    order: 1; }\n  .flex__xs-2 {\n    width: 16.66667%; }\n  .flex__xs-order-2 {\n    order: 2; }\n  .flex__xs-3 {\n    width: 25%; }\n  .flex__xs-order-3 {\n    order: 3; }\n  .flex__xs-4 {\n    width: 33.33333%; }\n  .flex__xs-order-4 {\n    order: 4; }\n  .flex__xs-5 {\n    width: 41.66667%; }\n  .flex__xs-order-5 {\n    order: 5; }\n  .flex__xs-6 {\n    width: 50%; }\n  .flex__xs-order-6 {\n    order: 6; }\n  .flex__xs-7 {\n    width: 58.33333%; }\n  .flex__xs-order-7 {\n    order: 7; }\n  .flex__xs-8 {\n    width: 66.66667%; }\n  .flex__xs-order-8 {\n    order: 8; }\n  .flex__xs-9 {\n    width: 75%; }\n  .flex__xs-order-9 {\n    order: 9; }\n  .flex__xs-10 {\n    width: 83.33333%; }\n  .flex__xs-order-10 {\n    order: 10; }\n  .flex__xs-11 {\n    width: 91.66667%; }\n  .flex__xs-order-11 {\n    order: 11; }\n  .flex__xs-12 {\n    width: 100%; }\n  .flex__xs-order-12 {\n    order: 12; }\n  @media screen and (min-width: 500px) {\n    .flex__sm-1 {\n      width: 8.33333%; }\n    .flex__sm-order-1 {\n      order: 1; }\n    .flex__sm-2 {\n      width: 16.66667%; }\n    .flex__sm-order-2 {\n      order: 2; }\n    .flex__sm-3 {\n      width: 25%; }\n    .flex__sm-order-3 {\n      order: 3; }\n    .flex__sm-4 {\n      width: 33.33333%; }\n    .flex__sm-order-4 {\n      order: 4; }\n    .flex__sm-5 {\n      width: 41.66667%; }\n    .flex__sm-order-5 {\n      order: 5; }\n    .flex__sm-6 {\n      width: 50%; }\n    .flex__sm-order-6 {\n      order: 6; }\n    .flex__sm-7 {\n      width: 58.33333%; }\n    .flex__sm-order-7 {\n      order: 7; }\n    .flex__sm-8 {\n      width: 66.66667%; }\n    .flex__sm-order-8 {\n      order: 8; }\n    .flex__sm-9 {\n      width: 75%; }\n    .flex__sm-order-9 {\n      order: 9; }\n    .flex__sm-10 {\n      width: 83.33333%; }\n    .flex__sm-order-10 {\n      order: 10; }\n    .flex__sm-11 {\n      width: 91.66667%; }\n    .flex__sm-order-11 {\n      order: 11; }\n    .flex__sm-12 {\n      width: 100%; }\n    .flex__sm-order-12 {\n      order: 12; } }\n  @media screen and (min-width: 900px) {\n    .flex__md-1 {\n      width: 8.33333%; }\n    .flex__md-order-1 {\n      order: 1; }\n    .flex__md-2 {\n      width: 16.66667%; }\n    .flex__md-order-2 {\n      order: 2; }\n    .flex__md-3 {\n      width: 25%; }\n    .flex__md-order-3 {\n      order: 3; }\n    .flex__md-4 {\n      width: 33.33333%; }\n    .flex__md-order-4 {\n      order: 4; }\n    .flex__md-5 {\n      width: 41.66667%; }\n    .flex__md-order-5 {\n      order: 5; }\n    .flex__md-6 {\n      width: 50%; }\n    .flex__md-order-6 {\n      order: 6; }\n    .flex__md-7 {\n      width: 58.33333%; }\n    .flex__md-order-7 {\n      order: 7; }\n    .flex__md-8 {\n      width: 66.66667%; }\n    .flex__md-order-8 {\n      order: 8; }\n    .flex__md-9 {\n      width: 75%; }\n    .flex__md-order-9 {\n      order: 9; }\n    .flex__md-10 {\n      width: 83.33333%; }\n    .flex__md-order-10 {\n      order: 10; }\n    .flex__md-11 {\n      width: 91.66667%; }\n    .flex__md-order-11 {\n      order: 11; }\n    .flex__md-12 {\n      width: 100%; }\n    .flex__md-order-12 {\n      order: 12; } }\n  @media screen and (min-width: 1200px) {\n    .flex__lg-1 {\n      width: 8.33333%; }\n    .flex__lg-order-1 {\n      order: 1; }\n    .flex__lg-2 {\n      width: 16.66667%; }\n    .flex__lg-order-2 {\n      order: 2; }\n    .flex__lg-3 {\n      width: 25%; }\n    .flex__lg-order-3 {\n      order: 3; }\n    .flex__lg-4 {\n      width: 33.33333%; }\n    .flex__lg-order-4 {\n      order: 4; }\n    .flex__lg-5 {\n      width: 41.66667%; }\n    .flex__lg-order-5 {\n      order: 5; }\n    .flex__lg-6 {\n      width: 50%; }\n    .flex__lg-order-6 {\n      order: 6; }\n    .flex__lg-7 {\n      width: 58.33333%; }\n    .flex__lg-order-7 {\n      order: 7; }\n    .flex__lg-8 {\n      width: 66.66667%; }\n    .flex__lg-order-8 {\n      order: 8; }\n    .flex__lg-9 {\n      width: 75%; }\n    .flex__lg-order-9 {\n      order: 9; }\n    .flex__lg-10 {\n      width: 83.33333%; }\n    .flex__lg-order-10 {\n      order: 10; }\n    .flex__lg-11 {\n      width: 91.66667%; }\n    .flex__lg-order-11 {\n      order: 11; }\n    .flex__lg-12 {\n      width: 100%; }\n    .flex__lg-order-12 {\n      order: 12; } }\n\n*, *:before, *:after {\n  box-sizing: border-box; }\n\na {\n  cursor: pointer; }\n\nbody {\n  background-color: #ececec; }\n\n/*================= */\n/*  widget */\n/*================= */\ninput, textarea, select {\n  display: inline-block;\n  padding: 5px 10px;\n  border-radius: 5px;\n  outline: none;\n  border: none;\n  font-size: inherit;\n  font-family: inherit; }\n\nlabel {\n  display: inline-block; }\n\ntextarea {\n  resize: vertical; }\n\ninput[type=\"button\"] {\n  display: inline-block;\n  width: auto; }\n\n/*================= */\n/*  page nav */\n/*================= */\n.page-nav {\n  background: #9797a8;\n  display: flex;\n  justify-content: space-between; }\n  .page-nav__logo {\n    padding: 25px 40px; }\n  .page-nav__item {\n    display: inline-block;\n    padding: 25px 40px; }\n  .page-nav__link {\n    text-decoration: none; }\n\n/*================= */\n/*  jumbotron */\n/*================= */\n.jumbotron {\n  text-align: center;\n  padding: 50px 10px; }\n  .jumbotron__title {\n    padding-bottom: 30px;\n    font-size: 3em; }\n\n/*================= */\n/*  side bar */\n/*================= */\n.side-bar {\n  background: #ffffff;\n  padding: 20px; }\n\n/*================= */\n/*  widget */\n/*================= */\n.widget__title {\n  font-size: 2em;\n  padding-bottom: 10px;\n  border-bottom: 2px solid #000;\n  margin-bottom: 10px; }\n\n.widget__item {\n  margin-left: 50px;\n  padding-left: 20px;\n  list-style-type: decimal; }\n\n.widget__link {\n  text-decoration: underline; }\n\n/*================= */\n/*  films */\n/*================= */\n.film {\n  display: flex;\n  margin-bottom: 50px; }\n  .film__title {\n    font-weight: bold;\n    font-size: 1.5em;\n    text-align: left;\n    padding-bottom: 15px; }\n  .film__details {\n    width: calc(100% - 100px); }\n  .film__image {\n    width: 100px;\n    height: 100%;\n    margin-right: 15px; }\n  .film__desc {\n    text-align: justify; }\n  .film__link {\n    display: block;\n    padding-top: 15px;\n    text-align: right; }\n\n/*================= */\n/*  form */\n/*================= */\n.form {\n  font-size: 1em; }\n  .form__group {\n    margin: 10px 0; }\n\n.form--block .form__in {\n  width: 100%;\n  display: block; }\n\n.form--block .form__label {\n  padding-top: 15px;\n  padding-bottom: 5px; }\n", ""]);
+	exports.push([module.id, "/* http://meyerweb.com/eric/tools/css/reset/\n   v2.0 | 20110126\n   License: none (public domain)\n*/\nhtml, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\nb, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed,\nfigure, figcaption, footer, header, hgroup,\nmain, menu, nav, output, ruby, section, summary,\ntime, mark, audio, video {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  font-size: 100%;\n  font: inherit;\n  vertical-align: baseline; }\n\n/* HTML5 display-role reset for older browsers */\narticle, aside, details, figcaption, figure,\nfooter, header, hgroup, main, menu, nav, section {\n  display: block; }\n\nbody {\n  line-height: 1; }\n\nol, ul {\n  list-style: none; }\n\nblockquote, q {\n  quotes: none; }\n  blockquote:before, blockquote:after, q:before, q:after {\n    content: '';\n    content: none; }\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0; }\n\n.flex {\n  display: flex;\n  width: 100%; }\n  .flex--wrap {\n    flex-wrap: wrap; }\n  .flex--center {\n    justify-content: center;\n    align-items: center;\n    align-content: center; }\n  .flex--center-justify {\n    justify-content: center; }\n  .flex--center-items {\n    align-items: center; }\n  .flex--center-align {\n    align-content: center; }\n  .flex--center-content {\n    align-content: center; }\n  .flex__xs-1 {\n    width: 8.33333%; }\n  .flex__xs-order-1 {\n    order: 1; }\n  .flex__xs-2 {\n    width: 16.66667%; }\n  .flex__xs-order-2 {\n    order: 2; }\n  .flex__xs-3 {\n    width: 25%; }\n  .flex__xs-order-3 {\n    order: 3; }\n  .flex__xs-4 {\n    width: 33.33333%; }\n  .flex__xs-order-4 {\n    order: 4; }\n  .flex__xs-5 {\n    width: 41.66667%; }\n  .flex__xs-order-5 {\n    order: 5; }\n  .flex__xs-6 {\n    width: 50%; }\n  .flex__xs-order-6 {\n    order: 6; }\n  .flex__xs-7 {\n    width: 58.33333%; }\n  .flex__xs-order-7 {\n    order: 7; }\n  .flex__xs-8 {\n    width: 66.66667%; }\n  .flex__xs-order-8 {\n    order: 8; }\n  .flex__xs-9 {\n    width: 75%; }\n  .flex__xs-order-9 {\n    order: 9; }\n  .flex__xs-10 {\n    width: 83.33333%; }\n  .flex__xs-order-10 {\n    order: 10; }\n  .flex__xs-11 {\n    width: 91.66667%; }\n  .flex__xs-order-11 {\n    order: 11; }\n  .flex__xs-12 {\n    width: 100%; }\n  .flex__xs-order-12 {\n    order: 12; }\n  @media screen and (min-width: 500px) {\n    .flex__sm-1 {\n      width: 8.33333%; }\n    .flex__sm-order-1 {\n      order: 1; }\n    .flex__sm-2 {\n      width: 16.66667%; }\n    .flex__sm-order-2 {\n      order: 2; }\n    .flex__sm-3 {\n      width: 25%; }\n    .flex__sm-order-3 {\n      order: 3; }\n    .flex__sm-4 {\n      width: 33.33333%; }\n    .flex__sm-order-4 {\n      order: 4; }\n    .flex__sm-5 {\n      width: 41.66667%; }\n    .flex__sm-order-5 {\n      order: 5; }\n    .flex__sm-6 {\n      width: 50%; }\n    .flex__sm-order-6 {\n      order: 6; }\n    .flex__sm-7 {\n      width: 58.33333%; }\n    .flex__sm-order-7 {\n      order: 7; }\n    .flex__sm-8 {\n      width: 66.66667%; }\n    .flex__sm-order-8 {\n      order: 8; }\n    .flex__sm-9 {\n      width: 75%; }\n    .flex__sm-order-9 {\n      order: 9; }\n    .flex__sm-10 {\n      width: 83.33333%; }\n    .flex__sm-order-10 {\n      order: 10; }\n    .flex__sm-11 {\n      width: 91.66667%; }\n    .flex__sm-order-11 {\n      order: 11; }\n    .flex__sm-12 {\n      width: 100%; }\n    .flex__sm-order-12 {\n      order: 12; } }\n  @media screen and (min-width: 900px) {\n    .flex__md-1 {\n      width: 8.33333%; }\n    .flex__md-order-1 {\n      order: 1; }\n    .flex__md-2 {\n      width: 16.66667%; }\n    .flex__md-order-2 {\n      order: 2; }\n    .flex__md-3 {\n      width: 25%; }\n    .flex__md-order-3 {\n      order: 3; }\n    .flex__md-4 {\n      width: 33.33333%; }\n    .flex__md-order-4 {\n      order: 4; }\n    .flex__md-5 {\n      width: 41.66667%; }\n    .flex__md-order-5 {\n      order: 5; }\n    .flex__md-6 {\n      width: 50%; }\n    .flex__md-order-6 {\n      order: 6; }\n    .flex__md-7 {\n      width: 58.33333%; }\n    .flex__md-order-7 {\n      order: 7; }\n    .flex__md-8 {\n      width: 66.66667%; }\n    .flex__md-order-8 {\n      order: 8; }\n    .flex__md-9 {\n      width: 75%; }\n    .flex__md-order-9 {\n      order: 9; }\n    .flex__md-10 {\n      width: 83.33333%; }\n    .flex__md-order-10 {\n      order: 10; }\n    .flex__md-11 {\n      width: 91.66667%; }\n    .flex__md-order-11 {\n      order: 11; }\n    .flex__md-12 {\n      width: 100%; }\n    .flex__md-order-12 {\n      order: 12; } }\n  @media screen and (min-width: 1200px) {\n    .flex__lg-1 {\n      width: 8.33333%; }\n    .flex__lg-order-1 {\n      order: 1; }\n    .flex__lg-2 {\n      width: 16.66667%; }\n    .flex__lg-order-2 {\n      order: 2; }\n    .flex__lg-3 {\n      width: 25%; }\n    .flex__lg-order-3 {\n      order: 3; }\n    .flex__lg-4 {\n      width: 33.33333%; }\n    .flex__lg-order-4 {\n      order: 4; }\n    .flex__lg-5 {\n      width: 41.66667%; }\n    .flex__lg-order-5 {\n      order: 5; }\n    .flex__lg-6 {\n      width: 50%; }\n    .flex__lg-order-6 {\n      order: 6; }\n    .flex__lg-7 {\n      width: 58.33333%; }\n    .flex__lg-order-7 {\n      order: 7; }\n    .flex__lg-8 {\n      width: 66.66667%; }\n    .flex__lg-order-8 {\n      order: 8; }\n    .flex__lg-9 {\n      width: 75%; }\n    .flex__lg-order-9 {\n      order: 9; }\n    .flex__lg-10 {\n      width: 83.33333%; }\n    .flex__lg-order-10 {\n      order: 10; }\n    .flex__lg-11 {\n      width: 91.66667%; }\n    .flex__lg-order-11 {\n      order: 11; }\n    .flex__lg-12 {\n      width: 100%; }\n    .flex__lg-order-12 {\n      order: 12; } }\n\n*, *:before, *:after {\n  box-sizing: border-box; }\n\na {\n  cursor: pointer; }\n\nbody {\n  background-color: #ececec; }\n\n/*================= */\n/*  typotography */\n/*================= */\ninput, textarea, select {\n  display: inline-block;\n  padding: 5px 10px;\n  border-radius: 5px;\n  outline: none;\n  border: none;\n  font-size: inherit;\n  font-family: inherit; }\n\nlabel {\n  display: inline-block; }\n\ntextarea {\n  resize: vertical; }\n\ninput[type=\"button\"] {\n  display: inline-block;\n  width: auto; }\n\n/*================= */\n/*  page nav */\n/*================= */\n.page-nav {\n  background: #9797a8;\n  display: flex;\n  justify-content: space-between; }\n  .page-nav__logo {\n    padding: 25px 40px; }\n  .page-nav__item {\n    display: inline-block;\n    padding: 25px 40px; }\n  .page-nav__link {\n    text-decoration: none; }\n\n/*================= */\n/*  jumbotron */\n/*================= */\n.jumbotron {\n  text-align: center;\n  padding: 50px 10px; }\n  .jumbotron__title {\n    padding-bottom: 30px;\n    font-size: 3em; }\n\n/*================= */\n/*  side bar */\n/*================= */\n.side-bar {\n  background: #907c70;\n  padding: 20px; }\n\n/*================= */\n/*  widget */\n/*================= */\n.widget {\n  margin-bottom: 35px; }\n  .widget:last-child {\n    margin-bottom: 0; }\n  .widget__title {\n    font-size: 2em;\n    padding-bottom: 10px;\n    border-bottom: 2px solid #000;\n    margin-bottom: 10px; }\n  .widget__item {\n    margin-left: 50px;\n    padding-left: 20px;\n    list-style-type: decimal; }\n  .widget__link {\n    text-decoration: underline; }\n\n/*================= */\n/*  films */\n/*================= */\n.film {\n  display: flex;\n  margin-bottom: 50px; }\n  .film__title {\n    font-weight: bold;\n    font-size: 1.5em;\n    text-align: left;\n    padding-bottom: 15px; }\n  .film__details {\n    width: calc(100% - 100px); }\n  .film__image {\n    width: 100px;\n    height: 100%;\n    margin-right: 15px; }\n  .film__desc {\n    text-align: justify; }\n  .film__link {\n    display: block;\n    padding-top: 15px;\n    text-align: right; }\n\n/*================= */\n/*  form */\n/*================= */\n.form {\n  font-size: 1em; }\n  .form__group {\n    margin: 10px 0; }\n\n.form--block .form__in {\n  width: 100%;\n  display: block; }\n\n.form--block .form__label {\n  padding-top: 15px;\n  padding-bottom: 5px; }\n", ""]);
 
 	// exports
 
@@ -589,7 +589,8 @@ webpackJsonp([0],[
 	var map = {
 		"./film/film.controller.js": 14,
 		"./page-nav/pageNav.controller.js": 16,
-		"./side-bar/sideBar.controller.js": 18
+		"./side-bar/sideBar.controller.js": 18,
+		"./widget-login/widgetLogin.controller.js": 20
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -697,18 +698,61 @@ webpackJsonp([0],[
 /* 19 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"side-bar\">\n    <div class=\"widget\">\n      <h3 class=\"widget__title\">Title</h3>\n        <ul class=\"widget__list\">\n            <li class=\"widget__item\">\n                <a class=\"widget__link\">\n                    LINK\n                </a>\n            </li>\n        </ul>\n    </div>\n</div>";
+	module.exports = "<div class=\"side-bar\">\n    <div class=\"widget\">\n        <h3 class=\"widget__title\">Title</h3>\n        <ul class=\"widget__list\">\n            <li class=\"widget__item\">\n                <a class=\"widget__link\">\n                    LINK\n                </a>\n            </li>\n        </ul>\n    </div>\n    <widget-login></widget-login>\n</div>";
 
 /***/ },
 /* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
+	angular
+	    .module('app.widgetLogin', [])
+	    .directive('widgetLogin', function () {
+	        return {
+	            controller: 'widgetLogin',
+	            template: __webpack_require__(21),
+	            scope: {},
+	            link: function (scope, element, attrs) {
+
+	            }
+	        };
+	    }).controller('widgetLogin', [
+	    '$scope', 'usersService', '$rootScope', 'errorCallbackProvider',
+	    function ($scope, usersService, $rootScope, errorCallbackProvider) {
+	        $scope.form = {};
+
+	        $scope.submit = function () {
+	            usersService.add($scope.form)
+	                .then(function successCallback(response) {
+	                    var output = response.data;
+	                    var status = output.status;
+	                    if (status == "success") {
+	                        $rootScope.user = output.data;
+	                    }
+	                }, function errorCallback(response) {
+	                    errorCallbackProvider(response);
+	                })
+	        }
+	    }
+	])
+	;
+
+/***/ },
+/* 21 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"widget\">\n    <pre>\n        {{user | json}}\n    </pre>\n    <h3 class=\"widget__title\">Logowanie</h3>\n    <form class=\"form form--block\">\n        <div class=\"form__group\">\n            <label for=\"login\" class=\"form__label\">Nazwa użytkowika</label>\n            <input ng-model=\"form.login\" type=\"text\" id=\"login\" class=\"form__in form--input\">\n        </div>\n        <div class=\"form__group\">\n            <label for=\"password\" class=\"form__label\">Hasło</label>\n            <input ng-model=\"form.password\" type=\"password\" id=\"password\" class=\"form__in form--input\">\n        </div>\n        <div class=\"form__group\">\n            <input ng-click=\"submit()\" type=\"submit\" value=\"Zaloguj się\">\n        </div>\n        <pre>\n            {{form | json}}\n        </pre>\n        <p>Nie posiadasz konta? <a href=\"#!/rejestracja\">Zarejestuj się!</a></p>\n    </form>\n</div>";
+
+/***/ },
+/* 22 */
+/***/ function(module, exports, __webpack_require__) {
+
 	var map = {
-		"./api.provider.js": 21,
-		"./countries.service.js": 22,
-		"./errorCallback.provider.js": 23,
-		"./filme.service.js": 24,
-		"./genres.service.js": 25
+		"./api.provider.js": 23,
+		"./countries.service.js": 24,
+		"./errorCallback.provider.js": 25,
+		"./filme.service.js": 26,
+		"./genres.service.js": 27,
+		"./user.service.js": 28
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -721,11 +765,11 @@ webpackJsonp([0],[
 	};
 	webpackContext.resolve = webpackContextResolve;
 	module.exports = webpackContext;
-	webpackContext.id = 20;
+	webpackContext.id = 22;
 
 
 /***/ },
-/* 21 */
+/* 23 */
 /***/ function(module, exports) {
 
 	angular
@@ -748,7 +792,7 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 22 */
+/* 24 */
 /***/ function(module, exports) {
 
 	angular
@@ -787,7 +831,7 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 23 */
+/* 25 */
 /***/ function(module, exports) {
 
 	angular
@@ -802,7 +846,7 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 24 */
+/* 26 */
 /***/ function(module, exports) {
 
 	angular
@@ -840,7 +884,7 @@ webpackJsonp([0],[
 	    }]);
 
 /***/ },
-/* 25 */
+/* 27 */
 /***/ function(module, exports) {
 
 	angular
@@ -878,7 +922,46 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 26 */
+/* 28 */
+/***/ function(module, exports) {
+
+	angular
+	    .module('users.service', [])
+	    .service('usersService', ['$http', 'apiProvider', function ($http, apiProvider) {
+	        return {
+	            add: function (data) {
+	                return $http({
+	                    method: 'POST',
+	                    data: data,
+	                    url: apiProvider() + "/users/add"
+	                });
+	            },
+	            login: function (data) {
+	                return $http({
+	                    method: 'POST',
+	                    data: data,
+	                    url: apiProvider() + "/users/login"
+	                });
+	            },
+	            logout: function () {
+	                return $http({
+	                    method: 'GET',
+	                    url: apiProvider() + "/users/logout"
+	                });
+	            },
+	            info: function () {
+	                return $http({
+	                    method: 'GET',
+	                    url: apiProvider() + "/users/info"
+	                });
+	            }
+
+	        }
+	    }]);
+
+
+/***/ },
+/* 29 */
 /***/ function(module, exports) {
 
 	angular
@@ -892,6 +975,11 @@ webpackJsonp([0],[
 	        'app.pageNav',
 	        'app.sideBar',
 	        'app.film',
+
+	        'app.widgetLogin',
+
+
+	        'users.service',
 
 	        'countries.service',
 	        'genres.service',
@@ -907,6 +995,22 @@ webpackJsonp([0],[
 
 	        }
 	    ])
+
+	    .run(['$rootScope', 'usersService', 'errorCallbackProvider', function ($rootScope, usersService, errorCallbackProvider) {
+	            usersService.info()
+	                .then(function successCallback() {
+	                    var output = response.data;
+	                    var status = output.status;
+	                    if (status == 'success') {
+	                        $rootScope.user = output.data
+	                    } else if (status == "error") {
+	                        $rootScope.user = {};
+	                    }
+	                }, function errorCallback(response) {
+	                    errorCallbackProvider(response);
+	                });
+	        }]
+	    )
 	;
 
 
