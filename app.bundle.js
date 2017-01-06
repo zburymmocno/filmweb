@@ -451,9 +451,9 @@ webpackJsonp([0],[
 	                    });
 
 	                $scope.send = function () {
+	                    console.log($scope.form);
 	                    genresService.add($scope.form)
 	                        .then(function (response) {
-	                            alert("poszło");
 	                            console.log(response);
 	                        }, function (response) {
 	                            errorCallbackProvider(response);
@@ -560,19 +560,19 @@ webpackJsonp([0],[
 	        }
 	    ]).controller('homeCtrl', [
 	    '$scope', 'filmService', 'errorCallbackProvider', function ($scope, filmService, errorCallbackProvider) {
-	        // filmService.getAll()
-	        //     .then(function successCallback(response) {
-	        //         var output = response.data;
-	        //         var status = output.status;
-	        //         if (status == "success") {
-	        //             $scope.films = output.data;
-	        //
-	        //         } else if (status == "fail") {
-	        //             alert(output.data.message);
-	        //         }
-	        //     }, function errorCallback(response) {
-	        //         errorCallbackProvider(response);
-	        //     });
+	        filmService.getAll()
+	            .then(function successCallback(response) {
+	                var output = response.data;
+	                var status = output.status;
+	                if (status == "success") {
+	                    $scope.films = output.data;
+
+	                } else if (status == "fail") {
+	                    alert(output.data.message);
+	                }
+	            }, function errorCallback(response) {
+	                errorCallbackProvider(response);
+	            });
 	    }])
 	;
 
@@ -750,7 +750,7 @@ webpackJsonp([0],[
 		"./api.provider.js": 23,
 		"./countries.service.js": 24,
 		"./errorCallback.provider.js": 25,
-		"./filme.service.js": 26,
+		"./film.service.js": 26,
 		"./genres.service.js": 27,
 		"./user.service.js": 28
 	};

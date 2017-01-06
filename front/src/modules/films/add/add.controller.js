@@ -48,9 +48,9 @@ angular.module('app.filmsAdd', [
                     });
 
                 $scope.send = function () {
+                    console.log($scope.form);
                     genresService.add($scope.form)
                         .then(function (response) {
-                            alert("poszło");
                             console.log(response);
                         }, function (response) {
                             errorCallbackProvider(response);
