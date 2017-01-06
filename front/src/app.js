@@ -11,7 +11,7 @@ angular
         'app.film',
 
         'app.widgetLogin',
-
+        'app.widgetRegister',
 
         'users.service',
 
