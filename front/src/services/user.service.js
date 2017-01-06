@@ -13,7 +13,8 @@ angular
             login: function (data) {
                 return $http({
                     method: 'POST',
-                    data: data,
+                    data: JSON.stringify(data),
+                    headers: {'Content-Type': 'application/json'},
                     url: apiProvider() + "/users/login"
                 });
             },
