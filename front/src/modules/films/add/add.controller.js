@@ -11,66 +11,50 @@ angular.module('app.filmsAdd', [
             })
         }
     ])
-    .controller('filmsAddCtrl', ['$scope', 'filmService' ,'countriesService', 'genresService', 'errorCallbackProvider', function ($scope, countriesService, filmService,genresService, errorCallbackProvider) {
-        $scope.form = {};
-        countriesService.getAll()
-            .then(function successCallback(response) {
-                var output = response.data;
-                var status = output.status;
-                if (status == "success") {
-                    $scope.countries = output.data;
+    .controller('filmsAddCtrl',
+        ['$scope', 'filmService', 'countriesService', 'genresService', 'errorCallbackProvider',
+            function ($scope, filmService, countriesService, genresService, errorCallbackProvider) {
+                $scope.form = {};
 
-                } else if (status == "fail") {
-                    alert("Error - check console");
-                    console.log(output.data);
-                }
-            }, function errorCallback(response) {
-                errorCallbackProvider(response);
-            });
+                countriesService.getAll()
+                    .then(function successCallback(response) {
+                        var output = response.data;
+                        var status = output.status;
+                        console.log(response);
 
-        genresService.getAll()
-            .then(function successCallback(response) {
-                var output = response.data;
-                var status = output.status;
-                if (status == "success") {
-                    $scope.genres = output.data;
+                        if (status == "success") {
+                            $scope.countries = output.data;
+                        } else if (status == "fail") {
+                            alert("Error - check console");
+                            console.log(output.data);
+                        }
+                    }, function errorCallback(response) {
+                        errorCallbackProvider(response);
+                    });
 
-                } else if (status == "fail") {
-                    alert("Error - check console");
-                    console.log(output.data);
-                }
-            }, function errorCallback(response) {
-                errorCallbackProvider(response);
-            });
+                genresService.getAll()
+                    .then(function successCallback(response) {
+                        var output = response.data;
+                        var status = output.status;
+                        if (status == "success") {
+                            $scope.genres = output.data;
 
+                        } else if (status == "fail") {
+                            alert("Error - check console");
+                            console.log(output.data);
+                        }
+                    }, function errorCallback(response) {
+                        errorCallbackProvider(response);
+                    });
 
-        $scope.send = function () {
-            filmService.add($scope.form)
-                .then(function (response) {
-                    alert("poszło");
-                    console.log(response);
-                }, function (reponse) {
-                    errorCallbackProvider(response);
-                });
-
-
-
-        };
-
-        $scope.genres = [
-            {
-                "nazwa": "ggegeg"
-            }, {
-                "nazwa": "gggggg"
-            }
-        ];
-
-        $scope.countries = [
-            {
-                "nazwa": "coun"
-            }, {
-                "nazwa": "counasds"
-            }
-        ]
-    }])
+                $scope.send = function () {
+                    genresService.add($scope.form)
+                        .then(function (response) {
+                            alert("poszło");
+                            console.log(response);
+                        }, function (response) {
+                            errorCallbackProvider(response);
+                        });
+                };
+            }])
 ;

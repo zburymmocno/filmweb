@@ -1,7 +1,6 @@
 angular
     .module('film.service', [])
     .service('filmService', ['$http', 'apiProvider', function ($http, apiProvider) {
-        
         return {
             getAll: function () {
                 return $http({

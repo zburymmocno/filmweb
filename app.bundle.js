@@ -414,68 +414,52 @@ webpackJsonp([0],[
 	            })
 	        }
 	    ])
-	    .controller('filmsAddCtrl', ['$scope', 'filmService' ,'countriesService', 'genresService', 'errorCallbackProvider', function ($scope, countriesService, filmService,genresService, errorCallbackProvider) {
-	        $scope.form = {};
-	        countriesService.getAll()
-	            .then(function successCallback(response) {
-	                var output = response.data;
-	                var status = output.status;
-	                if (status == "success") {
-	                    $scope.countries = output.data;
+	    .controller('filmsAddCtrl',
+	        ['$scope', 'filmService', 'countriesService', 'genresService', 'errorCallbackProvider',
+	            function ($scope, filmService, countriesService, genresService, errorCallbackProvider) {
+	                $scope.form = {};
 
-	                } else if (status == "fail") {
-	                    alert("Error - check console");
-	                    console.log(output.data);
-	                }
-	            }, function errorCallback(response) {
-	                errorCallbackProvider(response);
-	            });
+	                countriesService.getAll()
+	                    .then(function successCallback(response) {
+	                        var output = response.data;
+	                        var status = output.status;
+	                        console.log(response);
 
-	        genresService.getAll()
-	            .then(function successCallback(response) {
-	                var output = response.data;
-	                var status = output.status;
-	                if (status == "success") {
-	                    $scope.genres = output.data;
+	                        if (status == "success") {
+	                            $scope.countries = output.data;
+	                        } else if (status == "fail") {
+	                            alert("Error - check console");
+	                            console.log(output.data);
+	                        }
+	                    }, function errorCallback(response) {
+	                        errorCallbackProvider(response);
+	                    });
 
-	                } else if (status == "fail") {
-	                    alert("Error - check console");
-	                    console.log(output.data);
-	                }
-	            }, function errorCallback(response) {
-	                errorCallbackProvider(response);
-	            });
+	                genresService.getAll()
+	                    .then(function successCallback(response) {
+	                        var output = response.data;
+	                        var status = output.status;
+	                        if (status == "success") {
+	                            $scope.genres = output.data;
 
+	                        } else if (status == "fail") {
+	                            alert("Error - check console");
+	                            console.log(output.data);
+	                        }
+	                    }, function errorCallback(response) {
+	                        errorCallbackProvider(response);
+	                    });
 
-	        $scope.send = function () {
-	            filmService.add($scope.form)
-	                .then(function (response) {
-	                    alert("poszło");
-	                    console.log(response);
-	                }, function (reponse) {
-	                    errorCallbackProvider(response);
-	                });
-
-
-
-	        };
-
-	        $scope.genres = [
-	            {
-	                "nazwa": "ggegeg"
-	            }, {
-	                "nazwa": "gggggg"
-	            }
-	        ];
-
-	        $scope.countries = [
-	            {
-	                "nazwa": "coun"
-	            }, {
-	                "nazwa": "counasds"
-	            }
-	        ]
-	    }])
+	                $scope.send = function () {
+	                    genresService.add($scope.form)
+	                        .then(function (response) {
+	                            alert("poszło");
+	                            console.log(response);
+	                        }, function (response) {
+	                            errorCallbackProvider(response);
+	                        });
+	                };
+	            }])
 	;
 
 /***/ },
@@ -576,19 +560,19 @@ webpackJsonp([0],[
 	        }
 	    ]).controller('homeCtrl', [
 	    '$scope', 'filmService', 'errorCallbackProvider', function ($scope, filmService, errorCallbackProvider) {
-	        filmService.getAll()
-	            .then(function successCallback(response) {
-	                var output = response.data;
-	                var status = output.status;
-	                if (status == "success") {
-	                    $scope.films = output.data;
-
-	                } else if (status == "fail") {
-	                    alert(output.data.message);
-	                }
-	            }, function errorCallback(response) {
-	                errorCallbackProvider(response);
-	            });
+	        // filmService.getAll()
+	        //     .then(function successCallback(response) {
+	        //         var output = response.data;
+	        //         var status = output.status;
+	        //         if (status == "success") {
+	        //             $scope.films = output.data;
+	        //
+	        //         } else if (status == "fail") {
+	        //             alert(output.data.message);
+	        //         }
+	        //     }, function errorCallback(response) {
+	        //         errorCallbackProvider(response);
+	        //     });
 	    }])
 	;
 
@@ -723,7 +707,7 @@ webpackJsonp([0],[
 		"./api.provider.js": 21,
 		"./countries.service.js": 22,
 		"./errorCallback.provider.js": 23,
-		"./film.service.js": 24,
+		"./filme.service.js": 24,
 		"./genres.service.js": 25
 	};
 	function webpackContext(req) {
@@ -770,34 +754,33 @@ webpackJsonp([0],[
 	angular
 	    .module('countries.service', [])
 	    .service('countriesService', ['$http', 'apiProvider', function ($http, apiProvider) {
-	        
+
 	        return {
 	            getAll: function () {
 	                return $http({
 	                    method: 'GET',
 	                    url: apiProvider() + "/countries"
 	                });
+	            },
+	            get: function (id) {
+	                return $http({
+	                    method: 'GET',
+	                    url: apiProvider() + "/films/" + id
+	                });
+	            },
+
+	            add: function (data) {
+	                return $http({
+	                    method: 'POST',
+	                    url: apiProvider() + "/films/add"
+	                });
+	            },
+	            delete: function (id) {
+	                return $http({
+	                    method: 'GET',
+	                    url: apiProvider() + "/films/remove/" + id
+	                });
 	            }
-	            //
-	            // get: function (id) {
-	            //     return $http({
-	            //         method: 'GET',
-	            //         url: apiProvider() + "/films/" + id
-	            //     });
-	            // },
-	            //
-	            // add: function (data) {
-	            //     return $http({
-	            //         method: 'POST',
-	            //         url: apiProvider() + "/films/add"
-	            //     });
-	            // },
-	            // delete: function (id) {
-	            //     return $http({
-	            //         method: 'GET',
-	            //         url: apiProvider() + "/films/remove/" + id
-	            //     });
-	            // }
 	        }
 
 	    }]);
@@ -825,7 +808,6 @@ webpackJsonp([0],[
 	angular
 	    .module('film.service', [])
 	    .service('filmService', ['$http', 'apiProvider', function ($http, apiProvider) {
-	        
 	        return {
 	            getAll: function () {
 	                return $http({
@@ -857,7 +839,6 @@ webpackJsonp([0],[
 
 	    }]);
 
-
 /***/ },
 /* 25 */
 /***/ function(module, exports) {
@@ -865,36 +846,34 @@ webpackJsonp([0],[
 	angular
 	    .module('genres.service', [])
 	    .service('genresService', ['$http', 'apiProvider', function ($http, apiProvider) {
-	        
 	        return {
 	            getAll: function () {
 	                return $http({
 	                    method: 'GET',
 	                    url: apiProvider() + "/genres"
 	                });
-	            }
-	            //
-	            // get: function (id) {
-	            //     return $http({
-	            //         method: 'GET',
-	            //         url: apiProvider() + "/films/" + id
-	            //     });
-	            // },
-	            //
-	            // add: function (data) {
-	            //     return $http({
-	            //         method: 'POST',
-	            //         url: apiProvider() + "/films/add"
-	            //     });
-	            // },
-	            // delete: function (id) {
-	            //     return $http({
-	            //         method: 'GET',
-	            //         url: apiProvider() + "/films/remove/" + id
-	            //     });
-	            // }
-	        }
+	            },
 
+	            get: function (id) {
+	                return $http({
+	                    method: 'GET',
+	                    url: apiProvider() + "/films/" + id
+	                });
+	            },
+
+	            add: function (data) {
+	                return $http({
+	                    method: 'POST',
+	                    url: apiProvider() + "/films/add"
+	                });
+	            },
+	            delete: function (id) {
+	                return $http({
+	                    method: 'GET',
+	                    url: apiProvider() + "/films/remove/" + id
+	                });
+	            }
+	        }
 	    }]);
 
 
@@ -914,9 +893,9 @@ webpackJsonp([0],[
 	        'app.sideBar',
 	        'app.film',
 
-	        'film.service',
 	        'countries.service',
 	        'genres.service',
+	        'film.service',
 
 	        'app.filmsAdd',
 	        'app.filmsId',

@@ -12,18 +12,18 @@ angular.module('app.mainCtrl', [
         }
     ]).controller('homeCtrl', [
     '$scope', 'filmService', 'errorCallbackProvider', function ($scope, filmService, errorCallbackProvider) {
-        filmService.getAll()
-            .then(function successCallback(response) {
-                var output = response.data;
-                var status = output.status;
-                if (status == "success") {
-                    $scope.films = output.data;
-
-                } else if (status == "fail") {
-                    alert(output.data.message);
-                }
-            }, function errorCallback(response) {
-                errorCallbackProvider(response);
-            });
+        // filmService.getAll()
+        //     .then(function successCallback(response) {
+        //         var output = response.data;
+        //         var status = output.status;
+        //         if (status == "success") {
+        //             $scope.films = output.data;
+        //
+        //         } else if (status == "fail") {
+        //             alert(output.data.message);
+        //         }
+        //     }, function errorCallback(response) {
+        //         errorCallbackProvider(response);
+        //     });
     }])
 ;

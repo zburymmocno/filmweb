@@ -10,9 +10,9 @@ angular
         'app.sideBar',
         'app.film',
 
-        'film.service',
         'countries.service',
         'genres.service',
+        'film.service',
 
         'app.filmsAdd',
         'app.filmsId',
