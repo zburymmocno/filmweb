@@ -452,6 +452,7 @@ webpackJsonp([0],[
 	    '$scope', 'filmService', function ($scope, filmService) {
 	        filmService.getAll()
 	            .then(function successCallback(response) {
+	                response = response.data;
 	                console.log(response);
 	                if (response.status == "success")
 	                    $scope.films = response.data;
