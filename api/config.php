@@ -101,6 +101,63 @@ class Model
 		}
 	}
 
+	function listAllCountries(){
+		$result = pg_query("SELECT nazwa FROM kraj");
+		return $result;
+	}
+
+	function listAllGenres(){
+		$result = pg_query("SELECT nazwa FROM gatunek");
+		return $result;
+	}
+
+	function addCountry($data){
+
+		if(pg_fetch_array(pg_query("SELECT * from kraj WHERE nazwa = '". $data['nazwa'] ."'"))){
+			return 0;
+		}
+		elseif(pg_query("INSERT into kraj (nazwa) values ('" . $data['nazwa'] . "' )")){
+			return 1;
+		}
+		else{
+			return false;
+		}
+	}
+
+	function addGenre($data){
+//echo $data['nazwa'];
+//echo pg_fetch_array(pg_query("SELECT * from gatunek WHERE nazwa = '". $data['nazwa'] ."'"))['nazwa'];
+echo $data['nazwa'];
+		if(pg_fetch_array(pg_query("SELECT * from gatunek WHERE nazwa = '". $data['nazwa'] ."'"))){
+			return 0;
+		}
+		elseif(pg_query("INSERT into gatunek (nazwa) values ('" . $data['nazwa'] . "' )")){
+			return 1;
+		}
+		else{
+			return false;
+		}
+	}
+
+	function updateMovie($id, $data){
+		$result = pg_query("UPDATE film SET tytul='" . $data['tytul'] . "', rok_premiery='" . $data['rok_premiery'] . "', opis='" . $data['opis'] . "' WHERE film_id = " . $id);
+
+		$result2 = pg_query("DELETE FROM film_gatunek where film_id = " . $id);
+
+		$res2 = true;
+		foreach ($data['gatunki'] as &$value) {
+		    	$g_id = pg_fetch_array( pg_query("SELECT gatunek_id from gatunek WHERE nazwa = '" . $value . "'"))['gatunek_id'];
+
+			if(!pg_query("INSERT into film_gatunek values ('$id' , '$g_id' )")){
+				$res2 = false;
+			}
+		}
+
+		return 1;
+		
+		//$res1 = pg_query("INSERT into film (tytul, rok_premiery, opis) values ('" . $data['tytul'] . "' , '" . $data['rok_premiery'] . "', '" . $data['opis'] . "' )");
+		//return (pg_query("DELETE FROM film WHERE film_id =" . $id));
+	}
 
 }
 
