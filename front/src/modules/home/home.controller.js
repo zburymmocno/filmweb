@@ -11,20 +11,19 @@ angular.module('app.mainCtrl', [
             })
         }
     ]).controller('homeCtrl', [
-    '$scope', 'filmService', function ($scope, filmService) {
+    '$scope', 'filmService', 'errorCallbackProvider', function ($scope, filmService, errorCallbackProvider) {
         filmService.getAll()
             .then(function successCallback(response) {
-                response = response.data;
-                console.log(response);
-                if (response.status == "success")
+                var output = response.data;
+                var status = output.status;
+                if (status == "success") {
                     $scope.films = response.data;
-                else {
-                    alert("respnse status fails");
+
+                } else if (status == "fail") {
+                    alert(output.data.message);
                 }
-            })
-            .then(function errorCallback(response) {
-                console.log(response);
-                alert(response);
+            }, function errorCallback(response) {
+                errorCallbackProvider(response);
             });
     }])
 ;

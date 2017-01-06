@@ -12,13 +12,18 @@ webpackJsonp([0],[
 	    reqModuleJS(key);
 	});
 	// load all .js file from shared
-	var reqSharedJS = __webpack_require__(10);
+	var reqSharedJS = __webpack_require__(13);
 	reqSharedJS.keys().forEach(function (key) {
 	    reqSharedJS(key);
 	});
+	// load all .js file from services
+	var reqServicesJS = __webpack_require__(20);
+	reqServicesJS.keys().forEach(function (key) {
+	    reqServicesJS(key);
+	});
 
 	//load angular app
-	__webpack_require__(19);
+	__webpack_require__(24);
 
 /***/ },
 /* 1 */
@@ -374,7 +379,9 @@ webpackJsonp([0],[
 
 	var map = {
 		"./films/add/add.controller.js": 6,
-		"./home/home.controller.js": 8
+		"./films/id/id.controller.js": 8,
+		"./films/id/id.service.js": 10,
+		"./home/home.controller.js": 11
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -436,6 +443,80 @@ webpackJsonp([0],[
 /* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
+	angular.module('app.filmsId', [
+	    'ui.router'
+	])
+	    .config([
+	        '$stateProvider', function ($stateProvider) {
+	            $stateProvider.state('filmsId', {
+	                name: 'filmsId',
+	                url: '/films/{id}',
+	                controller: 'filmsIdCtrl',
+	                template: __webpack_require__(9)
+	            })
+	        }
+	    ])
+	    .controller('filmsIdCtrl', ['$scope', '$stateParams', 'filmService', 'errorCallbackProvider', function ($scope, $stateParams, filmService, errorCallbackProvider) {
+	        var id = $stateParams.id;
+	        filmService.get(id)
+	            .then(function successCallback(response) {
+	                var output = response.data;
+	                var status = output.status;
+	                if (status == "success") {
+	                    $scope.film = response.data;
+
+	                } else if (status == "fail") {
+	                    alert("Error check console");
+	                    console.log(response.data);
+	                }
+	            }, function errorCallback(response) {
+	                errorCallbackProvider(response);
+	            });
+
+
+	    }])
+	;
+
+/***/ },
+/* 9 */
+/***/ function(module, exports) {
+
+	module.exports = "<h1>Test FILMU</h1>\n<h2>Wszystkie dane:</h2>\n<pre>\n    {{film}}\n</pre>";
+
+/***/ },
+/* 10 */
+/***/ function(module, exports) {
+
+	// angular
+	//     .module('nerd.service', [])
+	//     .service('nerdService', ['$http', function ($http) {
+	//
+	//         return {
+	//             // call to get all nerds
+	//             get: function () {
+	//                 return $http.get('/api/nerds');
+	//             },
+	//
+	//
+	//             // these will work when more API routes are defined on the Node side of things
+	//             // call to POST and create a new nerd
+	//             create: function (nerdData) {
+	//                 return $http.post('/api/nerds', nerdData);
+	//             },
+	//
+	//             // call to DELETE a nerd
+	//             delete: function (id) {
+	//                 return $http.delete('/api/nerds/' + id);
+	//             }
+	//         }
+	//
+	//     }]);
+
+
+/***/ },
+/* 11 */
+/***/ function(module, exports, __webpack_require__) {
+
 	angular.module('app.mainCtrl', [
 	    'ui.router'
 	])
@@ -445,44 +526,41 @@ webpackJsonp([0],[
 	                name: 'home',
 	                url: '/',
 	                controller: 'homeCtrl',
-	                template: __webpack_require__(9)
+	                template: __webpack_require__(12)
 	            })
 	        }
 	    ]).controller('homeCtrl', [
-	    '$scope', 'filmService', function ($scope, filmService) {
+	    '$scope', 'filmService', 'errorCallbackProvider', function ($scope, filmService, errorCallbackProvider) {
 	        filmService.getAll()
 	            .then(function successCallback(response) {
-	                response = response.data;
-	                console.log(response);
-	                if (response.status == "success")
+	                var output = response.data;
+	                var status = output.status;
+	                if (status == "success") {
 	                    $scope.films = response.data;
-	                else {
-	                    alert("respnse status fails");
+
+	                } else if (status == "fail") {
+	                    alert(output.data.message);
 	                }
-	            })
-	            .then(function errorCallback(response) {
-	                console.log(response);
-	                alert(response);
+	            }, function errorCallback(response) {
+	                errorCallbackProvider(response);
 	            });
 	    }])
 	;
 
 /***/ },
-/* 9 */
+/* 12 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"jumbotron\">\n    <h1 class=\"jumbotron__title\">Biblia filmów</h1>\n    <p class=\"jumbotron__desc\">\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget dapibus risus. Praesent vel volutpat metus.\n        Cras est mauris, sollicitudin quis ipsum quis, tempor ullamcorper velit. Pellentesque varius mauris nulla, eget\n        aliquam risus porttitor ac. Vestibulum vestibulum leo non augue gravida efficitur. Phasellus quis suscipit\n        lectus. Fusce molestie tortor vel nunc pulvinar cursus. Donec feugiat.\n    </p>\n</div>\n\n<div class=\"film-container\">\n    <h2>Najnowsze filmy</h2>\n    <film ng-repeat=\"film in films | orderBy:'tytul'\" details=\"film\"></film>\n</div>\n\n";
 
 /***/ },
-/* 10 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var map = {
-		"./api.provider.js": 11,
-		"./film/film.controller.js": 12,
-		"./film/film.service.js": 14,
-		"./page-nav/pageNav.controller.js": 15,
-		"./side-bar/sideBar.controller.js": 17
+		"./film/film.controller.js": 14,
+		"./page-nav/pageNav.controller.js": 16,
+		"./side-bar/sideBar.controller.js": 18
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -495,11 +573,128 @@ webpackJsonp([0],[
 	};
 	webpackContext.resolve = webpackContextResolve;
 	module.exports = webpackContext;
-	webpackContext.id = 10;
+	webpackContext.id = 13;
 
 
 /***/ },
-/* 11 */
+/* 14 */
+/***/ function(module, exports, __webpack_require__) {
+
+	angular
+	    .module('app.film', [])
+	    .directive('film', function () {
+	        return {
+	            controller: 'film',
+	            template: __webpack_require__(15),
+	            scope: {
+	                details: '='
+	            },
+	            link: function (scope, element, attrs) {
+
+	            }
+	        };
+	    }).controller('film', [
+	    '$scope', function ($scope) {
+	        
+	    }
+	])
+	;
+
+/***/ },
+/* 15 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"film\">\n    <img class=\"film__image\" ng-src=\"{{details.url_p}}\" alt=\"alt\">\n    <div class=\"film__details\">\n        <h2 class=\"film__title\">{{details.tytul}}</h2>\n        <p class=\"film__desc\">{{details.opis}}</p>\n        <a class=\"film__link\" href=\"#!/films/{{details.film_id}}\">Zobacz całość</a>\n\n        <!--<ul>-->\n            <!--<li ng-repeat=\"country in details.kraje\">{{country.nazwa}}</li>-->\n        <!--</ul>-->\n        <!--<h1>Gatunki</h1>-->\n        <!--<ul>-->\n            <!--<li ng-repeat=\"genre in details.gatunki\">{{genre.nazwa}}</li>-->\n        <!--</ul>-->\n        <!--<h1>Rok</h1>-->\n        <!--<p>{{details.rok_premiery}}</p>-->\n    </div>\n</div>\n";
+
+/***/ },
+/* 16 */
+/***/ function(module, exports, __webpack_require__) {
+
+	angular
+	    .module('app.pageNav', [])
+	    .directive('pageNav', function () {
+	        return {
+	            controller: 'pageNav',
+	            template: __webpack_require__(17),
+	            scope: {},
+	            link: function (scope, element, attrs) {
+
+	            }
+	        };
+	    }).controller('pageNav', [
+	    '$scope', function ($scope) {
+	        $scope.references = [
+	            {
+	                name: 'Strona główna',
+	                href: '#!/'
+	            }, {
+	                name: 'Dodaj film',
+	                href: '#!/films/add'
+	            }
+	        ]
+	    }
+	])
+	;
+
+/***/ },
+/* 17 */
+/***/ function(module, exports) {
+
+	module.exports = "<nav class=\"page-nav\">\n    <span class=\"page-nav__logo\">\n        <h1>FiLmY</h1>\n    </span>\n    <ul class=\"page-nav__list\">\n        <li class=\"page-nav__item\" ng-repeat=\"reference in references\">\n            <a class=\"page-nav__link\" ng-href=\"{{reference.href}}\">\n                {{reference.name}}\n            </a>\n        </li>\n    </ul>\n</nav>";
+
+/***/ },
+/* 18 */
+/***/ function(module, exports, __webpack_require__) {
+
+	angular
+	    .module('app.sideBar', [])
+	    .directive('sideBar', function () {
+	        return {
+	            controller: 'sideBar',
+	            template: __webpack_require__(19),
+	            scope: {},
+	            link: function (scope, element, attrs) {
+
+	            }
+	        };
+	    }).controller('sideBar', [
+	    '$scope', function ($scope) {
+	        
+	    }
+	])
+	;
+
+/***/ },
+/* 19 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"side-bar\">\n    <div class=\"widget\">\n      <h3 class=\"widget__title\">Title</h3>\n        <ul class=\"widget__list\">\n            <li class=\"widget__item\">\n                <a class=\"widget__link\">\n                    LINK\n                </a>\n            </li>\n        </ul>\n    </div>\n</div>";
+
+/***/ },
+/* 20 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var map = {
+		"./api.provider.js": 21,
+		"./errorCallback.provider.js": 22,
+		"./film.service.js": 23
+	};
+	function webpackContext(req) {
+		return __webpack_require__(webpackContextResolve(req));
+	};
+	function webpackContextResolve(req) {
+		return map[req] || (function() { throw new Error("Cannot find module '" + req + "'.") }());
+	};
+	webpackContext.keys = function webpackContextKeys() {
+		return Object.keys(map);
+	};
+	webpackContext.resolve = webpackContextResolve;
+	module.exports = webpackContext;
+	webpackContext.id = 20;
+
+
+/***/ },
+/* 21 */
 /***/ function(module, exports) {
 
 	angular
@@ -522,44 +717,28 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 12 */
-/***/ function(module, exports, __webpack_require__) {
-
-	angular
-	    .module('app.film', [])
-	    .directive('film', function () {
-	        return {
-	            controller: 'film',
-	            template: __webpack_require__(13),
-	            scope: {
-	                details: '='
-	            },
-	            link: function (scope, element, attrs) {
-
-	            }
-	        };
-	    }).controller('film', [
-	    '$scope', function ($scope) {
-	        
-	    }
-	])
-	;
-
-/***/ },
-/* 13 */
+/* 22 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"film\">\n    <img class=\"film__image\" ng-src=\"{{details.url_p}}\" alt=\"alt\">\n    <div class=\"film__details\">\n        <h2 class=\"film__title\">{{details.tytul}}</h2>\n        <p class=\"film__desc\">{{details.opis}}</p>\n        <a class=\"film__link\" href=\"#!/films/{{details.film_id}}\">Zobacz całość</a>\n\n\n        <ul>\n            <li ng-repeat=\"country in details.kraje\">{{country.nazwa}}</li>\n        </ul>\n        <h1>Gatunki</h1>\n        <ul>\n            <li ng-repeat=\"genre in details.gatunki\">{{genre.nazwa}}</li>\n        </ul>\n        <h1>Rok</h1>\n        <p>{{details.rok_premiery}}</p>\n    </div>\n</div>\n";
+	angular
+	    .module('errorCallback.provider', [])
+	    .provider('errorCallbackProvider', function ErrorCallbackProvider() {
+	        this.$get = function () {
+	            return function (data) {
+	                return console.log("connection problem \\toDo");
+	            }
+	        }
+	    });
+
 
 /***/ },
-/* 14 */
+/* 23 */
 /***/ function(module, exports) {
 
 	angular
 	    .module('film.service', [])
 	    .service('filmService', ['$http', 'apiProvider', function ($http, apiProvider) {
-
-
+	        
 	        return {
 	            getAll: function () {
 	                return $http({
@@ -568,17 +747,24 @@ webpackJsonp([0],[
 	                });
 	            },
 
-
 	            get: function (id) {
-	                return $http.get('/api/nerds', id);
+	                return $http({
+	                    method: 'GET',
+	                    url: apiProvider() + "/films/" + id
+	                });
 	            },
 
-	            add: function (id) {
-	                return $http.delete('/api/nerds/' + id);
+	            add: function (data) {
+	                return $http({
+	                    method: 'POST',
+	                    url: apiProvider() + "/films/add"
+	                });
 	            },
-
 	            delete: function (id) {
-	                return $http.delete('/api/nerds/' + id);
+	                return $http({
+	                    method: 'GET',
+	                    url: apiProvider() + "/films/remove/" + id
+	                });
 	            }
 	        }
 
@@ -586,92 +772,30 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 15 */
-/***/ function(module, exports, __webpack_require__) {
-
-	angular
-	    .module('app.pageNav', [])
-	    .directive('pageNav', function () {
-	        return {
-	            controller: 'pageNav',
-	            template: __webpack_require__(16),
-	            scope: {},
-	            link: function (scope, element, attrs) {
-
-	            }
-	        };
-	    }).controller('pageNav', [
-	    '$scope', function ($scope) {
-	        $scope.references = [
-	            {
-	                name: 'Strona główna',
-	                href: '#!/'
-	            }, {
-	                name: 'Dodaj film',
-	                href: '#!/films/add'
-	            }
-	        ]
-	    }
-	])
-	;
-
-/***/ },
-/* 16 */
-/***/ function(module, exports) {
-
-	module.exports = "<nav class=\"page-nav\">\n    <span class=\"page-nav__logo\">\n        <h1>FiLmY</h1>\n    </span>\n    <ul class=\"page-nav__list\">\n        <li class=\"page-nav__item\" ng-repeat=\"reference in references\">\n            <a class=\"page-nav__link\" ng-href=\"{{reference.href}}\">\n                {{reference.name}}\n            </a>\n        </li>\n    </ul>\n</nav>";
-
-/***/ },
-/* 17 */
-/***/ function(module, exports, __webpack_require__) {
-
-	angular
-	    .module('app.sideBar', [])
-	    .directive('sideBar', function () {
-	        return {
-	            controller: 'sideBar',
-	            template: __webpack_require__(18),
-	            scope: {},
-	            link: function (scope, element, attrs) {
-
-	            }
-	        };
-	    }).controller('sideBar', [
-	    '$scope', function ($scope) {
-	        
-	    }
-	])
-	;
-
-/***/ },
-/* 18 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"side-bar\">\n    <div class=\"widget\">\n      <h3 class=\"widget__title\">Title</h3>\n        <ul class=\"widget__list\">\n            <li class=\"widget__item\">\n                <a class=\"widget__link\">\n                    LINK\n                </a>\n            </li>\n        </ul>\n    </div>\n</div>";
-
-/***/ },
-/* 19 */
+/* 24 */
 /***/ function(module, exports) {
 
 	angular
 	    .module('app', [
 	        'ui.router',
-	        
+
 	        'api.provider',
+	        'errorCallback.provider',
 
 	        'ngAnimate',
 	        'app.pageNav',
 	        'app.sideBar',
 	        'app.film',
-	        
+
 	        'film.service',
 
 	        'app.filmsAdd',
+	        'app.filmsId',
 	        'app.mainCtrl'
 
 	    ])
 	    .config([
-	        '$stateProvider' , function ($stateProvider) {
+	        '$stateProvider', function ($stateProvider) {
 
 	        }
 	    ])
