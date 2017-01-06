@@ -12,6 +12,11 @@ var reqSharedJS = require.context("./src/shared", true, /^(.*\.(js$))[^.]*$/igm)
 reqSharedJS.keys().forEach(function (key) {
     reqSharedJS(key);
 });
+// load all .js file from services
+var reqServicesJS = require.context("./src/services", true, /^(.*\.(js$))[^.]*$/igm);
+reqServicesJS.keys().forEach(function (key) {
+    reqServicesJS(key);
+});
 
 //load angular app
 require('./src/app');
