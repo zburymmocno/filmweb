@@ -510,7 +510,7 @@ webpackJsonp([0],[
 /* 9 */
 /***/ function(module, exports) {
 
-	module.exports = "<h1>Test FILMU</h1>\n<h2>Wszystkie dane:</h2>\n<pre>\n    {{film}}\n</pre>";
+	module.exports = "<h1>Test FILMU</h1>\n<h2>Wszystkie dane:</h2>\n<pre>\n    {{film | json}}\n</pre>";
 
 /***/ },
 /* 10 */
@@ -721,7 +721,7 @@ webpackJsonp([0],[
 	        $scope.form = {};
 
 	        $scope.submit = function () {
-	            usersService.add($scope.form)
+	            usersService.login($scope.form)
 	                .then(function successCallback(response) {
 	                    var output = response.data;
 	                    var status = output.status;
