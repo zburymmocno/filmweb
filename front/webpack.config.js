@@ -7,6 +7,9 @@ module.exports = {
         libs: [
             'angular',
             'angular-animate',
+            'angular-aria',
+            'angular-material',
+            'angular-messages',
             'angular-ui-router'
         ],
         app: "./app-loader.js"

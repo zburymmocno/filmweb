@@ -1,6 +1,7 @@
 angular
     .module('app', [
         'ui.router',
+        'ngMaterial',
 
         'api.provider',
         'errorCallback.provider',
