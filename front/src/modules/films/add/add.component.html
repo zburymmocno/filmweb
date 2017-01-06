@@ -9,7 +9,7 @@
     </div>
     <div class="form__group">
         <label class="form__label" for="genres">Gatunki</label>
-        <select ng-model="form.gatunki" ng-options="genre for genre in genres" multiple id="genres"
+        <select ng-model="form.gatunki" ng-options="genre.nazwa for genre in genres" multiple id="genres"
                 class="form__in form--select"></select>
     </div>
     <div class="form__group">
@@ -17,8 +17,8 @@
         <input ng-model="form.url_p" id="url_p" class="form__in form--input" type="text">
     </div>
     <div class="form__group">
-        <label class="form__label" for="kraj"></label>
-        <select ng-model="form.kraje" ng-options="country for country in countries" id="kraj"
+        <label class="form__label" for="kraj">Kraje</label>
+        <select ng-model="form.kraje" ng-options="country.nazwa for country in countries" id="kraj"
                 class="form__in form--select"
                 multiple></select>
     </div>

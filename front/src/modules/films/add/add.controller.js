@@ -11,21 +11,66 @@ angular.module('app.filmsAdd', [
             })
         }
     ])
-    .controller('filmsAddCtrl', ['$scope', 'apiProvider', function ($scope, apiProvider) {
+    .controller('filmsAddCtrl', ['$scope', 'filmService' ,'countriesService', 'genresService', 'errorCallbackProvider', function ($scope, countriesService, filmService,genresService, errorCallbackProvider) {
         $scope.form = {};
+        countriesService.getAll()
+            .then(function successCallback(response) {
+                var output = response.data;
+                var status = output.status;
+                if (status == "success") {
+                    $scope.countries = output.data;
 
-        console.log(apiProvider());
+                } else if (status == "fail") {
+                    alert("Error - check console");
+                    console.log(output.data);
+                }
+            }, function errorCallback(response) {
+                errorCallbackProvider(response);
+            });
+
+        genresService.getAll()
+            .then(function successCallback(response) {
+                var output = response.data;
+                var status = output.status;
+                if (status == "success") {
+                    $scope.genres = output.data;
+
+                } else if (status == "fail") {
+                    alert("Error - check console");
+                    console.log(output.data);
+                }
+            }, function errorCallback(response) {
+                errorCallbackProvider(response);
+            });
+
 
         $scope.send = function () {
-            console.log($scope.form);
+            filmService.add($scope.form)
+                .then(function (response) {
+                    alert("poszło");
+                    console.log(response);
+                }, function (reponse) {
+                    errorCallbackProvider(response);
+                });
+
+
+
         };
-                
+
         $scope.genres = [
-            "Komedia", "Horror"
+            {
+                "nazwa": "ggegeg"
+            }, {
+                "nazwa": "gggggg"
+            }
         ];
 
         $scope.countries = [
-            "Polska", "Warszawa"
+            {
+                "nazwa": "coun"
+            }, {
+                "nazwa": "counasds"
+            }
         ]
     }])
 ;

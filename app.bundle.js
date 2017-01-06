@@ -23,7 +23,7 @@ webpackJsonp([0],[
 	});
 
 	//load angular app
-	__webpack_require__(24);
+	__webpack_require__(26);
 
 /***/ },
 /* 1 */
@@ -414,21 +414,66 @@ webpackJsonp([0],[
 	            })
 	        }
 	    ])
-	    .controller('filmsAddCtrl', ['$scope', 'apiProvider', function ($scope, apiProvider) {
+	    .controller('filmsAddCtrl', ['$scope', 'filmService' ,'countriesService', 'genresService', 'errorCallbackProvider', function ($scope, countriesService, filmService,genresService, errorCallbackProvider) {
 	        $scope.form = {};
+	        countriesService.getAll()
+	            .then(function successCallback(response) {
+	                var output = response.data;
+	                var status = output.status;
+	                if (status == "success") {
+	                    $scope.countries = output.data;
 
-	        console.log(apiProvider());
+	                } else if (status == "fail") {
+	                    alert("Error - check console");
+	                    console.log(output.data);
+	                }
+	            }, function errorCallback(response) {
+	                errorCallbackProvider(response);
+	            });
+
+	        genresService.getAll()
+	            .then(function successCallback(response) {
+	                var output = response.data;
+	                var status = output.status;
+	                if (status == "success") {
+	                    $scope.genres = output.data;
+
+	                } else if (status == "fail") {
+	                    alert("Error - check console");
+	                    console.log(output.data);
+	                }
+	            }, function errorCallback(response) {
+	                errorCallbackProvider(response);
+	            });
+
 
 	        $scope.send = function () {
-	            console.log($scope.form);
+	            filmService.add($scope.form)
+	                .then(function (response) {
+	                    alert("poszło");
+	                    console.log(response);
+	                }, function (reponse) {
+	                    errorCallbackProvider(response);
+	                });
+
+
+
 	        };
-	                
+
 	        $scope.genres = [
-	            "Komedia", "Horror"
+	            {
+	                "nazwa": "ggegeg"
+	            }, {
+	                "nazwa": "gggggg"
+	            }
 	        ];
 
 	        $scope.countries = [
-	            "Polska", "Warszawa"
+	            {
+	                "nazwa": "coun"
+	            }, {
+	                "nazwa": "counasds"
+	            }
 	        ]
 	    }])
 	;
@@ -437,7 +482,7 @@ webpackJsonp([0],[
 /* 7 */
 /***/ function(module, exports) {
 
-	module.exports = "<form novalidate class=\"form form--block\">\n    <div class=\"form__group\">\n        <label class=\"form__label\" for=\"title\">Tytuł filmu</label>\n        <input ng-model=\"form.tytul\" id=\"title\" class=\"form__in form--input\" type=\"text\">\n    </div>\n    <div class=\"form__group\">\n        <label class=\"form__label\" for=\"rok_premiery\">Rok premiery</label>\n        <input ng-model=\"form.rok_premiery\" id=\"rok_premiery\" class=\"form__in form--input\" type=\"number\">\n    </div>\n    <div class=\"form__group\">\n        <label class=\"form__label\" for=\"genres\">Gatunki</label>\n        <select ng-model=\"form.gatunki\" ng-options=\"genre for genre in genres\" multiple id=\"genres\"\n                class=\"form__in form--select\"></select>\n    </div>\n    <div class=\"form__group\">\n        <label class=\"form__label\" for=\"url_p\">Plakat</label>\n        <input ng-model=\"form.url_p\" id=\"url_p\" class=\"form__in form--input\" type=\"text\">\n    </div>\n    <div class=\"form__group\">\n        <label class=\"form__label\" for=\"kraj\"></label>\n        <select ng-model=\"form.kraje\" ng-options=\"country for country in countries\" id=\"kraj\"\n                class=\"form__in form--select\"\n                multiple></select>\n    </div>\n    <div class=\"form__group\">\n        <label class=\"form__label\" for=\"url_z\">Zwiastun</label>\n        <input ng-model=\"form.url_z\" id=\"url_z\" class=\"form__in form--input\" type=\"text\">\n    </div>\n\n    <div class=\"form__group\">\n        <label class=\"form__label\" for=\"opis\">Opis filmu</label>\n        <textarea ng-model=\"form.opis\" id=\"opis\" class=\"form__in form--textarea\" rows=\"10\"></textarea>\n    </div>\n    <input type=\"button\" ng-click=\"send()\" value=\"Zapisz\">\n</form>\n\n<film details=\"form\"></film>\n\n";
+	module.exports = "<form novalidate class=\"form form--block\">\n    <div class=\"form__group\">\n        <label class=\"form__label\" for=\"title\">Tytuł filmu</label>\n        <input ng-model=\"form.tytul\" id=\"title\" class=\"form__in form--input\" type=\"text\">\n    </div>\n    <div class=\"form__group\">\n        <label class=\"form__label\" for=\"rok_premiery\">Rok premiery</label>\n        <input ng-model=\"form.rok_premiery\" id=\"rok_premiery\" class=\"form__in form--input\" type=\"number\">\n    </div>\n    <div class=\"form__group\">\n        <label class=\"form__label\" for=\"genres\">Gatunki</label>\n        <select ng-model=\"form.gatunki\" ng-options=\"genre.nazwa for genre in genres\" multiple id=\"genres\"\n                class=\"form__in form--select\"></select>\n    </div>\n    <div class=\"form__group\">\n        <label class=\"form__label\" for=\"url_p\">Plakat</label>\n        <input ng-model=\"form.url_p\" id=\"url_p\" class=\"form__in form--input\" type=\"text\">\n    </div>\n    <div class=\"form__group\">\n        <label class=\"form__label\" for=\"kraj\">Kraje</label>\n        <select ng-model=\"form.kraje\" ng-options=\"country.nazwa for country in countries\" id=\"kraj\"\n                class=\"form__in form--select\"\n                multiple></select>\n    </div>\n    <div class=\"form__group\">\n        <label class=\"form__label\" for=\"url_z\">Zwiastun</label>\n        <input ng-model=\"form.url_z\" id=\"url_z\" class=\"form__in form--input\" type=\"text\">\n    </div>\n\n    <div class=\"form__group\">\n        <label class=\"form__label\" for=\"opis\">Opis filmu</label>\n        <textarea ng-model=\"form.opis\" id=\"opis\" class=\"form__in form--textarea\" rows=\"10\"></textarea>\n    </div>\n    <input type=\"button\" ng-click=\"send()\" value=\"Zapisz\">\n</form>\n\n<film details=\"form\"></film>\n\n";
 
 /***/ },
 /* 8 */
@@ -466,7 +511,7 @@ webpackJsonp([0],[
 	                    $scope.film = output.data;
 
 	                } else if (status == "fail") {
-	                    alert("Error check console");
+	                    alert("Error - check console");
 	                    console.log(output.data);
 	                }
 	            }, function errorCallback(response) {
@@ -676,8 +721,10 @@ webpackJsonp([0],[
 
 	var map = {
 		"./api.provider.js": 21,
-		"./errorCallback.provider.js": 22,
-		"./film.service.js": 23
+		"./countries.service.js": 22,
+		"./errorCallback.provider.js": 23,
+		"./film.service.js": 24,
+		"./genres.service.js": 25
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -721,6 +768,46 @@ webpackJsonp([0],[
 /***/ function(module, exports) {
 
 	angular
+	    .module('countries.service', [])
+	    .service('countriesService', ['$http', 'apiProvider', function ($http, apiProvider) {
+	        
+	        return {
+	            getAll: function () {
+	                return $http({
+	                    method: 'GET',
+	                    url: apiProvider() + "/countries"
+	                });
+	            }
+	            //
+	            // get: function (id) {
+	            //     return $http({
+	            //         method: 'GET',
+	            //         url: apiProvider() + "/films/" + id
+	            //     });
+	            // },
+	            //
+	            // add: function (data) {
+	            //     return $http({
+	            //         method: 'POST',
+	            //         url: apiProvider() + "/films/add"
+	            //     });
+	            // },
+	            // delete: function (id) {
+	            //     return $http({
+	            //         method: 'GET',
+	            //         url: apiProvider() + "/films/remove/" + id
+	            //     });
+	            // }
+	        }
+
+	    }]);
+
+
+/***/ },
+/* 23 */
+/***/ function(module, exports) {
+
+	angular
 	    .module('errorCallback.provider', [])
 	    .provider('errorCallbackProvider', function ErrorCallbackProvider() {
 	        this.$get = function () {
@@ -732,7 +819,7 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 23 */
+/* 24 */
 /***/ function(module, exports) {
 
 	angular
@@ -772,7 +859,47 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 24 */
+/* 25 */
+/***/ function(module, exports) {
+
+	angular
+	    .module('genres.service', [])
+	    .service('genresService', ['$http', 'apiProvider', function ($http, apiProvider) {
+	        
+	        return {
+	            getAll: function () {
+	                return $http({
+	                    method: 'GET',
+	                    url: apiProvider() + "/genres"
+	                });
+	            }
+	            //
+	            // get: function (id) {
+	            //     return $http({
+	            //         method: 'GET',
+	            //         url: apiProvider() + "/films/" + id
+	            //     });
+	            // },
+	            //
+	            // add: function (data) {
+	            //     return $http({
+	            //         method: 'POST',
+	            //         url: apiProvider() + "/films/add"
+	            //     });
+	            // },
+	            // delete: function (id) {
+	            //     return $http({
+	            //         method: 'GET',
+	            //         url: apiProvider() + "/films/remove/" + id
+	            //     });
+	            // }
+	        }
+
+	    }]);
+
+
+/***/ },
+/* 26 */
 /***/ function(module, exports) {
 
 	angular
@@ -788,6 +915,8 @@ webpackJsonp([0],[
 	        'app.film',
 
 	        'film.service',
+	        'countries.service',
+	        'genres.service',
 
 	        'app.filmsAdd',
 	        'app.filmsId',

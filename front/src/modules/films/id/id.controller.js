@@ -21,7 +21,7 @@ angular.module('app.filmsId', [
                     $scope.film = output.data;
 
                 } else if (status == "fail") {
-                    alert("Error check console");
+                    alert("Error - check console");
                     console.log(output.data);
                 }
             }, function errorCallback(response) {

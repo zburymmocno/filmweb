@@ -11,6 +11,8 @@ angular
         'app.film',
 
         'film.service',
+        'countries.service',
+        'genres.service',
 
         'app.filmsAdd',
         'app.filmsId',
