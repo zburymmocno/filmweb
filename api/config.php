@@ -33,6 +33,11 @@ class Model
 	}
 
 	function addMovie($data){
+
+		if(pg_fetch_array(pg_query("SELECT * from film WHERE tytul = '". $data['tytul'] ."'"))){
+			return 0;
+		}
+
 		pg_query("BEGIN") or die("Could not start transaction\n");
 
 		$res1 = pg_query("INSERT into film (tytul, rok_premiery, opis) values ('" . $data['tytul'] . "' , '" . $data['rok_premiery'] . "', '" . $data['opis'] . "' )");
@@ -41,7 +46,7 @@ class Model
 
 		$res2 = true;
 		foreach ($data['gatunki'] as &$value) {
-//echo $value['nazwa'];
+
 		    	$g_id = pg_fetch_array( pg_query("SELECT gatunek_id from gatunek WHERE nazwa = '" . $value['nazwa'] . "'"))['gatunek_id'];
 			if(!pg_query("INSERT into film_gatunek values ('$f_id' , '$g_id' )")){
 				$res2 = false;
@@ -62,10 +67,10 @@ class Model
 
 		if ($res1 and $res2 and $res3 and $res4 and $res5) {
 		    	pg_query("COMMIT") or die("Transaction commit failed\n");
-			return true;
+			return 1;
 		} else {
 		    	pg_query("ROLLBACK") or die("Transaction rollback failed\n");
-			return false;
+			return 2;
 		}
 	}
 
@@ -85,23 +90,31 @@ class Model
 	}
 
 	function addUser($data){
+
+		if(pg_fetch_array(pg_query("SELECT * from uzytkownicy WHERE nick = '". $data['nick'] ."'"))){
+			return 0;
+		}
+
 		$encodedpass = md5($data['haslo']);
-		pg_query("INSERT into uzytkownicy (nick, haslo, email) values ('" . $data['nick'] . "' , '" . $encodedpass . "', '" . $data['email'] . "' )");
+
+		if (pg_query("INSERT into uzytkownicy (nick, haslo, email) values ('" . $data['nick'] . "' , '" . $encodedpass . "', '" . $data['email'] . "' )")) {
+			return array("nick"=>$data['nick']);
+		} else {
+			return 2;
+		}
 	}
 
 	function login($data){
-echo $data[0];
+
 		$res = pg_fetch_array(pg_query("SELECT * FROM uzytkownicy WHERE  nick = '" . $data['nick'] . "' AND haslo = '" . md5($data['haslo']) . "'"));
-		//echo "SAdas22222".$data['nick'].$data['haslo']."ASdasd";
-//print_r($data);
-//echo $data['nick'];
+
 		if ($res){
         		session_start();
         		$_SESSION["ident"] = $data['nick'];
 			return array("nick"=>$data['nick']);
 		}
 		else {
-			return false;
+			return 0;
 		}
 	}
 
@@ -124,14 +137,11 @@ echo $data[0];
 			return 1;
 		}
 		else{
-			return false;
+			return 2;
 		}
 	}
 
 	function addGenre($data){
-//echo $data['nazwa'];
-//echo pg_fetch_array(pg_query("SELECT * from gatunek WHERE nazwa = '". $data['nazwa'] ."'"))['nazwa'];
-echo $data['nazwa'];
 		if(pg_fetch_array(pg_query("SELECT * from gatunek WHERE nazwa = '". $data['nazwa'] ."'"))){
 			return 0;
 		}
@@ -139,12 +149,14 @@ echo $data['nazwa'];
 			return 1;
 		}
 		else{
-			return false;
+			return 2;
 		}
 	}
 
 	function updateMovie($id, $data){
-		$result = pg_query("UPDATE film SET tytul='" . $data['tytul'] . "', rok_premiery='" . $data['rok_premiery'] . "', opis='" . $data['opis'] . "' WHERE film_id = " . $id);
+		pg_query("BEGIN") or die("Could not start transaction\n");
+
+		$res1 = pg_query("UPDATE film SET tytul='" . $data['tytul'] . "', rok_premiery='" . $data['rok_premiery'] . "', opis='" . $data['opis'] . "' WHERE film_id = " . $id);
 
 		$result2 = pg_query("DELETE FROM film_gatunek where film_id = " . $id);
 		$result3 = pg_query("DELETE FROM film_kraj where film_id = " . $id);
@@ -159,19 +171,27 @@ echo $data['nazwa'];
 		}
 
 		$res3 = true;
-print_r($data['kraje']);
 		foreach ($data['kraje'] as &$value) {
 		    	$k_id = pg_fetch_array( pg_query("SELECT kraj_id from kraj WHERE nazwa = '" . $value . "'"))['kraj_id'];
-echo $k_id;
+
 			if(!pg_query("INSERT into film_kraj values ('$id' , '$k_id' )")){
 				$res3 = false;
 			}
 		}
 
-		return 1;
+
+		$res4 = pg_query("UPDATE film_zwiastun SET url='" . $data['url_z'] . "', film_id='" . $id . "' WHERE film_id = " . $id);
+		$res5 = pg_query("UPDATE film_plakat SET url='" . $data['url_p'] . "', film_id='" . $id . "' WHERE film_id = " . $id);
+
+
+		if ($res1 and $res2 and $res3 and $res4 and $res5) {
+		    	pg_query("COMMIT") or die("Transaction commit failed\n");
+			return true;
+		} else {
+		    	pg_query("ROLLBACK") or die("Transaction rollback failed\n");
+			return false;
+		}
 		
-		//$res1 = pg_query("INSERT into film (tytul, rok_premiery, opis) values ('" . $data['tytul'] . "' , '" . $data['rok_premiery'] . "', '" . $data['opis'] . "' )");
-		//return (pg_query("DELETE FROM film WHERE film_id =" . $id));
 	}
 
 }

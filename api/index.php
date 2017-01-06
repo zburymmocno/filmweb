@@ -26,7 +26,7 @@ if($uri === $path.'/films') {
 		}
 		$status = new JSendResponse('success', $tab);
 	}else 
-		$status = new JSendResponse('fail', array("message"=>"Błąd bazy danych"));
+		$status = new JSendResponse('fail', array("message"=>"Błąd serwera"));
 	echo json_encode($status);
 
 }elseif($uri === $path.'/countries') {
@@ -35,7 +35,7 @@ if($uri === $path.'/films') {
 	if($tab){
 		$status = new JSendResponse('success', $tab);
 	}else 
-		$status = new JSendResponse('fail', array("message"=>"Błąd bazy danych przy wyświetlaniu wszystkich krajów"));
+		$status = new JSendResponse('fail', array("message"=>"Błąd serwera"));
 	echo json_encode($status);
 
 }elseif($uri === $path.'/genres') {
@@ -44,7 +44,7 @@ if($uri === $path.'/films') {
 	if($tab){
 		$status = new JSendResponse('success', $tab);
 	}else 
-		$status = new JSendResponse('fail', array("message"=>"Błąd bazy danych przy wyświetlaniu wszystkich gatunków"));
+		$status = new JSendResponse('fail', array("message"=>"Błąd serwera"));
 	echo json_encode($status);
 
 }elseif(preg_match("/^".$pathreg."\/films\/[0-9]{1,}$/", $uri, $match)) {
@@ -61,26 +61,29 @@ if($uri === $path.'/films') {
 		$tab = $row;
 		$status = new JSendResponse('success', $row);
 	}else{ 
-		$status = new JSendResponse('fail', array("message"=>"Błąd bazy danych"));
+		$status = new JSendResponse('fail', array("message"=>"Błąd serwera"));
 	}
 	echo json_encode($status);
 
 }elseif($uri === $path.'/films/add'){
-	//$data = json_decode($_POST, true);
-	//echo $_POST["tytul"];
-	//print_r($_POST);
 	$data_from_json = json_decode(file_get_contents('php://input'), true);
-	if($obj->addMovie($data_from_json)){ // za $_POST ma isc $data
+
+	$response = $obj->addMovie($data_from_json);	
+
+	if($response == 1){ 
 		$status = new JSendResponse('success', array("message"=>"Film dodano poprawnie"));
 	}
+	elseif($response == 0){
+		$status = new JSendResponse('error', array("message"=>"Film o takim tytule juz istnieje"), 'Not cool.', 9001);		
+	}
+	elseif($response == 2){
+		$status = new JSendResponse('error', array("message"=>"Błąd walidacji"), 'Not cool.', 9001);		
+	}
 	else{
-		$status = new JSendResponse('fail', array("message"=>"Nie dodano filmu"));
+		$status = new JSendResponse('fail', array("message"=>"Błąd serwera"));
 	}
 	echo json_encode($status);
 }elseif($uri === $path.'/countries/add'){
-	//$data = json_decode($_POST, true);
-	//echo $_POST["tytul"];
-	//print_r($_POST);
 
 	$response = $obj->addCountry($_POST);
 
@@ -91,13 +94,10 @@ if($uri === $path.'/films') {
 		$status = new JSendResponse('error', array("message"=>"Taki kraj już istnieje"), 'Not cool.', 9001);		
 	}
 	else{
-		$status = new JSendResponse('fail', array("message"=>"Nie dodano kraju"));		
+		$status = new JSendResponse('fail', array("message"=>"Błąd serwera"));		
 	}
 	echo json_encode($status);
 }elseif($uri === $path.'/genres/add'){
-	//$data = json_decode($_POST, true);
-	//echo $_POST["tytul"];
-	//print_r($_POST);
 
 	$response = $obj->addGenre($_POST);
 
@@ -108,7 +108,7 @@ if($uri === $path.'/films') {
 		$status = new JSendResponse('error', array("message"=>"Taki gatunek już istnieje"), 'Not cool.');		
 	}
 	else{
-		$status = new JSendResponse('fail', array("message"=>"Nie dodano kraju"));		
+		$status = new JSendResponse('fail', array("message"=>"Błąd serwera"));		
 	}
 	echo json_encode($status);
 }elseif(preg_match("/^".$pathreg."\/films\/remove\/[0-9]{1,}$/", $uri, $match)){
@@ -123,21 +123,37 @@ if($uri === $path.'/films') {
 	}
 	echo json_encode($status); 
 }elseif($uri === $path.'/users/add'){
-	$obj->addUser($_POST);  
-}elseif($uri === $path.'/users/login'){
 	$data_from_json = json_decode(file_get_contents('php://input'), true);
-	//print_r($data_from_json);
-	if($data = $obj->login($data_from_json)){
-		echo $data['nick'];
-		$status = new JSendResponse('success', $data);
+
+	$response = $obj->addUser($data_from_json);	
+
+	if(is_array($response)){
+		$status = new JSendResponse('success', $response);
+	}
+	elseif($response == 0){
+		$status = new JSendResponse('error', array("message"=>"Użytkownik o podanym nicku już istnieje"), 'Not cool.');		
 	}
 	else{
-		$status = new JSendResponse('fail', array("message"=>"Błąd logowania"));		
+		$status = new JSendResponse('fail', array("message"=>"Błąd serwera"));		
+	}
+	echo json_encode($status); 
+}elseif($uri === $path.'/users/login'){
+	$data_from_json = json_decode(file_get_contents('php://input'), true);
+
+	$response = $obj->login($data_from_json);	
+
+	if(is_array($response)){
+		$status = new JSendResponse('success', $response);
+	}
+	elseif($response == 0){
+		$status = new JSendResponse('error', array("message"=>"Błędne dane"), 'Not cool.');		
+	}
+	else{
+		$status = new JSendResponse('fail', array("message"=>"Błąd serwera"));		
 	}
 	echo json_encode($status);
 }elseif(preg_match("/^".$pathreg."\/films\/edit\/[0-9]{1,}$/", $uri, $match)) {
 	preg_match('!\d+!', $uri, $matches);
-echo $matches[0];
 
 	if($obj->updateMovie($matches[0], $_POST)){
 		$status = new JSendResponse('success', array("message"=>"Edycja filmu przebiegła pomyślnie"));
