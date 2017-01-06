@@ -17,7 +17,7 @@ angular.module('app.mainCtrl', [
                 var output = response.data;
                 var status = output.status;
                 if (status == "success") {
-                    $scope.films = response.data;
+                    $scope.films = output.data;
 
                 } else if (status == "fail") {
                     alert(output.data.message);

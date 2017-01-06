@@ -463,11 +463,11 @@ webpackJsonp([0],[
 	                var output = response.data;
 	                var status = output.status;
 	                if (status == "success") {
-	                    $scope.film = response.data;
+	                    $scope.film = output.data;
 
 	                } else if (status == "fail") {
 	                    alert("Error check console");
-	                    console.log(response.data);
+	                    console.log(output.data);
 	                }
 	            }, function errorCallback(response) {
 	                errorCallbackProvider(response);
@@ -536,7 +536,7 @@ webpackJsonp([0],[
 	                var output = response.data;
 	                var status = output.status;
 	                if (status == "success") {
-	                    $scope.films = response.data;
+	                    $scope.films = output.data;
 
 	                } else if (status == "fail") {
 	                    alert(output.data.message);
