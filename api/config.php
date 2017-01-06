@@ -154,6 +154,11 @@ class Model
 	}
 
 	function updateMovie($id, $data){
+
+		if(pg_fetch_array(pg_query("SELECT * from film WHERE tytul = '". $data['tytul'] ."'"))){
+			return 0;
+		}
+
 		pg_query("BEGIN") or die("Could not start transaction\n");
 
 		$res1 = pg_query("UPDATE film SET tytul='" . $data['tytul'] . "', rok_premiery='" . $data['rok_premiery'] . "', opis='" . $data['opis'] . "' WHERE film_id = " . $id);
@@ -179,17 +184,16 @@ class Model
 			}
 		}
 
-
 		$res4 = pg_query("UPDATE film_zwiastun SET url='" . $data['url_z'] . "', film_id='" . $id . "' WHERE film_id = " . $id);
 		$res5 = pg_query("UPDATE film_plakat SET url='" . $data['url_p'] . "', film_id='" . $id . "' WHERE film_id = " . $id);
 
 
 		if ($res1 and $res2 and $res3 and $res4 and $res5) {
 		    	pg_query("COMMIT") or die("Transaction commit failed\n");
-			return true;
+			return 1;
 		} else {
 		    	pg_query("ROLLBACK") or die("Transaction rollback failed\n");
-			return false;
+			return 2;
 		}
 		
 	}
