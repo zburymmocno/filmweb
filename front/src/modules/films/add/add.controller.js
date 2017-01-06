@@ -49,7 +49,7 @@ angular.module('app.filmsAdd', [
 
                 $scope.send = function () {
                     console.log($scope.form);
-                    genresService.add($scope.form)
+                    filmService.add($scope.form)
                         .then(function (response) {
                             console.log(response);
                         }, function (response) {

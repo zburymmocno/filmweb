@@ -74,7 +74,7 @@ if($uri === $path.'/films') {
 		$status = new JSendResponse('success', array("message"=>"Film dodano poprawnie"));
 	}
 	else{
-		$status = new JSendResponse('fail', array("message"=>"Nie dodano filmu"));		
+		$status = new JSendResponse('fail', array("message"=>"Nie dodano filmu"));
 	}
 	echo json_encode($status);
 }elseif($uri === $path.'/countries/add'){
