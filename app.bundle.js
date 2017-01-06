@@ -452,7 +452,7 @@ webpackJsonp([0],[
 
 	                $scope.send = function () {
 	                    console.log($scope.form);
-	                    genresService.add($scope.form)
+	                    filmService.add($scope.form)
 	                        .then(function (response) {
 	                            console.log(response);
 	                        }, function (response) {
@@ -867,10 +867,12 @@ webpackJsonp([0],[
 	                });
 	            },
 
-	            add: function (data) {
+	            add: function (dataaa) {
 	                return $http({
 	                    method: 'POST',
-	                    url: apiProvider() + "/films/add"
+	                    data: JSON.stringify(dataaa),
+	                    url: apiProvider() + "/films/add",
+	                    headers: {'Content-Type': 'application/json'}
 	                });
 	            },
 	            delete: function (id) {

@@ -19,7 +19,9 @@ angular
             add: function (data) {
                 return $http({
                     method: 'POST',
-                    url: apiProvider() + "/films/add"
+                    data: JSON.stringify(data),
+                    url: apiProvider() + "/films/add",
+                    headers: {'Content-Type': 'application/json'}
                 });
             },
             delete: function (id) {
