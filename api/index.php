@@ -69,7 +69,7 @@ if($uri === $path.'/films') {
 	//$data = json_decode($_POST, true);
 	//echo $_POST["tytul"];
 	//print_r($_POST);
-	    $data_from_json = json_decode(file_get_contents('php://input'), true);
+	$data_from_json = json_decode(file_get_contents('php://input'), true);
 	if($obj->addMovie($data_from_json)){ // za $_POST ma isc $data
 		$status = new JSendResponse('success', array("message"=>"Film dodano poprawnie"));
 	}
@@ -125,7 +125,8 @@ if($uri === $path.'/films') {
 }elseif($uri === $path.'/users/add'){
 	$obj->addUser($_POST);  
 }elseif($uri === $path.'/users/login'){
-	if($data = $obj->login($_POST)){
+	$data_from_json = json_decode(file_get_contents('php://input'), true);
+	if($data = $obj->login($data_from_json)){
 		$status = new JSendResponse('success', $data);
 	}
 	else{
