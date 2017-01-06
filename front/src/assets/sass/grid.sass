@@ -1,0 +1,44 @@
+.flex
+  display: flex
+  width: 100%
+  &--wrap
+    flex-wrap: wrap
+  &--center
+    justify-content: center
+    align-items: center
+    align-content: center
+  &--center-justify
+    justify-content: center
+  &--center-items
+    align-items: center
+  &--center-align
+    align-content: center
+  &--center-content
+    align-content: center
+
+  @for $i from 1 through $grid-size
+    &__xs-#{$i}
+      width: 100% / $grid-size * $i
+    &__xs-order-#{$i}
+      order: $i
+
+  @media screen and (min-width: $mobile-width-max)
+    @for $i from 1 through $grid-size
+      &__sm-#{$i}
+        width: 100% / $grid-size * $i
+      &__sm-order-#{$i}
+        order: $i
+
+  @media screen and (min-width: $tablet-width-max)
+    @for $i from 1 through $grid-size
+      &__md-#{$i}
+        width: 100% / $grid-size * $i
+      &__md-order-#{$i}
+        order: $i
+
+  @media screen and (min-width: $laptop-width-max)
+    @for $i from 1 through $grid-size
+      &__lg-#{$i}
+        width: 100% / $grid-size * $i
+      &__lg-order-#{$i}
+        order: $i

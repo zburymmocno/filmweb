@@ -43,7 +43,7 @@ class Model
 		foreach ($data['gatunki'] as &$value) {
 		    	$g_id = pg_fetch_array( pg_query("SELECT gatunek_id from gatunek WHERE nazwa = '" . $value . "'"))['gatunek_id'];
 			if(!pg_query("INSERT into film_gatunek values ('$f_id' , '$g_id' )")){
-				$res2 = false;		
+				$res2 = false;
 			}
 		}
 
@@ -52,7 +52,7 @@ class Model
 		    	$k_id = pg_fetch_array( pg_query("SELECT kraj_id from kraj WHERE nazwa = '" . $value . "'"))['kraj_id'];
 
 			if(!pg_query("INSERT into film_kraj values ('$f_id' , '$k_id' )")){
-				$res3 = false;		
+				$res3 = false;
 			}
 		}
 
@@ -89,7 +89,7 @@ class Model
 	}
 
 	function login($data){
- 		
+
 		$res = pg_fetch_array(pg_query("SELECT * FROM uzytkownicy WHERE  nick = '" . $data['nick'] . "' AND haslo = '" . md5($data['haslo']) . "'"));
 		if ($res){
         		session_start();
@@ -97,7 +97,7 @@ class Model
 			return true;
 		}
 		else {
-			return false;	
+			return false;
 		}
 	}
 

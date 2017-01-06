@@ -1,0 +1,12 @@
+<nav class="page-nav">
+    <span class="page-nav__logo">
+        <h1>FiLmY</h1>
+    </span>
+    <ul class="page-nav__list">
+        <li class="page-nav__item" ng-repeat="reference in references">
+            <a class="page-nav__link" ng-href="{{reference.href}}">
+                {{reference.name}}
+            </a>
+        </li>
+    </ul>
+</nav>

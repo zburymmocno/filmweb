@@ -1,0 +1,38 @@
+<form novalidate class="form form--block">
+    <div class="form__group">
+        <label class="form__label" for="title">Tytuł filmu</label>
+        <input ng-model="form.tytul" id="title" class="form__in form--input" type="text">
+    </div>
+    <div class="form__group">
+        <label class="form__label" for="rok_premiery">Rok premiery</label>
+        <input ng-model="form.rok_premiery" id="rok_premiery" class="form__in form--input" type="number">
+    </div>
+    <div class="form__group">
+        <label class="form__label" for="genres">Gatunki</label>
+        <select ng-model="form.gatunki" ng-options="genre for genre in genres" multiple id="genres"
+                class="form__in form--select"></select>
+    </div>
+    <div class="form__group">
+        <label class="form__label" for="url_p">Plakat</label>
+        <input ng-model="form.url_p" id="url_p" class="form__in form--input" type="text">
+    </div>
+    <div class="form__group">
+        <label class="form__label" for="kraj"></label>
+        <select ng-model="form.kraje" ng-options="country for country in countries" id="kraj"
+                class="form__in form--select"
+                multiple></select>
+    </div>
+    <div class="form__group">
+        <label class="form__label" for="url_z">Zwiastun</label>
+        <input ng-model="form.url_z" id="url_z" class="form__in form--input" type="text">
+    </div>
+
+    <div class="form__group">
+        <label class="form__label" for="opis">Opis filmu</label>
+        <textarea ng-model="form.opis" id="opis" class="form__in form--textarea" rows="10"></textarea>
+    </div>
+    <input type="button" ng-click="send()" value="Zapisz">
+</form>
+
+<film details="form"></film>
+

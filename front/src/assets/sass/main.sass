@@ -1,0 +1,140 @@
+@import "./../libs/reset-css/reset"
+
+@import "vars"
+@import "grid"
+
+*, *:before, *:after
+  box-sizing: border-box
+
+a
+  cursor: pointer
+
+body
+  background-color: #ececec
+
+/*=================
+/*  widget
+/*=================
+input, textarea, select
+  display: inline-block
+  padding: 5px 10px
+  border-radius: 5px
+  outline: none
+  border: none
+  font-size: inherit
+  font-family: inherit
+
+label
+  display: inline-block
+
+textarea
+  resize: vertical
+
+input[type="button"]
+  display: inline-block
+  width: auto
+
+/*=================
+/*  page nav
+/*=================
+.page-nav
+  background: #9797a8
+  display: flex
+  justify-content: space-between
+
+  &__logo
+    padding: 25px 40px
+  &__list
+  &__item
+    display: inline-block
+    padding: 25px 40px
+
+  &__link
+    text-decoration: none
+
+/*=================
+/*  jumbotron
+/*=================
+.jumbotron
+  text-align: center
+  padding: 50px 10px
+  &__title
+    padding-bottom: 30px
+    font-size: 3em
+  &__desc
+
+/*=================
+/*  side bar
+/*=================
+.side-bar
+  background: #ffffff
+  padding: 20px
+
+/*=================
+/*  widget
+/*=================
+.widget
+  &__title
+    font-size: 2em
+    padding-bottom: 10px
+    border-bottom: 2px solid #000
+    margin-bottom: 10px
+  &__item
+    margin-left: 50px
+    padding-left: 20px
+    list-style-type: decimal
+  &__link
+    text-decoration: underline
+
+/*=================
+/*  films
+/*=================
+.film
+  $img-width: 100px
+  display: flex
+  margin-bottom: 50px
+
+  &__title
+    font-weight: bold
+    font-size: 1.5em
+    text-align: left
+    padding-bottom: 15px
+  &__details
+    width: calc(100% - #{$img-width})
+  &__image
+    width: $img-width
+    height: 100%
+    margin-right: 15px
+  &__desc
+    text-align: justify
+  &__link
+    display: block
+    padding-top: 15px
+    text-align: right
+
+/*=================
+/*  form
+/*=================
+.form
+  font-size: 1em
+
+  &__group
+    margin: 10px 0
+
+  &__label
+
+  &__input
+
+  &__select
+
+  &__textarea
+
+.form--block
+  .form__in
+    width: 100%
+    display: block
+  .form__label
+    padding-top: 15px
+    padding-bottom: 5px
+
+

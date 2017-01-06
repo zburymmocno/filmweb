@@ -1,0 +1,10 @@
+{
+  "name": "film_web_custom",
+  "version": "1.0.0",
+  "dependencies": {
+    "angular": "latest",
+    "angular-animate": "^1.5.9",
+    "reset-css": "^2.2.0",
+    "angular-ui-router": "^0.3.2"
+  }
+}

@@ -1,0 +1,6 @@
+# Created by .ignore support plugin (hsz.mobi)
+.idea/
+filmweb.iml
+front/node_modules
+front/src/assets/libs
+front/src/assets/sass/.sass-cache
