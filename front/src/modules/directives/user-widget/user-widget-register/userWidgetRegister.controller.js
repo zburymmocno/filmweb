@@ -10,9 +10,13 @@ angular
             }
         };
     }).controller('userWidgetRegisterCtrl', [
-    '$scope', 'usersService', 'toastService',
-    function ($scope, usersService, toastService) {
+    '$scope', 'usersService', 'toastService', 'userWidgetView',
+    function ($scope, usersService, toastService, userWidgetView) {
         $scope.form = {};
+
+        $scope.goToLogin = function () {
+            userWidgetView.view = 0;
+        };
 
         $scope.submit = function () {
             usersService.add($scope.form, {

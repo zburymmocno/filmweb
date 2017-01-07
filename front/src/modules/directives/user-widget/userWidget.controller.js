@@ -4,7 +4,9 @@ angular
         'userWidget.widgetLogin',
         'userWidget.widgetPanel'
     ])
-    .value('userWidgetView', 0)
+    .value('userWidgetView', {
+        view: 0
+    })
 
     .directive('userWidget', function () {
         return {
@@ -18,10 +20,13 @@ angular
     }).controller('widgetWidgetCtrl', [
     '$scope', 'userWidgetView',
     function ($scope, userWidgetView) {
-        $scope.view = userWidgetView;
+        $scope.widget = userWidgetView;
+
         
         $scope.check = function () {
             console.log(userWidgetView);
+            console.log("SCope");
+            console.log($scope.widget);
         }
     }
 ])

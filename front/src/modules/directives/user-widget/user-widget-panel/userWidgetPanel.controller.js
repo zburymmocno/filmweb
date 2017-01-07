@@ -13,6 +13,7 @@ angular
     '$scope', 'usersService', 'toastService', 'user',
     function ($scope, usersService, toastService, user) {
         $scope.form = {};
+        $scope.user = user;
 
         $scope.submit = function () {
             usersService.login($scope.form, {

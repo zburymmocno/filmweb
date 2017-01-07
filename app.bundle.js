@@ -56,7 +56,7 @@ webpackJsonp([0],[
 	exports.i(__webpack_require__(4), "");
 
 	// module
-	exports.push([module.id, ".genre-list:after {\n  content: ', '; }\n\n.genre-list:last-child:after {\n  content: ''; }\n\n.film__year {\n  font-size: .3em !important; }\n  .film__year:before {\n    content: '('; }\n  .film__year:after {\n    content: ')'; }\n\n.card-media-custom img {\n  max-width: 300px;\n  width: 100%;\n  margin-right: 15px; }\n\n.border-top {\n  border-top: 2px solid rgba(0, 0, 0, 0.31); }\n", ""]);
+	exports.push([module.id, ".genre-list:after {\n  content: ', '; }\n\n.genre-list:last-child:after {\n  content: ''; }\n\n.film__year {\n  font-size: .3em !important; }\n  .film__year:before {\n    content: '('; }\n  .film__year:after {\n    content: ')'; }\n\n.card-media-custom img {\n  max-width: 300px;\n  width: 100%;\n  margin-right: 15px; }\n\n.border-top {\n  border-top: 2px solid rgba(0, 0, 0, 0.31); }\n\n.form__fotter {\n  text-align: right;\n  font-size: .6em;\n  margin: 0; }\n", ""]);
 
 	// exports
 
@@ -783,20 +783,22 @@ webpackJsonp([0],[
 	        $scope.form = {};
 
 	        $scope.submit = function () {
-	            userWidgetView = 2;
-
-	            console.log(userWidgetView);
 
 	            usersService.login($scope.form, {
 	                success: function (data) {
 	                    toastService.success("Zostałeś zalogowany!");
 	                    user.isLogged = true;
 	                    user.data = data;
+	                    userWidgetView.view = 1;
 	                },
 	                error: function () {
 	                    toastService.error("Niepoprawne dane logowania!");
 	                }
 	            })
+	        }
+
+	        $scope.goToRegister = function () {
+	            userWidgetView.view = 2;
 	        }
 	    }
 	])
@@ -806,7 +808,7 @@ webpackJsonp([0],[
 /* 25 */
 /***/ function(module, exports) {
 
-	module.exports = "<md-content layout-padding>\n    <h3 class=\"widget__title\">Logowanie</h3>\n    <form name=\"loginForm\" layout=\"column\">\n        <md-input-container>\n            <label>Login</label>\n            <input ng-model=\"form.nick\" required>\n            <div ng-messages=\"loginForm.form\">\n                <div ng-message=\"required\">To pole jest wymagane</div>\n            </div>\n        </md-input-container>\n        <md-input-container>\n            <label>Hasło</label>\n            <input type=\"password\" ng-model=\"form.haslo\" required>\n            <div ng-messages=\"loginForm.form\">\n                <div ng-message=\"required\">To pole jest wymagane</div>\n            </div>\n        </md-input-container>\n        <md-button type=\"submit\" ng-click=\"submit()\" ng-disabled=\"!loginForm.$valid\">Zaloguj</md-button>\n    </form>\n</md-content>";
+	module.exports = "<md-content layout-padding>\n    <h3 class=\"widget__title\">Logowanie</h3>\n    <form name=\"loginForm\" layout=\"column\">\n        <md-input-container>\n            <label>Login</label>\n            <input ng-model=\"form.nick\" required>\n            <div ng-messages=\"loginForm.form\">\n                <div ng-message=\"required\">To pole jest wymagane</div>\n            </div>\n        </md-input-container>\n        <md-input-container>\n            <label>Hasło</label>\n            <input type=\"password\" ng-model=\"form.haslo\" required>\n            <div ng-messages=\"loginForm.form\">\n                <div ng-message=\"required\">To pole jest wymagane</div>\n            </div>\n        </md-input-container>\n        <md-button class=\"md-raised md-primary\" ng-click=\"submit()\" ng-disabled=\"!loginForm.$valid\">Zaloguj</md-button>\n    </form>\n    <p class=\"form__fotter\">\n        <md-button ng-click=\"goToRegister()\">Rejestracja</md-button>\n    </p>\n</md-content>";
 
 /***/ },
 /* 26 */
@@ -827,6 +829,7 @@ webpackJsonp([0],[
 	    '$scope', 'usersService', 'toastService', 'user',
 	    function ($scope, usersService, toastService, user) {
 	        $scope.form = {};
+	        $scope.user = user;
 
 	        $scope.submit = function () {
 	            usersService.login($scope.form, {
@@ -848,7 +851,7 @@ webpackJsonp([0],[
 /* 27 */
 /***/ function(module, exports) {
 
-	module.exports = "<md-content layout-padding>\n    <h3 class=\"widget__title\">Logowanie</h3>\n</md-content>";
+	module.exports = "<md-content layout-padding>\n    <h3>Wtaj {{user.data.nick}}</h3>\n</md-content>";
 
 /***/ },
 /* 28 */
@@ -866,9 +869,13 @@ webpackJsonp([0],[
 	            }
 	        };
 	    }).controller('userWidgetRegisterCtrl', [
-	    '$scope', 'usersService', 'toastService',
-	    function ($scope, usersService, toastService) {
+	    '$scope', 'usersService', 'toastService', 'userWidgetView',
+	    function ($scope, usersService, toastService, userWidgetView) {
 	        $scope.form = {};
+
+	        $scope.goToLogin = function () {
+	            userWidgetView.view = 0;
+	        };
 
 	        $scope.submit = function () {
 	            usersService.add($scope.form, {
@@ -888,7 +895,7 @@ webpackJsonp([0],[
 /* 29 */
 /***/ function(module, exports) {
 
-	module.exports = "<md-content layout-padding>\n    <h3 class=\"widget__title\">Rejestracja</h3>\n    <form name=\"registerForm\" layout=\"column\">\n        <md-input-container>\n            <label>Nazwa użytkowika</label>\n            <input ng-model=\"form.nick\" required>\n            <div ng-messages=\"loginForm.form\">\n                <div ng-message=\"required\">To pole jest wymagane</div>\n            </div>\n        </md-input-container>\n        <md-input-container>\n            <label>Hasło</label>\n            <input ng-model=\"form.haslo\" type=\"password\" required>\n            <div ng-messages=\"loginForm.form\">\n                <div ng-message=\"required\">To pole jest wymagane</div>\n            </div>\n        </md-input-container>\n        <md-input-container>\n            <label>E-mail</label>\n            <input ng-model=\"form.email\" type=\"email\" required>\n            <div ng-messages=\"loginForm.form\">\n                <div ng-message=\"required\">To pole jest wymagane</div>\n            </div>\n        </md-input-container>\n        <md-button ng-click=\"submit()\" ng-disabled=\"!registerForm.$valid\">Rejestruj</md-button>\n    </form>\n</md-content>";
+	module.exports = "<md-content layout-padding>\n    <h3 class=\"widget__title\">Rejestracja</h3>\n    <form name=\"registerForm\" layout=\"column\" novalidate>\n        <md-input-container>\n            <label>Nazwa użytkowika</label>\n            <input ng-model=\"form.nick\" required>\n            <div ng-messages=\"loginForm.form\">\n                <div ng-message=\"required\">To pole jest wymagane</div>\n            </div>\n        </md-input-container>\n        <md-input-container>\n            <label>Hasło</label>\n            <input ng-model=\"form.haslo\" type=\"password\" required>\n            <div ng-messages=\"loginForm.form\">\n                <div ng-message=\"required\">To pole jest wymagane</div>\n            </div>\n        </md-input-container>\n        <md-input-container>\n            <label>E-mail</label>\n            <input ng-model=\"form.email\" type=\"email\" required>\n            <div ng-messages=\"loginForm.form\">\n                <div ng-message=\"required\">To pole jest wymagane</div>\n            </div>\n        </md-input-container>\n        <md-button class=\"md-raised md-primary\" ng-click=\"submit()\" ng-disabled=\"!registerForm.$valid\">Rejestruj</md-button>\n        <p class=\"form__fotter\">\n            <md-button class=\"btn1\" ng-click=\"goToLogin()\">Logowanie</md-button>\n        </p>\n    </form>\n</md-content>";
 
 /***/ },
 /* 30 */
@@ -900,7 +907,9 @@ webpackJsonp([0],[
 	        'userWidget.widgetLogin',
 	        'userWidget.widgetPanel'
 	    ])
-	    .value('userWidgetView', 0)
+	    .value('userWidgetView', {
+	        view: 0
+	    })
 
 	    .directive('userWidget', function () {
 	        return {
@@ -914,10 +923,13 @@ webpackJsonp([0],[
 	    }).controller('widgetWidgetCtrl', [
 	    '$scope', 'userWidgetView',
 	    function ($scope, userWidgetView) {
-	        $scope.view = userWidgetView;
+	        $scope.widget = userWidgetView;
+
 	        
 	        $scope.check = function () {
 	            console.log(userWidgetView);
+	            console.log("SCope");
+	            console.log($scope.widget);
 	        }
 	    }
 	])
@@ -927,7 +939,7 @@ webpackJsonp([0],[
 /* 31 */
 /***/ function(module, exports) {
 
-	module.exports = "<user-widget-login></user-widget-login>\n<user-widget-panel></user-widget-panel>\n<user-widget-register></user-widget-register>\n\n<!--<button ng-click=\"check()\">Test</button>-->";
+	module.exports = "<user-widget-login ng-show=\"widget.view == 0\"></user-widget-login>\n<user-widget-panel ng-show=\"widget.view == 1\"></user-widget-panel>\n<user-widget-register ng-show=\"widget.view == 2\"></user-widget-register>";
 
 /***/ },
 /* 32 */
@@ -1091,12 +1103,9 @@ webpackJsonp([0],[
 	                }
 	            }, callback);
 
-	            console.log(data);
-
 	            if (status == "success") {
 	                config.success(data);
 	                toastService.success("Pobrano dane!");
-
 	            } else if (status == "error") {
 	                config.error(data);
 	                toastService.error("Error");

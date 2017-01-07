@@ -1,5 +1,3 @@
-<user-widget-login></user-widget-login>
-<user-widget-panel></user-widget-panel>
-<user-widget-register></user-widget-register>
-
-<!--<button ng-click="check()">Test</button>-->
+<user-widget-login ng-show="widget.view == 0"></user-widget-login>
+<user-widget-panel ng-show="widget.view == 1"></user-widget-panel>
+<user-widget-register ng-show="widget.view == 2"></user-widget-register>

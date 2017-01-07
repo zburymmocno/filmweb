@@ -1,6 +1,6 @@
 <md-content layout-padding>
     <h3 class="widget__title">Rejestracja</h3>
-    <form name="registerForm" layout="column">
+    <form name="registerForm" layout="column" novalidate>
         <md-input-container>
             <label>Nazwa użytkowika</label>
             <input ng-model="form.nick" required>
@@ -22,6 +22,9 @@
                 <div ng-message="required">To pole jest wymagane</div>
             </div>
         </md-input-container>
-        <md-button ng-click="submit()" ng-disabled="!registerForm.$valid">Rejestruj</md-button>
+        <md-button class="md-raised md-primary" ng-click="submit()" ng-disabled="!registerForm.$valid">Rejestruj</md-button>
+        <p class="form__fotter">
+            <md-button class="btn1" ng-click="goToLogin()">Logowanie</md-button>
+        </p>
     </form>
 </md-content>

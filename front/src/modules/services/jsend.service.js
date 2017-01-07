@@ -25,10 +25,9 @@ angular
                 }
             }, callback);
 
-            console.log(data);
             if (status == "success") {
+                config.success(data);
                 toastService.success("Pobrano dane!");
-
             } else if (status == "error") {
                 config.error(data);
                 toastService.error("Error");

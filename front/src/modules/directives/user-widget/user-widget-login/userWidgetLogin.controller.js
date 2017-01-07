@@ -15,20 +15,22 @@ angular
         $scope.form = {};
 
         $scope.submit = function () {
-            userWidgetView = 2;
-
-            console.log(userWidgetView);
 
             usersService.login($scope.form, {
                 success: function (data) {
                     toastService.success("Zostałeś zalogowany!");
                     user.isLogged = true;
                     user.data = data;
+                    userWidgetView.view = 1;
                 },
                 error: function () {
                     toastService.error("Niepoprawne dane logowania!");
                 }
             })
+        }
+
+        $scope.goToRegister = function () {
+            userWidgetView.view = 2;
         }
     }
 ])
