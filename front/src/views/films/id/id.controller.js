@@ -3,33 +3,24 @@ angular.module('app.filmsId', [
 ])
     .config([
         '$stateProvider', function ($stateProvider) {
-            $stateProvider.state('filmsId', {
-                name: 'filmsId',
+            $stateProvider.state('films', {
                 url: '/films/{id}',
                 controller: 'filmsIdCtrl',
                 template: require('./id.component.html')
             })
         }
     ])
-    .controller('filmsIdCtrl', ['$scope', '$stateParams', 'filmService', 'errorCallbackProvider',
-        function ($scope, $stateParams, filmService, errorCallbackProvider) {
-            var id = $stateParams.id;
+    .controller('filmsIdCtrl',
+        ['$scope', '$stateParams', 'filmService', 'user',
+            function ($scope, $stateParams, filmService, user) {
+                var id = $stateParams.id;
 
-            filmService.get(id)
-                .then(function successCallback(response) {
-                    var output = response.data;
-                    var status = output.status;
-                    if (status == "success") {
-                        $scope.film = output.data;
+                $scope.user = user;
 
-                    } else if (status == "fail") {
-                        alert("Error - check console");
-                        console.log(output.data);
+                filmService.get(id, {
+                    success: function (data) {
+                        $scope.film = data;
                     }
-                }, function errorCallback(response) {
-                    errorCallbackProvider(response);
-                });
-
-
-        }])
+                })
+            }])
 ;

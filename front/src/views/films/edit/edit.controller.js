@@ -12,57 +12,37 @@ angular.module('app.filmsEdit', [
         }
     ])
     .controller('filmsEditCtrl',
-        ['$scope', 'filmService', 'countriesService', 'genresService', 'errorCallbackProvider', '$stateParams',
-            function ($scope, filmService, countriesService, genresService, errorCallbackProvider, $stateParams) {
+        ['$scope', 'filmService', 'countriesService', 'genresService', '$stateParams','toastService',
+            function ($scope, filmService, countriesService, genresService, $stateParams, toastService) {
                 $scope.form = {};
                 var id = $stateParams.id;
 
-                countriesService.getAll()
-                    .then(function successCallback(response) {
-                        var output = response.data;
-                        var status = output.status;
-                        console.log(response);
+                countriesService.getAll({
+                    success: function (data) {
+                        $scope.countries = data;
+                    }
+                });
 
-                        if (status == "success") {
-                            $scope.countries = output.data;
-                        } else if (status == "fail") {
-                            alert("Error - check console");
-                            console.log(output.data);
-                        }
-                    }, function errorCallback(response) {
-                        errorCallbackProvider(response);
-                    });
+                genresService.getAll({
+                    success: function (data) {
+                        $scope.genres = data;
+                    }
+                });
 
-                genresService.getAll()
-                    .then(function successCallback(response) {
-                        var output = response.data;
-                        var status = output.status;
-                        if (status == "success") {
-                            $scope.genres = output.data;
-
-                        } else if (status == "fail") {
-                            alert("Error - check console");
-                            console.log(output.data);
-                        }
-                    }, function errorCallback(response) {
-                        errorCallbackProvider(response);
-                    });
-
-                filmService.get(id)
-                    .then(function (response) {
-                        $scope.form = response.data.data;
-                    }, function (response) {
-                        errorCallbackProvider(response);
-                    });
+                filmService.get(id, {
+                    success: function (data) {
+                        console.log("POBBRANO");
+                        console.log(data);
+                        $scope.form = data;
+                    }
+                });
 
                 $scope.send = function () {
-                    console.log($scope.form);
-                    filmService.edit(id, $scope.form)
-                        .then(function (response) {
-                            console.log(response);
-                        }, function (response) {
-                            errorCallbackProvider(response);
-                        });
+                    filmService.edit(id, $scope.form, {
+                        success: function () {
+                            toastService.success("FIlm został zaktualizowany");
+                        }
+                    })
                 };
             }])
 ;

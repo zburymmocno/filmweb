@@ -1,9 +1,9 @@
 angular
-    .module('app.film', [])
-    .directive('films', function () {
+    .module('app.filmsCards', [])
+    .directive('filmCards', function () {
         return {
-            controller: 'films',
-            template: require('./film.component.html'),
+            controller: 'filmCardsCtrl',
+            template: require('./filmCards.component.html'),
             scope: {
                 array: '='
             },
@@ -11,9 +11,10 @@ angular
 
             }
         };
-    }).controller('films', [
-    '$scope', function ($scope) {
-
+    }).controller('filmCardsCtrl', [
+    '$scope', 'user',
+    function ($scope, user) {
+        $scope.user = user;
     }
 ])
 ;

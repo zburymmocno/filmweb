@@ -27,12 +27,16 @@ angular
         var success = function (message, action, callback) {
             return show(message, 'success', action, callback)
         };
+        var fail = function (message, action, callback) {
+            return show(message, 'fail', action, callback)
+        };
 
 
         return {
             error: error,
             errorConnection: errorConnection,
-            success: success
+            success: success,
+            fail: fail
 
         }
     }

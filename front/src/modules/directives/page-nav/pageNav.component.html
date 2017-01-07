@@ -1,4 +1,4 @@
 <md-nav-bar md-selected-nav-item="currentNavItem">
-    <md-nav-item md-nav-href="#!/" name="page1">Strona główna</md-nav-item>
-    <md-nav-item md-nav-href="#!/films/add" name="page2">Dodaj nowy film</md-nav-item>
+    <md-nav-item md-nav-href="#!/">Strona główna</md-nav-item>
+    <md-nav-item ng-show="user.data.privileges.add" md-nav-href="#!/films/add" name="page2">Dodaj nowy film</md-nav-item>
 </md-nav-bar>

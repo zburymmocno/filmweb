@@ -1,33 +1,19 @@
 angular
     .module('countries.service', [])
-    .service('countriesService', ['$http', 'apiProvider', function ($http, apiProvider) {
+    .service('countriesService', ['jsendService', 'config', function (jsendService, config) {
 
         return {
-            getAll: function () {
-                return $http({
+            getAll: function (callback) {
+                return jsendService.http({
                     method: 'GET',
-                    url: apiProvider() + "/countries"
-                });
+                    url: config.apiUrl + "/countries"
+                }, callback);
             },
-            get: function (id) {
-                return $http({
+            get: function (id, callback) {
+                return jsendService.http({
                     method: 'GET',
-                    url: apiProvider() + "/films/" + id
-                });
-            },
-            add: function (data) {
-                return $http({
-                    method: 'POST',
-                    data: JSON.stringify(data),
-                    url: apiProvider() + "/films/add",
-                    headers: {'Content-Type': 'application/json'}
-                });
-            },
-            delete: function (id) {
-                return $http({
-                    method: 'GET',
-                    url: apiProvider() + "/films/remove/" + id
-                });
+                    url: config.apiUrl + "/countries/" + id
+                }, callback);
             }
         }
 

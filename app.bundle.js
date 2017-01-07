@@ -6,24 +6,20 @@ webpackJsonp([0],[
 	__webpack_require__(1);
 
 
-	// load all .js file from modules
+	// load all .js file from views
 	var reqModuleJS = __webpack_require__(6);
 	reqModuleJS.keys().forEach(function (key) {
 	    reqModuleJS(key);
 	});
-	// load all .js file from shared
+	// load all .js file from modules
 	var reqSharedJS = __webpack_require__(15);
 	reqSharedJS.keys().forEach(function (key) {
 	    reqSharedJS(key);
 	});
-	// load all .js file from services
-	var reqServicesJS = __webpack_require__(28);
-	reqServicesJS.keys().forEach(function (key) {
-	    reqServicesJS(key);
-	});
+	 
 
 	//load angular app
-	__webpack_require__(35);
+	__webpack_require__(40);
 
 /***/ },
 /* 1 */
@@ -60,7 +56,7 @@ webpackJsonp([0],[
 	exports.i(__webpack_require__(4), "");
 
 	// module
-	exports.push([module.id, "\n", ""]);
+	exports.push([module.id, ".genre-list:after {\n  content: ', '; }\n\n.genre-list:last-child:after {\n  content: ''; }\n\n.film__year {\n  font-size: .3em !important; }\n  .film__year:before {\n    content: '('; }\n  .film__year:after {\n    content: ')'; }\n\n.card-media-custom img {\n  max-width: 300px;\n  width: 100%;\n  margin-right: 15px; }\n\n.border-top {\n  border-top: 2px solid rgba(0, 0, 0, 0.31); }\n", ""]);
 
 	// exports
 
@@ -429,49 +425,26 @@ webpackJsonp([0],[
 	        }
 	    ])
 	    .controller('filmsAddCtrl',
-	        ['$scope', 'filmService', 'countriesService', 'genresService', 'errorCallbackProvider',
-	            function ($scope, filmService, countriesService, genresService, errorCallbackProvider) {
+	        ['$scope', 'filmService', 'countriesService', 'genresService',
+	            function ($scope, filmService, countriesService, genresService) {
 	                $scope.form = {};
+	                $scope.genres = {};
+	                $scope.countries = {};
 
-	                countriesService.getAll()
-	                    .then(function successCallback(response) {
-	                        var output = response.data;
-	                        var status = output.status;
-	                        console.log(response);
+	                countriesService.getAll({
+	                    success: function (data) {
+	                        $scope.countries = data;
+	                    }
+	                });
 
-	                        if (status == "success") {
-	                            $scope.countries = output.data;
-	                        } else if (status == "fail") {
-	                            alert("Error - check console");
-	                            console.log(output.data);
-	                        }
-	                    }, function errorCallback(response) {
-	                        errorCallbackProvider(response);
-	                    });
-
-	                genresService.getAll()
-	                    .then(function successCallback(response) {
-	                        var output = response.data;
-	                        var status = output.status;
-	                        if (status == "success") {
-	                            $scope.genres = output.data;
-
-	                        } else if (status == "fail") {
-	                            alert("Error - check console");
-	                            console.log(output.data);
-	                        }
-	                    }, function errorCallback(response) {
-	                        errorCallbackProvider(response);
-	                    });
+	                genresService.getAll({
+	                    success: function (data) {
+	                        $scope.genres = data;
+	                    }
+	                });
 
 	                $scope.send = function () {
-	                    console.log($scope.form);
-	                    filmService.add($scope.form)
-	                        .then(function (response) {
-	                            console.log(response);
-	                        }, function (response) {
-	                            errorCallbackProvider(response);
-	                        });
+	                    filmService.add($scope.form);
 	                };
 	            }])
 	;
@@ -480,7 +453,7 @@ webpackJsonp([0],[
 /* 8 */
 /***/ function(module, exports) {
 
-	module.exports = "<div layout=\"column\" ng-cloak>\n\n    <form name=\"filmForm\">\n        <md-content md-theme=\"docs-dark\" layout-gt-sm=\"column\" layout-padding>\n\n            <md-input-container class=\"md-block\">\n                <label>Tytuł</label>\n                <input ng-model=\"form.tytul\" required>\n            </md-input-container>\n\n            <md-input-container class=\"md-block\">\n                <label>Rok premiery</label>\n                <input ng-model=\"form.rok_premiery\" required>\n            </md-input-container>\n\n            <md-input-container class=\"md-block\" flex-gt-sm>\n                <label>Gatunki</label>\n                <md-select multiple ng-model=\"form.gatunki\">\n                    <md-option ng-repeat=\"genre in genres\" ng-value=\"genre\">\n                        {{genre.nazwa}}\n                    </md-option>\n                </md-select>\n            </md-input-container>\n\n            <md-input-container class=\"md-block\" flex-gt-sm>\n                <label>Kraje</label>\n                <md-select multiple ng-model=\"form.kraje\" required>\n                    <md-option ng-repeat=\"country in countries\" ng-value=\"country\">\n                        {{country.nazwa}}\n                    </md-option>\n                </md-select>\n            </md-input-container>\n\n\n            <md-input-container class=\"md-block\">\n                <label>Plakat</label>\n                <input ng-model=\"form.url_p\" required>\n            </md-input-container>\n\n            <md-input-container class=\"md-block\">\n                <label>Zwiastun</label>\n                <input ng-model=\"form.url_z\" required>\n            </md-input-container>\n\n            <md-input-container class=\"md-block\">\n                <label>Opis</label>\n                <textarea ng-model=\"form.opis\" rows=\"5\" md-select-on-focus required></textarea>\n            </md-input-container>\n            <md-input-container class=\"md-block\">\n                <input ng-disabled=\"!filmForm.$valid\" type=\"submit\" ng-click=\"send()\" value=\"Zapisz\">\n            </md-input-container>\n\n\n        </md-content>\n    </form>\n\n</div>\n\n\n\n\n\n";
+	module.exports = "<div layout=\"column\" ng-cloak>\n    <h1>Dodaj nowy film</h1>\n    <form name=\"filmForm\">\n        <md-content layout-gt-sm=\"column\" layout-padding>\n\n            <md-input-container class=\"md-block\">\n                <label>Tytuł</label>\n                <input ng-model=\"form.tytul\" required>\n            </md-input-container>\n\n            <md-input-container class=\"md-block\">\n                <label>Rok premiery</label>\n                <input ng-model=\"form.rok_premiery\" required>\n            </md-input-container>\n\n            <md-input-container class=\"md-block\" flex-gt-sm>\n                <label>Gatunki</label>\n                <md-select multiple ng-model=\"form.gatunki\" required>\n                    <md-option ng-repeat=\"genre in genres\" ng-value=\"genre\">\n                        {{genre.nazwa}}\n                    </md-option>\n                </md-select>\n            </md-input-container>\n\n            <md-input-container class=\"md-block\" flex-gt-sm>\n                <label>Kraje</label>\n                <md-select multiple ng-model=\"form.kraje\" required>\n                    <md-option ng-repeat=\"country in countries\" ng-value=\"country\">\n                        {{country.nazwa}}\n                    </md-option>\n                </md-select>\n            </md-input-container>\n\n\n            <md-input-container class=\"md-block\">\n                <label>Plakat</label>\n                <input ng-model=\"form.url_p\" required>\n            </md-input-container>\n\n            <md-input-container class=\"md-block\">\n                <label>Zwiastun</label>\n                <input ng-model=\"form.url_z\" required>\n            </md-input-container>\n\n            <md-input-container class=\"md-block\">\n                <label>Opis</label>\n                <textarea ng-model=\"form.opis\" rows=\"5\" md-select-on-focus required></textarea>\n            </md-input-container>\n            <md-input-container class=\"md-block\">\n                <input ng-disabled=\"!filmForm.$valid\" type=\"submit\" ng-click=\"send()\" value=\"Zapisz\">\n            </md-input-container>\n\n\n        </md-content>\n    </form>\n\n</div>\n\n\n\n\n\n";
 
 /***/ },
 /* 9 */
@@ -500,57 +473,37 @@ webpackJsonp([0],[
 	        }
 	    ])
 	    .controller('filmsEditCtrl',
-	        ['$scope', 'filmService', 'countriesService', 'genresService', 'errorCallbackProvider', '$stateParams',
-	            function ($scope, filmService, countriesService, genresService, errorCallbackProvider, $stateParams) {
+	        ['$scope', 'filmService', 'countriesService', 'genresService', '$stateParams','toastService',
+	            function ($scope, filmService, countriesService, genresService, $stateParams, toastService) {
 	                $scope.form = {};
 	                var id = $stateParams.id;
 
-	                countriesService.getAll()
-	                    .then(function successCallback(response) {
-	                        var output = response.data;
-	                        var status = output.status;
-	                        console.log(response);
+	                countriesService.getAll({
+	                    success: function (data) {
+	                        $scope.countries = data;
+	                    }
+	                });
 
-	                        if (status == "success") {
-	                            $scope.countries = output.data;
-	                        } else if (status == "fail") {
-	                            alert("Error - check console");
-	                            console.log(output.data);
-	                        }
-	                    }, function errorCallback(response) {
-	                        errorCallbackProvider(response);
-	                    });
+	                genresService.getAll({
+	                    success: function (data) {
+	                        $scope.genres = data;
+	                    }
+	                });
 
-	                genresService.getAll()
-	                    .then(function successCallback(response) {
-	                        var output = response.data;
-	                        var status = output.status;
-	                        if (status == "success") {
-	                            $scope.genres = output.data;
-
-	                        } else if (status == "fail") {
-	                            alert("Error - check console");
-	                            console.log(output.data);
-	                        }
-	                    }, function errorCallback(response) {
-	                        errorCallbackProvider(response);
-	                    });
-
-	                filmService.get(id)
-	                    .then(function (response) {
-	                        $scope.form = response.data.data;
-	                    }, function (response) {
-	                        errorCallbackProvider(response);
-	                    });
+	                filmService.get(id, {
+	                    success: function (data) {
+	                        console.log("POBBRANO");
+	                        console.log(data);
+	                        $scope.form = data;
+	                    }
+	                });
 
 	                $scope.send = function () {
-	                    console.log($scope.form);
-	                    filmService.edit(id, $scope.form)
-	                        .then(function (response) {
-	                            console.log(response);
-	                        }, function (response) {
-	                            errorCallbackProvider(response);
-	                        });
+	                    filmService.edit(id, $scope.form, {
+	                        success: function () {
+	                            toastService.success("FIlm został zaktualizowany");
+	                        }
+	                    })
 	                };
 	            }])
 	;
@@ -559,7 +512,7 @@ webpackJsonp([0],[
 /* 10 */
 /***/ function(module, exports) {
 
-	module.exports = "<form name=\"filmForm\" novalidate class=\"form form--block\">\n    <div class=\"form__group\">\n        <label class=\"form__label\" for=\"title\">Tytuł filmu</label>\n        <input ng-model=\"form.tytul\" id=\"title\" class=\"form__in form--input\" type=\"text\" required>\n    </div>\n    <div class=\"form__group\">\n        <label class=\"form__label\" for=\"rok_premiery\">Rok premiery</label>\n        <input ng-model=\"form.rok_premiery\" id=\"rok_premiery\" class=\"form__in form--input\" type=\"number\" required>\n    </div>\n    <div class=\"form__group\">\n        <label class=\"form__label\" for=\"genres\">Gatunki</label>\n        <select ng-model=\"form.gatunki\" ng-options=\"genre.nazwa for genre in genres\" multiple id=\"genres\"\n                class=\"form__in form--select\" required></select>\n    </div>\n    <div class=\"form__group\">\n        <label class=\"form__label\" for=\"url_p\">Plakat</label>\n        <input ng-model=\"form.url_p\" id=\"url_p\" class=\"form__in form--input\" type=\"text\" required>\n    </div>\n    <div class=\"form__group\">\n        <label class=\"form__label\" for=\"kraj\">Kraje</label>\n        <select ng-model=\"form.kraje\" ng-options=\"country.nazwa for country in countries\" id=\"kraj\"\n                class=\"form__in form--select\"\n                multiple required></select>\n    </div>\n    <div class=\"form__group\">\n        <label class=\"form__label\" for=\"url_z\">Zwiastun</label>\n        <input ng-model=\"form.url_z\" id=\"url_z\" class=\"form__in form--input\" type=\"text\" required>\n    </div>\n\n    <div class=\"form__group\">\n        <label class=\"form__label\" for=\"opis\">Opis filmu</label>\n        <textarea ng-model=\"form.opis\" id=\"opis\" class=\"form__in form--textarea\" rows=\"10\" required></textarea>\n    </div>\n    <div class=\"form__group\">\n        <input ng-disabled=\"!filmForm.$valid\" type=\"submit\" ng-click=\"send()\" class=\"form__submit\" value=\"Zapisz\">\n    </div>\n</form>\n\n";
+	module.exports = "<div layout=\"column\" ng-cloak>\n    <h1>Edycja filmu</h1>\n    <form name=\"filmForm\" novalidate>\n        <md-content layout-gt-sm=\"column\" layout-padding>\n            <md-input-container class=\"md-block\">\n                <label>Tytuł</label>\n                <input ng-model=\"form.tytul\" required>\n            </md-input-container>\n\n            <md-input-container class=\"md-block\">\n                <label>Rok premiery</label>\n                <input ng-model=\"form.rok_premiery\" required>\n            </md-input-container>\n\n            <md-input-container class=\"md-block\" flex-gt-sm>\n                <label>Gatunki</label>\n                <md-select multiple ng-model=\"form.gatunki\" required>\n                    <md-option ng-repeat=\"genre in genres\" ng-value=\"genre\">\n                        {{genre.nazwa}}\n                    </md-option>\n                </md-select>\n            </md-input-container>\n\n            <md-input-container class=\"md-block\" flex-gt-sm>\n                <label>Kraje</label>\n                <md-select multiple ng-model=\"form.kraje\" required>\n                    <md-option ng-repeat=\"country in countries\" ng-value=\"country\">\n                        {{country.nazwa}}\n                    </md-option>\n                </md-select>\n            </md-input-container>\n\n\n            <md-input-container class=\"md-block\">\n                <label>Plakat</label>\n                <input ng-model=\"form.url_p\" required>\n            </md-input-container>\n\n            <md-input-container class=\"md-block\">\n                <label>Zwiastun</label>\n                <input ng-model=\"form.url_z\" required>\n            </md-input-container>\n\n            <md-input-container class=\"md-block\">\n                <label>Opis</label>\n                <textarea ng-model=\"form.opis\" rows=\"5\" md-select-on-focus required></textarea>\n            </md-input-container>\n            <md-input-container class=\"md-block\">\n                <input ng-disabled=\"!filmForm.$valid\" type=\"submit\" ng-click=\"send()\" value=\"Zapisz\">\n            </md-input-container>\n        </md-content>\n    </form>\n\n</div>\n\n\n\n\n\n";
 
 /***/ },
 /* 11 */
@@ -570,42 +523,33 @@ webpackJsonp([0],[
 	])
 	    .config([
 	        '$stateProvider', function ($stateProvider) {
-	            $stateProvider.state('filmsId', {
-	                name: 'filmsId',
+	            $stateProvider.state('films', {
 	                url: '/films/{id}',
 	                controller: 'filmsIdCtrl',
 	                template: __webpack_require__(12)
 	            })
 	        }
 	    ])
-	    .controller('filmsIdCtrl', ['$scope', '$stateParams', 'filmService', 'errorCallbackProvider',
-	        function ($scope, $stateParams, filmService, errorCallbackProvider) {
-	            var id = $stateParams.id;
+	    .controller('filmsIdCtrl',
+	        ['$scope', '$stateParams', 'filmService', 'user',
+	            function ($scope, $stateParams, filmService, user) {
+	                var id = $stateParams.id;
 
-	            filmService.get(id)
-	                .then(function successCallback(response) {
-	                    var output = response.data;
-	                    var status = output.status;
-	                    if (status == "success") {
-	                        $scope.film = output.data;
+	                $scope.user = user;
 
-	                    } else if (status == "fail") {
-	                        alert("Error - check console");
-	                        console.log(output.data);
+	                filmService.get(id, {
+	                    success: function (data) {
+	                        $scope.film = data;
 	                    }
-	                }, function errorCallback(response) {
-	                    errorCallbackProvider(response);
-	                });
-
-
-	        }])
+	                })
+	            }])
 	;
 
 /***/ },
 /* 12 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"film-full\">\n    <div class=\"flex flex--wrap\">\n        <div class=\"flex__xs-12 flex__md-3\">\n            <img class=\"film-full__image\" ng-src=\"{{film.url_p}}\" alt=\"asds\">\n        </div>\n        <div class=\"flex__xs-12 flex__md-9\">\n            <h1 class=\"film-full__title\">{{film.tytul}} <span class=\"film-full__year\">{{film.rok_premiery}}</span></h1>\n\n            <div class=\"film-full__detail\">\n                <h3 class=\"detail__name\">Gatunek</h3>\n                <ul class=\"detail__list detail--genres\">\n                    <li ng-repeat=\"genre in film.gatunki\" class=\"detail__item detail--genre\">\n                        {{genre.nazwa}}\n                    </li>\n                </ul>\n            </div>\n            <div class=\"film-full__detail\">\n                <h3 class=\"detail__name\">Kraj produkcji</h3>\n                <ul class=\"detail__list detail--countries\">\n                    <li ng-repeat=\"country in film.kraje\" class=\"detail__item detail--country\">\n                        {{country.nazwa}}\n                    </li>\n                </ul>\n            </div>\n\n            <div class=\"film-full__detail\">\n                <a ng-href=\"{{film.url_z}}\" class=\"detail__omen\" target=\"_blank\">Zobacz zwiastun</a>\n            </div>\n        </div>\n        <div class=\"flex__xs-12\">\n            <h2 class=\"\">Recenzja</h2>\n            <p>\n                {{film.opis}}\n            </p>\n        </div>\n    </div>\n</div>";
+	module.exports = "<md-card>\n    <md-card-title>\n        <md-card-title-media>\n            <div class=\"card-media card-media-custom\">\n                <img ng-src=\"{{film.url_p}}\" alt=\"asds\">\n            </div>\n        </md-card-title-media>\n        <md-card-title-text>\n            <span class=\"md-display-3\">{{film.tytul}} <span class=\"film__year\">{{film.rok_premiery}}</span> </span>\n\n            <span class=\".md-title\">Gatunek</span>\n            <span class=\"md-subhead\">\n                    <span class=\"genre-list\" ng-repeat=\"genre in film.gatunki\">{{genre.nazwa}}</span>\n            </span>\n            <span class=\".md-title\">Kraj</span>\n            <span class=\"md-subhead\">\n                    <span class=\"genre-list\" ng-repeat=\"country in film.kraje\">{{country.nazwa}}</span>\n            </span>\n            <md-button ng-href=\"{{film.url_z}}\">Zobacz zwiastun</md-button>\n\n        </md-card-title-text>\n    </md-card-title>\n    <md-card-actions layout=\"row\" layout-align=\"end center\">\n        <md-button ng-show=\"user.data.privileges.edit\" ui-sref=\"filmsEdit({id: film.film_id})\">Edytuj</md-button>\n    </md-card-actions>\n</md-card>\n\n<md-card>\n    <md-card-content>\n        <h2>Opis filmu</h2>\n        <p>\n            {{film.opis}}\n        </p>\n    </md-card-content>\n</md-card>\n";
 
 /***/ },
 /* 13 */
@@ -617,27 +561,18 @@ webpackJsonp([0],[
 	    .config([
 	        '$stateProvider', function ($stateProvider) {
 	            $stateProvider.state('home', {
-	                name: 'home',
 	                url: '/',
 	                controller: 'homeCtrl',
 	                template: __webpack_require__(14)
 	            })
 	        }
 	    ]).controller('homeCtrl', [
-	    '$scope', 'filmService', 'errorCallbackProvider', function ($scope, filmService, errorCallbackProvider) {
-	        filmService.getAll()
-	            .then(function successCallback(response) {
-	                var output = response.data;
-	                var status = output.status;
-	                if (status == "success") {
-	                    $scope.films = output.data;
-
-	                } else if (status == "fail") {
-	                    alert(output.data.message);
-	                }
-	            }, function errorCallback(response) {
-	                errorCallbackProvider(response);
-	            });
+	    '$scope', 'filmService', 'toastService', function ($scope, filmService, toastService) {
+	        filmService.getAll({
+	            success: function (data) {
+	                $scope.films = data;
+	            }
+	        });
 	    }])
 	;
 
@@ -645,19 +580,29 @@ webpackJsonp([0],[
 /* 14 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"jumbotron\">\n    <h1 class=\"jumbotron__title\">Biblia filmów</h1>\n    <p class=\"jumbotron__desc\">\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget dapibus risus. Praesent vel volutpat metus.\n        Cras est mauris, sollicitudin quis ipsum quis, tempor ullamcorper velit. Pellentesque varius mauris nulla, eget\n        aliquam risus porttitor ac. Vestibulum vestibulum leo non augue gravida efficitur. Phasellus quis suscipit\n        lectus. Fusce molestie tortor vel nunc pulvinar cursus. Donec feugiat.\n    </p>\n</div>\n\n<div class=\"film-container\">\n    <h2>Najnowsze filmy</h2>\n    <films array=\"films\"></films>\n</div>\n\n";
+	module.exports = "<h1>Najnowsze filmy</h1>\n<film-cards array=\"films\"></film-cards>\n\n\n";
 
 /***/ },
 /* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var map = {
-		"./alert/alert.controller.js": 16,
-		"./film/film.controller.js": 18,
-		"./page-nav/pageNav.controller.js": 20,
-		"./side-bar/sideBar.controller.js": 22,
-		"./widget-login/widgetLogin.controller.js": 24,
-		"./widget-register/widgetRegister.controller.js": 26
+		"./directives/film/film.controller.js": 16,
+		"./directives/page-nav/pageNav.controller.js": 18,
+		"./directives/side-bar/sideBar.controller.js": 20,
+		"./directives/toast/toast.controller.js": 22,
+		"./directives/user-widget/user-widget-login/userWidgetLogin.controller.js": 24,
+		"./directives/user-widget/user-widget-panel/userWidgetPanel.controller.js": 26,
+		"./directives/user-widget/user-widget-register/userWidgetRegister.controller.js": 28,
+		"./directives/user-widget/userWidget.controller.js": 30,
+		"./providers/api.provider.js": 32,
+		"./providers/errorCallback.provider.js": 33,
+		"./services/countries.service.js": 34,
+		"./services/film.service.js": 35,
+		"./services/genres.service.js": 36,
+		"./services/jsend.service.js": 37,
+		"./services/toast.service.js": 38,
+		"./services/user.service.js": 39
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -678,22 +623,22 @@ webpackJsonp([0],[
 /***/ function(module, exports, __webpack_require__) {
 
 	angular
-	    .module('app.alert', [])
-	    .directive('alert', function () {
+	    .module('app.filmsCards', [])
+	    .directive('filmCards', function () {
 	        return {
-	            controller: 'alert',
+	            controller: 'filmCardsCtrl',
 	            template: __webpack_require__(17),
 	            scope: {
-	                message: '@',
-	                type: '@'
+	                array: '='
 	            },
 	            link: function (scope, element, attrs) {
 
 	            }
 	        };
-	    }).controller('alert', [
-	    '$scope', function ($scope) {
-
+	    }).controller('filmCardsCtrl', [
+	    '$scope', 'user',
+	    function ($scope, user) {
+	        $scope.user = user;
 	    }
 	])
 	;
@@ -702,40 +647,10 @@ webpackJsonp([0],[
 /* 17 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"alert alert--{{type}}\">\n    <p>{{message}}</p>\n</div>";
+	module.exports = "<div layout=\"row\" layout-wrap layout-align=\"center\" layout-xs=\"column\">\n    <md-card flex=\"45\" ng-repeat=\"film in array\">\n        <md-card-title>\n            <md-card-title-text>\n                <span class=\"md-headline\">{{film.tytul}}</span>\n                <span class=\"md-subhead\">{{film.rok_premiery}}</span>\n                        <span class=\"md-subhead\">\n                            <span ng-repeat=\"genre in film.gatunki\">{{genre.nazwa}}, </span>\n                        </span>\n\n            </md-card-title-text>\n            <md-card-title-media>\n                <div class=\"md-media-md card-media\">\n                    <img class=\"film-short__image\" ng-src=\"{{film.url_p}}\"\n                         alt=\"alt\">\n                </div>\n            </md-card-title-media>\n        </md-card-title>\n        <md-card-actions layout=\"row\" layout-align=\"start center\">\n            <md-button ui-sref=\"films({id: film.film_id})\">Szczegóły</md-button>\n            <md-button ng-show=\"user.data.privileges.edit\" ui-sref=\"filmsEdit({id: film.film_id})\">Edytuj</md-button>\n        </md-card-actions>\n    </md-card>\n</div>";
 
 /***/ },
 /* 18 */
-/***/ function(module, exports, __webpack_require__) {
-
-	angular
-	    .module('app.film', [])
-	    .directive('films', function () {
-	        return {
-	            controller: 'films',
-	            template: __webpack_require__(19),
-	            scope: {
-	                array: '='
-	            },
-	            link: function (scope, element, attrs) {
-
-	            }
-	        };
-	    }).controller('films', [
-	    '$scope', function ($scope) {
-
-	    }
-	])
-	;
-
-/***/ },
-/* 19 */
-/***/ function(module, exports) {
-
-	module.exports = "<div ng-cloak>\n    <md-content class=\"md-padding\" layout-xs=\"column\" layout=\"row\">\n        <div layout=\"row\" layout-wrap layout-align=\"center\" layout-xs=\"column\">\n            <md-card flex=\"45\" ng-repeat=\"film in array\">\n                <md-card-title>\n                    <md-card-title-text>\n                        <span class=\"md-headline\">{{film.tytul}}</span>\n                        <span class=\"md-subhead\">{{film.rok_premiery}}</span>\n                        <span class=\"md-subhead\">\n                            <span ng-repeat=\"genre in film.gatunki\">{{genre.nazwa}}, </span>\n                        </span>\n\n                    </md-card-title-text>\n                    <md-card-title-media>\n                        <div class=\"md-media-md card-media\">\n                            <img class=\"film-short__image\" ng-src=\"{{film.url_p}}\"\n                                 alt=\"alt\">\n                        </div>\n                    </md-card-title-media>\n                </md-card-title>\n                <md-card-actions layout=\"row\" layout-align=\"end center\">\n                    <md-button ng-href=\"#!/films/{{film.film_id}}\">Szczegóły</md-button>\n                </md-card-actions>\n            </md-card>\n        </div>\n    </md-content>\n</div>";
-
-/***/ },
-/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	angular
@@ -743,15 +658,45 @@ webpackJsonp([0],[
 	    .directive('pageNav', function () {
 	        return {
 	            controller: 'pageNav',
+	            template: __webpack_require__(19),
+	            scope: {},
+	            link: function (scope, element, attrs) {
+
+	            }
+	        };
+	    }).controller('pageNav',
+	    ['$scope', 'user',
+	        function ($scope, user) {
+	            $scope.user = user;
+	        }
+	    ])
+	;
+
+/***/ },
+/* 19 */
+/***/ function(module, exports) {
+
+	module.exports = "<md-nav-bar md-selected-nav-item=\"currentNavItem\">\n    <md-nav-item md-nav-href=\"#!/\">Strona główna</md-nav-item>\n    <md-nav-item ng-show=\"user.data.privileges.add\" md-nav-href=\"#!/films/add\" name=\"page2\">Dodaj nowy film</md-nav-item>\n</md-nav-bar>\n";
+
+/***/ },
+/* 20 */
+/***/ function(module, exports, __webpack_require__) {
+
+	angular
+	    .module('app.sideBar', [])
+	    .directive('sideBar', function () {
+	        return {
+	            controller: 'sideBar',
 	            template: __webpack_require__(21),
 	            scope: {},
 	            link: function (scope, element, attrs) {
 
 	            }
 	        };
-	    }).controller('pageNav', [
-	    '$scope', function ($scope) {
-
+	    }).controller('sideBar', [
+	    '$scope', 'user',
+	    function ($scope, user) {
+	        $scope.user = user;
 	    }
 	])
 	;
@@ -760,26 +705,53 @@ webpackJsonp([0],[
 /* 21 */
 /***/ function(module, exports) {
 
-	module.exports = "<md-nav-bar md-selected-nav-item=\"currentNavItem\">\n    <md-nav-item md-nav-href=\"#!/\" name=\"page1\">Strona główna</md-nav-item>\n    <md-nav-item md-nav-href=\"#!/films/add\" name=\"page2\">Dodaj nowy film</md-nav-item>\n</md-nav-bar>";
+	module.exports = "<user-widget></user-widget>";
 
 /***/ },
 /* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	angular
-	    .module('app.sideBar', [])
-	    .directive('sideBar', function () {
+	    .module('app.alert', [])
+	    .directive('alert', function () {
 	        return {
-	            controller: 'sideBar',
+	            controller: 'toastCtrl',
 	            template: __webpack_require__(23),
 	            scope: {},
 	            link: function (scope, element, attrs) {
 
 	            }
 	        };
-	    }).controller('sideBar', [
-	    '$scope', function ($scope) {
-	        
+	    }).controller('toastCtrl', [
+	    '$scope', '$mdToast', '$mdDialog', function ($scope, $mdToast, $mdDialog) {
+	        var isDlgOpen;
+	        $scope.closeToast = function () {
+	            if (isDlgOpen) return;
+
+	            $mdToast
+	                .hide()
+	                .then(function () {
+	                    isDlgOpen = false;
+	                });
+	        };
+
+	        $scope.openMoreInfo = function (e) {
+	            if (isDlgOpen) return;
+	            isDlgOpen = true;
+
+	            $mdDialog
+	                .show($mdDialog
+	                    .alert()
+	                    .title('More info goes here.')
+	                    .textContent('Something witty.')
+	                    .ariaLabel('More info')
+	                    .ok('Got it')
+	                    .targetEvent(e)
+	                )
+	                .then(function () {
+	                    isDlgOpen = false;
+	                })
+	        };
 	    }
 	])
 	;
@@ -788,41 +760,43 @@ webpackJsonp([0],[
 /* 23 */
 /***/ function(module, exports) {
 
-	module.exports = "<widget-login></widget-login>\n<widget-register></widget-register>";
+	module.exports = "<md-toast>\n    <span class=\"md-toast-text\" flex>Custom toast!</span>\n    <md-button class=\"md-highlight\" ng-click=\"openMoreInfo($event)\">\n        More info\n    </md-button>\n    <md-button ng-click=\"closeToast()\">\n        Close\n    </md-button>\n</md-toast>";
 
 /***/ },
 /* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	angular
-	    .module('app.widgetLogin', [])
-	    .directive('widgetLogin', function () {
+	    .module('userWidget.widgetLogin', [])
+	    .directive('userWidgetLogin', function () {
 	        return {
-	            controller: 'widgetLogin',
+	            controller: 'userWidgetLoginCtrl',
 	            template: __webpack_require__(25),
 	            scope: {},
 	            link: function (scope, element, attrs) {
 
 	            }
 	        };
-	    }).controller('widgetLogin', [
-	    '$scope', 'usersService', '$rootScope', 'errorCallbackProvider',
-	    function ($scope, usersService, $rootScope, errorCallbackProvider) {
+	    }).controller('userWidgetLoginCtrl', [
+	    '$scope', 'usersService', 'toastService', 'user', 'userWidgetView',
+	    function ($scope, usersService, toastService, user, userWidgetView) {
 	        $scope.form = {};
 
 	        $scope.submit = function () {
-	            usersService.login($scope.form)
-	                .then(function successCallback(response) {
-	                    var output = response.data;
-	                    var status = output.status;
-	                    if (status == "success") {
-	                        $rootScope.user = output.data;
-	                    }
-	                    
-	                    console.log(response);
-	                }, function errorCallback(response) {
-	                    errorCallbackProvider(response);
-	                })
+	            userWidgetView = 2;
+
+	            console.log(userWidgetView);
+
+	            usersService.login($scope.form, {
+	                success: function (data) {
+	                    toastService.success("Zostałeś zalogowany!");
+	                    user.isLogged = true;
+	                    user.data = data;
+	                },
+	                error: function () {
+	                    toastService.error("Niepoprawne dane logowania!");
+	                }
+	            })
 	        }
 	    }
 	])
@@ -832,40 +806,39 @@ webpackJsonp([0],[
 /* 25 */
 /***/ function(module, exports) {
 
-	module.exports = "<md-content layout-padding>\n    <h3 class=\"widget__title\">Logowanie</h3>\n    <form name=\"loginForm\" layout=\"column\">\n        <md-input-container>\n            <label>Login</label>\n            <input ng-model=\"form.nick\" required>\n            <div ng-messages=\"loginForm.form\">\n                <div ng-message=\"required\">To pole jest wymagane</div>\n            </div>\n        </md-input-container>\n        <md-input-container>\n            <label>Hasło</label>\n            <input type=\"password\" ng-model=\"form.haslo\" required>\n            <div ng-messages=\"loginForm.form\">\n                <div ng-message=\"required\">To pole jest wymagane</div>\n            </div>\n        </md-input-container>\n        <div>\n            <md-button type=\"submit\" ng-click=\"submit()\" ng-disabled=\"!loginForm.$valid\">Zaloguj</md-button>\n        </div>\n    </form>\n</md-content>\n\n\n";
+	module.exports = "<md-content layout-padding>\n    <h3 class=\"widget__title\">Logowanie</h3>\n    <form name=\"loginForm\" layout=\"column\">\n        <md-input-container>\n            <label>Login</label>\n            <input ng-model=\"form.nick\" required>\n            <div ng-messages=\"loginForm.form\">\n                <div ng-message=\"required\">To pole jest wymagane</div>\n            </div>\n        </md-input-container>\n        <md-input-container>\n            <label>Hasło</label>\n            <input type=\"password\" ng-model=\"form.haslo\" required>\n            <div ng-messages=\"loginForm.form\">\n                <div ng-message=\"required\">To pole jest wymagane</div>\n            </div>\n        </md-input-container>\n        <md-button type=\"submit\" ng-click=\"submit()\" ng-disabled=\"!loginForm.$valid\">Zaloguj</md-button>\n    </form>\n</md-content>";
 
 /***/ },
 /* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 	angular
-	    .module('app.widgetRegister', [])
-	    .directive('widgetRegister', function () {
+	    .module('userWidget.widgetPanel', [])
+	    .directive('userWidgetPanel', function () {
 	        return {
-	            controller: 'widgetRegister',
+	            controller: 'userWidgetPanelCtrl',
 	            template: __webpack_require__(27),
 	            scope: {},
 	            link: function (scope, element, attrs) {
 
 	            }
 	        };
-	    }).controller('widgetRegister', [
-	    '$scope', 'usersService', '$rootScope', 'errorCallbackProvider',
-	    function ($scope, usersService, $rootScope, errorCallbackProvider) {
+	    }).controller('userWidgetPanelCtrl', [
+	    '$scope', 'usersService', 'toastService', 'user',
+	    function ($scope, usersService, toastService, user) {
 	        $scope.form = {};
 
 	        $scope.submit = function () {
-	            usersService.add($scope.form)
-	                .then(function successCallback(response) {
-	                    var output = response.data;
-	                    var status = output.status;
-	                    if (status == "success") {
-	                        $rootScope.user = output.data;
-	                    }
-	                    console.log(response);
-	                }, function errorCallback(response) {
-	                    errorCallbackProvider(response);
-	                })
+	            usersService.login($scope.form, {
+	                success: function (data) {
+	                    toastService.success("Zostałeś zalogowany!");
+	                    user.isLogged = true;
+	                    user.data = data;
+	                },
+	                error: function () {
+	                    toastService.error("Niepoprawne dane logowania!");
+	                }
+	            })
 	        }
 	    }
 	])
@@ -875,36 +848,89 @@ webpackJsonp([0],[
 /* 27 */
 /***/ function(module, exports) {
 
-	module.exports = "<md-content layout-padding>\n    <h3 class=\"widget__title\">Rejestracja</h3>\n    <form name=\"registerForm\" layout=\"column\">\n        <md-input-container>\n            <label>Nazwa użytkowika</label>\n            <input ng-model=\"form.nick\" required>\n            <div ng-messages=\"loginForm.form\">\n                <div ng-message=\"required\">To pole jest wymagane</div>\n            </div>\n        </md-input-container>\n        <md-input-container>\n            <label>Hasło</label>\n            <input ng-model=\"form.haslo\" type=\"password\" required>\n            <div ng-messages=\"loginForm.form\">\n                <div ng-message=\"required\">To pole jest wymagane</div>\n            </div>\n        </md-input-container>\n        <md-input-container>\n            <label>E-mail</label>\n            <input ng-model=\"form.email\" type=\"email\" required>\n            <div ng-messages=\"loginForm.form\">\n                <div ng-message=\"required\">To pole jest wymagane</div>\n            </div>\n        </md-input-container>\n        <div>\n            <md-button type=\"submit\" ng-click=\"submit()\" ng-disabled=\"!registerForm.$valid\">Rejestruj</md-button>\n        </div>\n    </form>\n</md-content>";
+	module.exports = "<md-content layout-padding>\n    <h3 class=\"widget__title\">Logowanie</h3>\n</md-content>";
 
 /***/ },
 /* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var map = {
-		"./api.provider.js": 29,
-		"./countries.service.js": 30,
-		"./errorCallback.provider.js": 31,
-		"./film.service.js": 32,
-		"./genres.service.js": 33,
-		"./user.service.js": 34
-	};
-	function webpackContext(req) {
-		return __webpack_require__(webpackContextResolve(req));
-	};
-	function webpackContextResolve(req) {
-		return map[req] || (function() { throw new Error("Cannot find module '" + req + "'.") }());
-	};
-	webpackContext.keys = function webpackContextKeys() {
-		return Object.keys(map);
-	};
-	webpackContext.resolve = webpackContextResolve;
-	module.exports = webpackContext;
-	webpackContext.id = 28;
+	angular
+	    .module('userWidget.widgetRegister', [])
+	    .directive('userWidgetRegister', function () {
+	        return {
+	            controller: 'userWidgetRegisterCtrl',
+	            template: __webpack_require__(29),
+	            scope: {},
+	            link: function (scope, element, attrs) {
 
+	            }
+	        };
+	    }).controller('userWidgetRegisterCtrl', [
+	    '$scope', 'usersService', 'toastService',
+	    function ($scope, usersService, toastService) {
+	        $scope.form = {};
+
+	        $scope.submit = function () {
+	            usersService.add($scope.form, {
+	                success: function () {
+	                    toastService.success("Rejestracja przebiegła pomyślnie! Możesz teraz się zalogować.");
+	                },
+	                error: function () {
+	                    toastService.error("Wprowadzone dane są nieprawidłowe!");
+	                }
+	            });
+	        }
+	    }
+	])
+	;
 
 /***/ },
 /* 29 */
+/***/ function(module, exports) {
+
+	module.exports = "<md-content layout-padding>\n    <h3 class=\"widget__title\">Rejestracja</h3>\n    <form name=\"registerForm\" layout=\"column\">\n        <md-input-container>\n            <label>Nazwa użytkowika</label>\n            <input ng-model=\"form.nick\" required>\n            <div ng-messages=\"loginForm.form\">\n                <div ng-message=\"required\">To pole jest wymagane</div>\n            </div>\n        </md-input-container>\n        <md-input-container>\n            <label>Hasło</label>\n            <input ng-model=\"form.haslo\" type=\"password\" required>\n            <div ng-messages=\"loginForm.form\">\n                <div ng-message=\"required\">To pole jest wymagane</div>\n            </div>\n        </md-input-container>\n        <md-input-container>\n            <label>E-mail</label>\n            <input ng-model=\"form.email\" type=\"email\" required>\n            <div ng-messages=\"loginForm.form\">\n                <div ng-message=\"required\">To pole jest wymagane</div>\n            </div>\n        </md-input-container>\n        <md-button ng-click=\"submit()\" ng-disabled=\"!registerForm.$valid\">Rejestruj</md-button>\n    </form>\n</md-content>";
+
+/***/ },
+/* 30 */
+/***/ function(module, exports, __webpack_require__) {
+
+	angular
+	    .module('userWidget', [
+	        'userWidget.widgetRegister',
+	        'userWidget.widgetLogin',
+	        'userWidget.widgetPanel'
+	    ])
+	    .value('userWidgetView', 0)
+
+	    .directive('userWidget', function () {
+	        return {
+	            controller: 'widgetWidgetCtrl',
+	            template: __webpack_require__(31),
+	            scope: {},
+	            link: function (scope, element, attrs) {
+
+	            }
+	        };
+	    }).controller('widgetWidgetCtrl', [
+	    '$scope', 'userWidgetView',
+	    function ($scope, userWidgetView) {
+	        $scope.view = userWidgetView;
+	        
+	        $scope.check = function () {
+	            console.log(userWidgetView);
+	        }
+	    }
+	])
+	;
+
+/***/ },
+/* 31 */
+/***/ function(module, exports) {
+
+	module.exports = "<user-widget-login></user-widget-login>\n<user-widget-panel></user-widget-panel>\n<user-widget-register></user-widget-register>\n\n<!--<button ng-click=\"check()\">Test</button>-->";
+
+/***/ },
+/* 32 */
 /***/ function(module, exports) {
 
 	angular
@@ -927,47 +953,7 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 30 */
-/***/ function(module, exports) {
-
-	angular
-	    .module('countries.service', [])
-	    .service('countriesService', ['$http', 'apiProvider', function ($http, apiProvider) {
-
-	        return {
-	            getAll: function () {
-	                return $http({
-	                    method: 'GET',
-	                    url: apiProvider() + "/countries"
-	                });
-	            },
-	            get: function (id) {
-	                return $http({
-	                    method: 'GET',
-	                    url: apiProvider() + "/films/" + id
-	                });
-	            },
-	            add: function (data) {
-	                return $http({
-	                    method: 'POST',
-	                    data: JSON.stringify(data),
-	                    url: apiProvider() + "/films/add",
-	                    headers: {'Content-Type': 'application/json'}
-	                });
-	            },
-	            delete: function (id) {
-	                return $http({
-	                    method: 'GET',
-	                    url: apiProvider() + "/films/remove/" + id
-	                });
-	            }
-	        }
-
-	    }]);
-
-
-/***/ },
-/* 31 */
+/* 33 */
 /***/ function(module, exports) {
 
 	angular
@@ -982,130 +968,245 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 32 */
-/***/ function(module, exports) {
-
-	angular
-	    .module('film.service', [])
-	    .service('filmService', ['$http', 'apiProvider', function ($http, apiProvider) {
-	        return {
-	            getAll: function () {
-	                return $http({
-	                    method: 'GET',
-	                    url: apiProvider() + "/films"
-	                });
-	            },
-
-	            get: function (id) {
-	                return $http({
-	                    method: 'GET',
-	                    url: apiProvider() + "/films/" + id
-	                });
-	            },
-
-	            add: function (data) {
-	                return $http({
-	                    method: 'POST',
-	                    data: JSON.stringify(data),
-	                    url: apiProvider() + "/films/add",
-	                    headers: {'Content-Type': 'application/json'}
-	                });
-	            },
-	            edit: function (id, data) {
-	                return $http({
-	                    method: 'POST',
-	                    data: JSON.stringify(data),
-	                    url: apiProvider() + "/films/edit/" + id,
-	                    headers: {'Content-Type': 'application/json'}
-	                });
-	            }
-	        }
-
-	    }]);
-
-/***/ },
-/* 33 */
-/***/ function(module, exports) {
-
-	angular
-	    .module('genres.service', [])
-	    .service('genresService', ['$http', 'apiProvider', function ($http, apiProvider) {
-	        return {
-	            getAll: function () {
-	                return $http({
-	                    method: 'GET',
-	                    url: apiProvider() + "/genres"
-	                });
-	            },
-
-	            get: function (id) {
-	                return $http({
-	                    method: 'GET',
-	                    url: apiProvider() + "/films/" + id
-	                });
-	            },
-
-	            add: function (data) {
-	                return $http({
-	                    method: 'POST',
-	                    data: JSON.stringify(data),
-	                    url: apiProvider() + "/films/add",
-	                    headers: {'Content-Type': 'application/json'}
-	                });
-	            },
-	            delete: function (id) {
-	                return $http({
-	                    method: 'GET',
-	                    url: apiProvider() + "/films/remove/" + id
-	                });
-	            }
-	        }
-	    }]);
-
-
-/***/ },
 /* 34 */
 /***/ function(module, exports) {
 
 	angular
-	    .module('users.service', [])
-	    .service('usersService', ['$http', 'apiProvider', function ($http, apiProvider) {
-	        return {
-	            add: function (data) {
-	                return $http({
-	                    method: 'POST',
-	                    data: JSON.stringify(data),
-	                    headers: {'Content-Type': 'application/json'},
-	                    url: apiProvider() + "/users/add"
-	                });
-	            },
-	            login: function (data) {
-	                return $http({
-	                    method: 'POST',
-	                    data: JSON.stringify(data),
-	                    headers: {'Content-Type': 'application/json'},
-	                    url: apiProvider() + "/users/login"
-	                });
-	            },
-	            logout: function () {
-	                return $http({
-	                    method: 'GET',
-	                    url: apiProvider() + "/users/logout"
-	                });
-	            },
-	            info: function () {
-	                return $http({
-	                    method: 'GET',
-	                    url: apiProvider() + "/users/info"
-	                });
-	            }
+	    .module('countries.service', [])
+	    .service('countriesService', ['jsendService', 'config', function (jsendService, config) {
 
+	        return {
+	            getAll: function (callback) {
+	                return jsendService.http({
+	                    method: 'GET',
+	                    url: config.apiUrl + "/countries"
+	                }, callback);
+	            },
+	            get: function (id, callback) {
+	                return jsendService.http({
+	                    method: 'GET',
+	                    url: config.apiUrl + "/countries/" + id
+	                }, callback);
+	            }
 	        }
+
 	    }]);
 
 
 /***/ },
 /* 35 */
+/***/ function(module, exports) {
+
+	angular
+	    .module('film.service', [])
+	    .service('filmService', ['jsendService', 'config', function (jsendService, config) {
+	        return {
+	            getAll: function (callback) {
+	                return jsendService.http({
+	                    method: 'GET',
+	                    url: config.apiUrl + "/films"
+	                }, callback);
+	            },
+
+	            get: function (id, callback) {
+	                return jsendService.http({
+	                    method: 'GET',
+	                    url: config.apiUrl + "/films/" + id
+	                }, callback);
+	            },
+
+	            add: function (data, callback) {
+	                return jsendService.http({
+	                    method: 'POST',
+	                    data: JSON.stringify(data),
+	                    url: config.apiUrl + "/films/add",
+	                    headers: {'Content-Type': 'application/json'}
+	                }, callback);
+	            },
+	            edit: function (id, data, callback) {
+	                return jsendService.http({
+	                    method: 'POST',
+	                    data: JSON.stringify(data),
+	                    url: config.apiUrl + "/films/edit/" + id,
+	                    headers: {'Content-Type': 'application/json'}
+	                }, callback);
+	            }
+	        }
+
+	    }]);
+
+/***/ },
+/* 36 */
+/***/ function(module, exports) {
+
+	angular
+	    .module('genres.service', [])
+	    .service('genresService', ['jsendService', 'config', function (jsendService, config) {
+	        return {
+
+	            getAll: function (callback) {
+	                return jsendService.http({
+	                    method: 'GET',
+	                    url: config.apiUrl + "/genres"
+	                }, callback);
+	            },
+	            get: function (id, callback) {
+	                return jsendService.http({
+	                    method: 'GET',
+	                    url: config.apiUrl + "/films/" + id
+	                }, callback);
+	            }
+	        }
+	    }]);
+
+
+/***/ },
+/* 37 */
+/***/ function(module, exports) {
+
+	angular
+	    .module('jsend.service', [])
+	    .service('jsendService', ['$http', 'toastService', function ($http, toastService) {
+	        var http = function (config, callback) {
+	            return $http(config)
+	                .then(function (response) {
+	                    connect(response, callback)
+	                }, function (response) {
+	                    alert('ERROR WITH CONNECTION TO SERVER');
+	                });
+	        };
+	        var connect = function (response, callback) {
+	            var output = response.data;
+	            var status = output.status;
+	            var data = output.data;
+	            var message = output.message;
+	            var code = output.code;
+
+	            var config = angular.extend({
+	                success: function () {
+	                },
+	                error: function () {
+	                },
+	                fail: function () {
+	                }
+	            }, callback);
+
+	            console.log(data);
+
+	            if (status == "success") {
+	                config.success(data);
+	                toastService.success("Pobrano dane!");
+
+	            } else if (status == "error") {
+	                config.error(data);
+	                toastService.error("Error");
+
+	            } else if (status == "fail") {
+	                config.fail(message, data, code);
+	                toastService.fail("FAIL!!!");
+	            } else {
+	                throw ("Nie znany typ odpowiedzi");
+	            }
+	        };
+
+	        return {
+	            http: http
+	        }
+	    }]);
+
+
+/***/ },
+/* 38 */
+/***/ function(module, exports) {
+
+	angular
+	    .module('toast.service', [])
+	    .service('toastService', ['$mdToast', function ($mdToast) {
+
+	        var show = function (template, className, action, callback) {
+	            return $mdToast.show({
+	                    template: '<md-toast>' + template + '</md-toast>',
+	                    hideDelay: 3000,
+	                    position: 'top right',
+	                    toastClass: className,
+	                    action: action
+	                }
+	            ).then(function (response) {
+	                if (response == 'ok') {
+	                    if (typeof callback == 'function') {
+	                        callback();
+	                    }
+	                }
+	            })
+	        };
+	        var error = function (message, action, callback) {
+	            return show(message, 'error', action, callback)
+	        };
+	        var errorConnection = function () {
+	            return error('Nie można nawiązać połączenia z serwerem! Proszę spróbować za chwilę!');
+	        };
+	        var success = function (message, action, callback) {
+	            return show(message, 'success', action, callback)
+	        };
+	        var fail = function (message, action, callback) {
+	            return show(message, 'fail', action, callback)
+	        };
+
+
+	        return {
+	            error: error,
+	            errorConnection: errorConnection,
+	            success: success,
+	            fail: fail
+
+	        }
+	    }
+	    ])
+	;
+
+/***/ },
+/* 39 */
+/***/ function(module, exports) {
+
+	angular
+	    .module('users.service', [])
+	    .service('usersService', ['jsendService', 'config', function (jsendService, config) {
+	        return {
+	            add: function (data, callback) {
+	                return jsendService.http({
+	                    method: 'POST',
+	                    data: JSON.stringify(data),
+	                    headers: {'Content-Type': 'application/json'},
+	                    url: config.apiUrl + "/users/add"
+	                }, callback);
+	            },
+	            login: function (data, callback) {
+	                return jsendService.http({
+	                    method: 'POST',
+	                    data: JSON.stringify(data),
+	                    headers: {'Content-Type': 'application/json'},
+	                    url: config.apiUrl + "/users/login"
+	                }, callback);
+	            },
+	            logout: function (callback) {
+	                return jsendService.http({
+	                    method: 'GET',
+	                    url: config.apiUrl + "/users/logout"
+	                }, callback);
+	            },
+	            info: function (callback) {
+	                return jsendService.http({
+	                    method: 'GET',
+	                    url: config.apiUrl + "/users/info"
+	                }, callback);
+	            }
+
+	        }
+	    }]);
+
+
+/***/ },
+/* 40 */
 /***/ function(module, exports) {
 
 	angular
@@ -1119,17 +1220,18 @@ webpackJsonp([0],[
 	        'ngAnimate',
 	        'app.pageNav',
 	        'app.sideBar',
-	        'app.film',
+	        'app.filmsCards',
 	        'app.alert',
-
-	        'app.widgetLogin',
-	        'app.widgetRegister',
-
-	        'users.service',
-
+	        
+	        'jsend.service',
+	        'toast.service',
 	        'countries.service',
 	        'genres.service',
 	        'film.service',
+	        'users.service',
+
+	        'userWidget',
+
 
 	        'app.filmsAdd',
 	        'app.filmsId',
@@ -1138,26 +1240,26 @@ webpackJsonp([0],[
 
 	    ])
 	    .config([
-	        '$stateProvider', function ($stateProvider) {
-
+	        '$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
+	            $urlRouterProvider.otherwise('/')
 	        }
 	    ])
+	    .constant('config', {
+	        apiUrl: 'http://localhost/filmweb/api/index.php'
+	    })
 
-	    .run(['$rootScope', 'usersService', 'errorCallbackProvider', function ($rootScope, usersService, errorCallbackProvider) {
-	            usersService.info()
-	                .then(function successCallback() {
-	                    var output = response.data;
-	                    var status = output.status;
-	                    if (status == 'success') {
-	                        $rootScope.user = output.data
-	                    } else if (status == "error") {
-	                        $rootScope.user = {};
-	                    }
-	                }, function errorCallback(response) {
-	                    errorCallbackProvider(response);
-	                });
-	        }]
-	    )
+	    .value('user', {
+	        isLogged: false,
+	        data: {
+	            role: 'admin',
+	            privileges: {
+	                edit: true,
+	                add: true
+	            }
+	        }
+	    })
+
+
 	;
 
 

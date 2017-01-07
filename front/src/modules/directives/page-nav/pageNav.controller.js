@@ -9,9 +9,10 @@ angular
 
             }
         };
-    }).controller('pageNav', [
-    '$scope', function ($scope) {
-
-    }
-])
+    }).controller('pageNav',
+    ['$scope', 'user',
+        function ($scope, user) {
+            $scope.user = user;
+        }
+    ])
 ;

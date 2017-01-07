@@ -9,20 +9,18 @@ angular
         'ngAnimate',
         'app.pageNav',
         'app.sideBar',
-        'app.film',
+        'app.filmsCards',
         'app.alert',
-
-        //import
+        
+        'jsend.service',
         'toast.service',
-
-        'app.widgetLogin',
-        'app.widgetRegister',
-
-        'users.service',
-
         'countries.service',
         'genres.service',
         'film.service',
+        'users.service',
+
+        'userWidget',
+
 
         'app.filmsAdd',
         'app.filmsId',
@@ -31,26 +29,26 @@ angular
 
     ])
     .config([
-        '$stateProvider', function ($stateProvider) {
-
+        '$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
+            $urlRouterProvider.otherwise('/')
         }
     ])
+    .constant('config', {
+        apiUrl: 'http://localhost/filmweb/api/index.php'
+    })
 
-    .run(['$rootScope', 'usersService', 'errorCallbackProvider', function ($rootScope, usersService, errorCallbackProvider) {
-            usersService.info()
-                .then(function successCallback() {
-                    var output = response.data;
-                    var status = output.status;
-                    if (status == 'success') {
-                        $rootScope.user = output.data
-                    } else if (status == "error") {
-                        $rootScope.user = {};
-                    }
-                }, function errorCallback(response) {
-                    errorCallbackProvider(response);
-                });
-        }]
-    )
+    .value('user', {
+        isLogged: false,
+        data: {
+            role: 'admin',
+            privileges: {
+                edit: true,
+                add: true
+            }
+        }
+    })
+
+
 ;
 
 

@@ -1,34 +1,34 @@
 angular
     .module('users.service', [])
-    .service('usersService', ['$http', 'apiProvider', function ($http, apiProvider) {
+    .service('usersService', ['jsendService', 'config', function (jsendService, config) {
         return {
-            add: function (data) {
-                return $http({
+            add: function (data, callback) {
+                return jsendService.http({
                     method: 'POST',
                     data: JSON.stringify(data),
                     headers: {'Content-Type': 'application/json'},
-                    url: apiProvider() + "/users/add"
-                });
+                    url: config.apiUrl + "/users/add"
+                }, callback);
             },
-            login: function (data) {
-                return $http({
+            login: function (data, callback) {
+                return jsendService.http({
                     method: 'POST',
                     data: JSON.stringify(data),
                     headers: {'Content-Type': 'application/json'},
-                    url: apiProvider() + "/users/login"
-                });
+                    url: config.apiUrl + "/users/login"
+                }, callback);
             },
-            logout: function () {
-                return $http({
+            logout: function (callback) {
+                return jsendService.http({
                     method: 'GET',
-                    url: apiProvider() + "/users/logout"
-                });
+                    url: config.apiUrl + "/users/logout"
+                }, callback);
             },
-            info: function () {
-                return $http({
+            info: function (callback) {
+                return jsendService.http({
                     method: 'GET',
-                    url: apiProvider() + "/users/info"
-                });
+                    url: config.apiUrl + "/users/info"
+                }, callback);
             }
 
         }

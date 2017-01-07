@@ -1,7 +1,7 @@
 <div layout="column" ng-cloak>
     <h1>Dodaj nowy film</h1>
     <form name="filmForm">
-        <md-content md-theme="docs-dark" layout-gt-sm="column" layout-padding>
+        <md-content layout-gt-sm="column" layout-padding>
 
             <md-input-container class="md-block">
                 <label>Tytuł</label>
@@ -15,7 +15,7 @@
 
             <md-input-container class="md-block" flex-gt-sm>
                 <label>Gatunki</label>
-                <md-select multiple ng-model="form.gatunki">
+                <md-select multiple ng-model="form.gatunki" required>
                     <md-option ng-repeat="genre in genres" ng-value="genre">
                         {{genre.nazwa}}
                     </md-option>
@@ -47,7 +47,7 @@
                 <textarea ng-model="form.opis" rows="5" md-select-on-focus required></textarea>
             </md-input-container>
             <md-input-container class="md-block">
-                <input ng-disabled="filmForm.$valid" type="submit" ng-click="showCustomToast()" value="Zapisz">
+                <input ng-disabled="!filmForm.$valid" type="submit" ng-click="send()" value="Zapisz">
             </md-input-container>
 
 

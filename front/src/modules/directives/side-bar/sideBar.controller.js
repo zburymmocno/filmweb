@@ -10,8 +10,9 @@ angular
             }
         };
     }).controller('sideBar', [
-    '$scope', function ($scope) {
-        
+    '$scope', 'user',
+    function ($scope, user) {
+        $scope.user = user;
     }
 ])
 ;

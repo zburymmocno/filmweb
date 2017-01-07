@@ -99,17 +99,17 @@
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(36);
-	__webpack_require__(37);
-	__webpack_require__(38);
-	__webpack_require__(39);
 	__webpack_require__(41);
-	module.exports = __webpack_require__(42);
+	__webpack_require__(42);
+	__webpack_require__(43);
+	__webpack_require__(44);
+	__webpack_require__(46);
+	module.exports = __webpack_require__(47);
 
 
 /***/ },
 
-/***/ 36:
+/***/ 41:
 /***/ function(module, exports) {
 
 	/**
@@ -33097,7 +33097,7 @@
 
 /***/ },
 
-/***/ 37:
+/***/ 42:
 /***/ function(module, exports) {
 
 	/**
@@ -37258,7 +37258,7 @@
 
 /***/ },
 
-/***/ 38:
+/***/ 43:
 /***/ function(module, exports) {
 
 	/**
@@ -37667,18 +37667,18 @@
 
 /***/ },
 
-/***/ 39:
+/***/ 44:
 /***/ function(module, exports, __webpack_require__) {
 
 	// Should already be required, here for clarity
-	__webpack_require__(36);
+	__webpack_require__(41);
 
 	// Load Angular and dependent libs
-	__webpack_require__(37);
-	__webpack_require__(38);
+	__webpack_require__(42);
+	__webpack_require__(43);
 
 	// Now load Angular Material
-	__webpack_require__(40);
+	__webpack_require__(45);
 
 	// Export namespace
 	module.exports = 'ngMaterial';
@@ -37686,7 +37686,7 @@
 
 /***/ },
 
-/***/ 40:
+/***/ 45:
 /***/ function(module, exports) {
 
 	/*!
@@ -70642,7 +70642,7 @@
 
 /***/ },
 
-/***/ 41:
+/***/ 46:
 /***/ function(module, exports) {
 
 	/**
@@ -71388,7 +71388,7 @@
 
 /***/ },
 
-/***/ 42:
+/***/ 47:
 /***/ function(module, exports) {
 
 	/**

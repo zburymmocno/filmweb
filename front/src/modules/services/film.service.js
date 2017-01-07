@@ -1,36 +1,36 @@
 angular
     .module('film.service', [])
-    .service('filmService', ['$http', 'apiProvider', function ($http, apiProvider) {
+    .service('filmService', ['jsendService', 'config', function (jsendService, config) {
         return {
-            getAll: function () {
-                return $http({
+            getAll: function (callback) {
+                return jsendService.http({
                     method: 'GET',
-                    url: apiProvider() + "/films"
-                });
+                    url: config.apiUrl + "/films"
+                }, callback);
             },
 
-            get: function (id) {
-                return $http({
+            get: function (id, callback) {
+                return jsendService.http({
                     method: 'GET',
-                    url: apiProvider() + "/films/" + id
-                });
+                    url: config.apiUrl + "/films/" + id
+                }, callback);
             },
 
-            add: function (data) {
-                return $http({
+            add: function (data, callback) {
+                return jsendService.http({
                     method: 'POST',
                     data: JSON.stringify(data),
-                    url: apiProvider() + "/films/add",
+                    url: config.apiUrl + "/films/add",
                     headers: {'Content-Type': 'application/json'}
-                });
+                }, callback);
             },
-            edit: function (id, data) {
-                return $http({
+            edit: function (id, data, callback) {
+                return jsendService.http({
                     method: 'POST',
                     data: JSON.stringify(data),
-                    url: apiProvider() + "/films/edit/" + id,
+                    url: config.apiUrl + "/films/edit/" + id,
                     headers: {'Content-Type': 'application/json'}
-                });
+                }, callback);
             }
         }
 

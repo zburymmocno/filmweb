@@ -17,9 +17,12 @@
                     <span class="genre-list" ng-repeat="country in film.kraje">{{country.nazwa}}</span>
             </span>
             <md-button ng-href="{{film.url_z}}">Zobacz zwiastun</md-button>
+
         </md-card-title-text>
     </md-card-title>
-
+    <md-card-actions layout="row" layout-align="end center">
+        <md-button ng-show="user.data.privileges.edit" ui-sref="filmsEdit({id: film.film_id})">Edytuj</md-button>
+    </md-card-actions>
 </md-card>
 
 <md-card>

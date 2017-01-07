@@ -12,51 +12,26 @@ angular.module('app.filmsAdd', [
         }
     ])
     .controller('filmsAddCtrl',
-        ['$scope', 'filmService', 'countriesService', 'genresService', 'errorCallbackProvider',
-            function ($scope, filmService, countriesService, genresService, errorCallbackProvider) {
-
-
+        ['$scope', 'filmService', 'countriesService', 'genresService',
+            function ($scope, filmService, countriesService, genresService) {
                 $scope.form = {};
+                $scope.genres = {};
+                $scope.countries = {};
 
-                countriesService.getAll()
-                    .then(function successCallback(response) {
-                        var output = response.data;
-                        var status = output.status;
-                        console.log(response);
+                countriesService.getAll({
+                    success: function (data) {
+                        $scope.countries = data;
+                    }
+                });
 
-                        if (status == "success") {
-                            $scope.countries = output.data;
-                        } else if (status == "fail") {
-                            alert("Error - check console");
-                            console.log(output.data);
-                        }
-                    }, function errorCallback(response) {
-                        errorCallbackProvider(response);
-                    });
-
-                genresService.getAll()
-                    .then(function successCallback(response) {
-                        var output = response.data;
-                        var status = output.status;
-                        if (status == "success") {
-                            $scope.genres = output.data;
-
-                        } else if (status == "fail") {
-                            alert("Error - check console");
-                            console.log(output.data);
-                        }
-                    }, function errorCallback(response) {
-                        errorCallbackProvider(response);
-                    });
+                genresService.getAll({
+                    success: function (data) {
+                        $scope.genres = data;
+                    }
+                });
 
                 $scope.send = function () {
-                    console.log($scope.form);
-                    filmService.add($scope.form)
-                        .then(function (response) {
-                            console.log(response);
-                        }, function (response) {
-                            errorCallbackProvider(response);
-                        });
+                    filmService.add($scope.form);
                 };
             }])
 ;
