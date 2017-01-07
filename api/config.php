@@ -109,9 +109,18 @@ class Model
 		$res = pg_fetch_array(pg_query("SELECT * FROM uzytkownicy WHERE  nick = '" . $data['nick'] . "' AND haslo = '" . md5($data['haslo']) . "'"));
 
 		if ($res){
+			$privilege = pg_fetch_array(pg_query("SELECT * from uzytkownicy WHERE nick = '". $data['nick'] ."'"))['admin'];
         		session_start();
-        		$_SESSION["ident"] = $data['nick'];
-			return array("nick"=>$data['nick']);
+			$_SESSION["ident"] = $data['nick'];
+			
+			if($privilege=="YES"){
+				$_SESSION['privileges'] = array("edit"=>"true", "add"=>"true");
+				return array("nick"=>$data['nick'], "privileges"=>$_SESSION['privileges']);
+			}
+			else{
+				$_SESSION['privileges'] = array("edit"=>"false", "add"=>"false");
+				return array("nick"=>$data['nick'], "privileges"=>$_SESSION['privileges']);
+			}
 		}
 		else {
 			return 0;
@@ -192,6 +201,15 @@ class Model
 			return 2;
 		}
 		
+	}
+
+	function islogged(){
+		session_start();
+
+		if ($_SESSION['ident']){
+			return array("nick"=>$_SESSION["ident"], "privileges"=>$_SESSION['privileges']);
+		}
+		return 0;
 	}
 
 }
