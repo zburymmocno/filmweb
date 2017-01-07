@@ -1,5 +1,8 @@
 <?php
- 
+
+header('Content-Type: application/json');
+header('Access-Control-Allow-Origin: *');
+
 // Include config.php
 require_once('config.php');
 require_once('JSendResponse.php');

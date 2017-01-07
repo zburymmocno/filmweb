@@ -14,6 +14,8 @@ angular.module('app.filmsAdd', [
     .controller('filmsAddCtrl',
         ['$scope', 'filmService', 'countriesService', 'genresService', 'errorCallbackProvider',
             function ($scope, filmService, countriesService, genresService, errorCallbackProvider) {
+
+
                 $scope.form = {};
 
                 countriesService.getAll()

@@ -1,0 +1,62 @@
+<div layout="column" ng-cloak>
+    <h1>Dodaj nowy film</h1>
+    <form name="filmForm">
+        <md-content md-theme="docs-dark" layout-gt-sm="column" layout-padding>
+
+            <md-input-container class="md-block">
+                <label>Tytuł</label>
+                <input ng-model="form.tytul" required>
+            </md-input-container>
+
+            <md-input-container class="md-block">
+                <label>Rok premiery</label>
+                <input ng-model="form.rok_premiery" required>
+            </md-input-container>
+
+            <md-input-container class="md-block" flex-gt-sm>
+                <label>Gatunki</label>
+                <md-select multiple ng-model="form.gatunki">
+                    <md-option ng-repeat="genre in genres" ng-value="genre">
+                        {{genre.nazwa}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+
+            <md-input-container class="md-block" flex-gt-sm>
+                <label>Kraje</label>
+                <md-select multiple ng-model="form.kraje" required>
+                    <md-option ng-repeat="country in countries" ng-value="country">
+                        {{country.nazwa}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+
+
+            <md-input-container class="md-block">
+                <label>Plakat</label>
+                <input ng-model="form.url_p" required>
+            </md-input-container>
+
+            <md-input-container class="md-block">
+                <label>Zwiastun</label>
+                <input ng-model="form.url_z" required>
+            </md-input-container>
+
+            <md-input-container class="md-block">
+                <label>Opis</label>
+                <textarea ng-model="form.opis" rows="5" md-select-on-focus required></textarea>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <input ng-disabled="filmForm.$valid" type="submit" ng-click="showCustomToast()" value="Zapisz">
+            </md-input-container>
+
+
+        </md-content>
+    </form>
+
+</div>
+
+
+
+
+
