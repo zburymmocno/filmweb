@@ -10,9 +10,11 @@ angular
             }
         };
     }).controller('widgetLogin', [
-    '$scope', 'usersService', '$rootScope', 'errorCallbackProvider',
-    function ($scope, usersService, $rootScope, errorCallbackProvider) {
+    '$scope', 'usersService', '$rootScope', 'errorCallbackProvider', 'toastService',
+    function ($scope, usersService, $rootScope, errorCallbackProvider, toastService) {
         $scope.form = {};
+
+
 
         $scope.submit = function () {
             usersService.login($scope.form)
@@ -22,7 +24,7 @@ angular
                     if (status == "success") {
                         $rootScope.user = output.data;
                     }
-                    
+
                     console.log(response);
                 }, function errorCallback(response) {
                     errorCallbackProvider(response);

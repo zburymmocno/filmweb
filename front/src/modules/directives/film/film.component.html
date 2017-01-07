@@ -1,27 +1,23 @@
-<div ng-cloak>
-    <md-content class="md-padding" layout="column">
-        <div layout="row" layout-wrap layout-align="center" layout-xs="column">
-            <md-card flex="45" ng-repeat="film in array">
-                <md-card-title>
-                    <md-card-title-text>
-                        <span class="md-headline">{{film.tytul}}</span>
-                        <span class="md-subhead">{{film.rok_premiery}}</span>
+<div layout="row" layout-wrap layout-align="center" layout-xs="column">
+    <md-card flex="45" ng-repeat="film in array">
+        <md-card-title>
+            <md-card-title-text>
+                <span class="md-headline">{{film.tytul}}</span>
+                <span class="md-subhead">{{film.rok_premiery}}</span>
                         <span class="md-subhead">
                             <span ng-repeat="genre in film.gatunki">{{genre.nazwa}}, </span>
                         </span>
 
-                    </md-card-title-text>
-                    <md-card-title-media>
-                        <div class="md-media-md card-media">
-                            <img class="film-short__image" ng-src="{{film.url_p}}"
-                                 alt="alt">
-                        </div>
-                    </md-card-title-media>
-                </md-card-title>
-                <md-card-actions layout="row" layout-align="end center">
-                    <md-button ng-href="#!/films/{{film.film_id}}">Szczegóły</md-button>
-                </md-card-actions>
-            </md-card>
-        </div>
-    </md-content>
+            </md-card-title-text>
+            <md-card-title-media>
+                <div class="md-media-md card-media">
+                    <img class="film-short__image" ng-src="{{film.url_p}}"
+                         alt="alt">
+                </div>
+            </md-card-title-media>
+        </md-card-title>
+        <md-card-actions layout="row" layout-align="start center">
+            <md-button ng-href="#!/films/{{film.film_id}}">Szczegóły</md-button>
+        </md-card-actions>
+    </md-card>
 </div>

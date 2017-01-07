@@ -22,8 +22,6 @@
                 <div ng-message="required">To pole jest wymagane</div>
             </div>
         </md-input-container>
-        <div>
-            <md-button type="submit" ng-click="submit()" ng-disabled="!registerForm.$valid">Rejestruj</md-button>
-        </div>
+        <md-button ng-click="submit()" ng-disabled="!registerForm.$valid">Rejestruj</md-button>
     </form>
 </md-content>

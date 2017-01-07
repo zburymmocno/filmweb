@@ -12,6 +12,9 @@ angular
         'app.film',
         'app.alert',
 
+        //import
+        'toast.service',
+
         'app.widgetLogin',
         'app.widgetRegister',
 
