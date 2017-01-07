@@ -8,7 +8,8 @@ require_once('config.php');
 require_once('JSendResponse.php');
 
 
-$obj = new Model("tantor.db.elephantsql.com", "5432", "hxrnzqnh", "hxrnzqnh", "xMhZTJrVOz9zI6MU46M1sGFfyE1JkBlf");
+//$obj = new Model("tantor.db.elephantsql.com", "5432", "hxrnzqnh", "hxrnzqnh", "xMhZTJrVOz9zI6MU46M1sGFfyE1JkBlf");
+$obj = new Model("localhost", "5432", "filmweb", "postgres", "postgres");
 
 $path = '/filmweb/api/index.php';
 $pathreg = '\/filmweb\/api\/index.php';
@@ -169,6 +170,19 @@ if($uri === $path.'/films') {
 	}
 	else{
 		$status = new JSendResponse('fail', array("message"=>"Błąd serwera"));
+	}
+	echo json_encode($status);
+
+
+}elseif($uri === $path.'/users/islogged') {
+
+	$response = $obj->islogged();
+
+	if(is_array($response)){
+		$status = new JSendResponse('success', $response);
+	}	
+	else{
+		$status = new JSendResponse('error', array("message"=>"Nie jesteś zalogowany"), 'Not cool.');		
 	}
 	echo json_encode($status);
 
