@@ -187,6 +187,20 @@ if($uri === $path.'/films') {
 	echo json_encode($status);
 
 
+}
+elseif($uri === $path.'/users/logout') {
+
+	$response = $obj->logout();
+
+	if($response){
+		$status = new JSendResponse('success', array("message"=>"Sesja została zamknięta pomyślnie"));
+	}	
+	else{
+		$status = new JSendResponse('error', array("message"=>"Sesja nie została zamknięta"), 'Not cool.');		
+	}
+	echo json_encode($status);
+
+
 }else{
 	header('HTTP/1.1 404 Not Found');
 	echo '<html><body><h1>Page Not Found</h1></body></html>';
