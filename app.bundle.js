@@ -798,7 +798,7 @@ webpackJsonp([0],[
 	        }
 
 	        $scope.goToRegister = function () {
-	            userWidgetView.view = 2;
+	            userWidgetView.setRegister();
 	        }
 	    }
 	])
@@ -826,23 +826,22 @@ webpackJsonp([0],[
 	            }
 	        };
 	    }).controller('userWidgetPanelCtrl', [
-	    '$scope', 'usersService', 'toastService', 'user',
-	    function ($scope, usersService, toastService, user) {
+	    '$scope', 'usersService', 'toastService', 'user', 'userWidgetView',
+	    function ($scope, usersService, toastService, user, userWidgetView) {
 	        $scope.form = {};
 	        $scope.user = user;
 
-	        $scope.submit = function () {
-	            usersService.login($scope.form, {
-	                success: function (data) {
-	                    toastService.success("Zostałeś zalogowany!");
-	                    user.isLogged = true;
-	                    user.data = data;
-	                },
-	                error: function () {
-	                    toastService.error("Niepoprawne dane logowania!");
+	        $scope.logout = function () {
+	            usersService.logout({
+	                success: function () {
+	                    toastService.success("Zostałeś wylogowany!");
+	                    user.isLogged = false;
+	                    user.data = {};
+	                    userWidgetView.setLogin();
 	                }
-	            })
-	        }
+	            });
+	        };
+
 	    }
 	])
 	;
@@ -851,7 +850,7 @@ webpackJsonp([0],[
 /* 27 */
 /***/ function(module, exports) {
 
-	module.exports = "<md-content layout-padding>\n    <h3>Wtaj {{user.data.nick}}</h3>\n</md-content>";
+	module.exports = "<md-content layout-padding>\n    <h3>Witaj {{user.data.nick}}</h3>\n    <md-button ng-click=\"logout()\" class=\"md-raised md-warn\">\n        Wyloguj\n    </md-button>\n</md-content>";
 
 /***/ },
 /* 28 */
@@ -874,13 +873,14 @@ webpackJsonp([0],[
 	        $scope.form = {};
 
 	        $scope.goToLogin = function () {
-	            userWidgetView.view = 0;
+	            userWidgetView.setLogin();
 	        };
 
 	        $scope.submit = function () {
 	            usersService.add($scope.form, {
 	                success: function () {
 	                    toastService.success("Rejestracja przebiegła pomyślnie! Możesz teraz się zalogować.");
+	                    userWidgetView.setLogin();
 	                },
 	                error: function () {
 	                    toastService.error("Wprowadzone dane są nieprawidłowe!");
@@ -908,7 +908,16 @@ webpackJsonp([0],[
 	        'userWidget.widgetPanel'
 	    ])
 	    .value('userWidgetView', {
-	        view: 0
+	        view: 0,
+	        setLogin: function () {
+	            this.view = 0;
+	        },
+	        setRegister: function () {
+	            this.view = 2;
+	        },
+	        setPanel: function () {
+	            this.view = 1;
+	        }
 	    })
 
 	    .directive('userWidget', function () {
@@ -921,16 +930,9 @@ webpackJsonp([0],[
 	            }
 	        };
 	    }).controller('widgetWidgetCtrl', [
-	    '$scope', 'userWidgetView',
-	    function ($scope, userWidgetView) {
+	    '$scope', 'userWidgetView', 'user',
+	    function ($scope, userWidgetView, user) {
 	        $scope.widget = userWidgetView;
-
-	        
-	        $scope.check = function () {
-	            console.log(userWidgetView);
-	            console.log("SCope");
-	            console.log($scope.widget);
-	        }
 	    }
 	])
 	;
@@ -1078,50 +1080,49 @@ webpackJsonp([0],[
 
 	angular
 	    .module('jsend.service', [])
-	    .service('jsendService', ['$http', 'toastService', function ($http, toastService) {
-	        var http = function (config, callback) {
-	            return $http(config)
-	                .then(function (response) {
-	                    connect(response, callback)
-	                }, function (response) {
-	                    alert('ERROR WITH CONNECTION TO SERVER');
-	                });
-	        };
-	        var connect = function (response, callback) {
-	            var output = response.data;
-	            var status = output.status;
-	            var data = output.data;
-	            var message = output.message;
-	            var code = output.code;
+	    .service('jsendService', ['$http', 'toastService', '$filter',
+	        function ($http, toastService, $filter) {
+	            var http = function (config, callback) {
+	                return $http(config)
+	                    .then(function (response) {
+	                        connect(response, callback)
+	                    }, function (response) {
+	                        toastService.error("Serwer nie odpowiada!");
+	                    });
+	            };
+	            var connect = function (response, callback) {
+	                var output = response.data;
+	                var status = output.status;
+	                var data = output.data;
+	                var message = output.message;
+	                var code = output.code;
 
-	            var config = angular.extend({
-	                success: function () {
-	                },
-	                error: function () {
-	                },
-	                fail: function () {
+	                var config = angular.extend({
+	                    success: function () {
+	                    },
+	                    error: function () {
+	                    },
+	                    fail: function () {
+	                    }
+	                }, callback);
+
+	                console.log(response);
+
+	                if (status == "success") {
+	                    config.success(data);
+	                } else if (status == "error") {
+	                    config.error(data);
+	                } else if (status == "fail") {
+	                    config.fail(message, data, code);
+	                } else {
+	                    throw ("Nie znany typ odpowiedzi");
 	                }
-	            }, callback);
+	            };
 
-	            if (status == "success") {
-	                config.success(data);
-	                toastService.success("Pobrano dane!");
-	            } else if (status == "error") {
-	                config.error(data);
-	                toastService.error("Error");
-
-	            } else if (status == "fail") {
-	                config.fail(message, data, code);
-	                toastService.fail("FAIL!!!");
-	            } else {
-	                throw ("Nie znany typ odpowiedzi");
+	            return {
+	                http: http
 	            }
-	        };
-
-	        return {
-	            http: http
-	        }
-	    }]);
+	        }]);
 
 
 /***/ },
@@ -1203,10 +1204,16 @@ webpackJsonp([0],[
 	                    url: config.apiUrl + "/users/logout"
 	                }, callback);
 	            },
-	            info: function (callback) {
+	            islogged: function (callback) {
 	                return jsendService.http({
 	                    method: 'GET',
-	                    url: config.apiUrl + "/users/info"
+	                    url: config.apiUrl + "/users/islogged"
+	                }, callback);
+	            },
+	            logout: function (callback) {
+	                return jsendService.http({
+	                    method: 'GET',
+	                    url: config.apiUrl + "/users/logout"
 	                }, callback);
 	            }
 
@@ -1231,7 +1238,7 @@ webpackJsonp([0],[
 	        'app.sideBar',
 	        'app.filmsCards',
 	        'app.alert',
-	        
+
 	        'jsend.service',
 	        'toast.service',
 	        'countries.service',
@@ -1258,15 +1265,20 @@ webpackJsonp([0],[
 	    })
 
 	    .value('user', {
-	        isLogged: false,
-	        data: {
-	            role: 'admin',
-	            privileges: {
-	                edit: true,
-	                add: true
-	            }
-	        }
+	        isLogged: false
 	    })
+
+	    .run(['usersService', 'user', 'userWidgetView',
+	        function (usersService, user, userWidgetView) {
+	            usersService.islogged({
+	                success: function (response) {
+	                    user.data = response;
+	                    user.isLogged = true;
+	                    userWidgetView.setPanel();
+	                }
+	            })
+	        }]
+	    )
 
 
 	;

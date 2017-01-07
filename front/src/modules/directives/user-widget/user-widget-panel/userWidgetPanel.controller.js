@@ -10,23 +10,22 @@ angular
             }
         };
     }).controller('userWidgetPanelCtrl', [
-    '$scope', 'usersService', 'toastService', 'user',
-    function ($scope, usersService, toastService, user) {
+    '$scope', 'usersService', 'toastService', 'user', 'userWidgetView',
+    function ($scope, usersService, toastService, user, userWidgetView) {
         $scope.form = {};
         $scope.user = user;
 
-        $scope.submit = function () {
-            usersService.login($scope.form, {
-                success: function (data) {
-                    toastService.success("Zostałeś zalogowany!");
-                    user.isLogged = true;
-                    user.data = data;
-                },
-                error: function () {
-                    toastService.error("Niepoprawne dane logowania!");
+        $scope.logout = function () {
+            usersService.logout({
+                success: function () {
+                    toastService.success("Zostałeś wylogowany!");
+                    user.isLogged = false;
+                    user.data = {};
+                    userWidgetView.setLogin();
                 }
-            })
-        }
+            });
+        };
+
     }
 ])
 ;

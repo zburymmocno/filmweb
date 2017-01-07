@@ -11,7 +11,7 @@ angular
         'app.sideBar',
         'app.filmsCards',
         'app.alert',
-        
+
         'jsend.service',
         'toast.service',
         'countries.service',
@@ -38,15 +38,20 @@ angular
     })
 
     .value('user', {
-        isLogged: false,
-        data: {
-            role: 'admin',
-            privileges: {
-                edit: true,
-                add: true
-            }
-        }
+        isLogged: false
     })
+
+    .run(['usersService', 'user', 'userWidgetView',
+        function (usersService, user, userWidgetView) {
+            usersService.islogged({
+                success: function (response) {
+                    user.data = response;
+                    user.isLogged = true;
+                    userWidgetView.setPanel();
+                }
+            })
+        }]
+    )
 
 
 ;

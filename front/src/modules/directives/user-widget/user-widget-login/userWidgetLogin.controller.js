@@ -30,7 +30,7 @@ angular
         }
 
         $scope.goToRegister = function () {
-            userWidgetView.view = 2;
+            userWidgetView.setRegister();
         }
     }
 ])

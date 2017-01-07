@@ -24,10 +24,16 @@ angular
                     url: config.apiUrl + "/users/logout"
                 }, callback);
             },
-            info: function (callback) {
+            islogged: function (callback) {
                 return jsendService.http({
                     method: 'GET',
-                    url: config.apiUrl + "/users/info"
+                    url: config.apiUrl + "/users/islogged"
+                }, callback);
+            },
+            logout: function (callback) {
+                return jsendService.http({
+                    method: 'GET',
+                    url: config.apiUrl + "/users/logout"
                 }, callback);
             }
 

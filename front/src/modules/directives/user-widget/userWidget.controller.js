@@ -5,7 +5,16 @@ angular
         'userWidget.widgetPanel'
     ])
     .value('userWidgetView', {
-        view: 0
+        view: 0,
+        setLogin: function () {
+            this.view = 0;
+        },
+        setRegister: function () {
+            this.view = 2;
+        },
+        setPanel: function () {
+            this.view = 1;
+        }
     })
 
     .directive('userWidget', function () {
@@ -18,16 +27,9 @@ angular
             }
         };
     }).controller('widgetWidgetCtrl', [
-    '$scope', 'userWidgetView',
-    function ($scope, userWidgetView) {
+    '$scope', 'userWidgetView', 'user',
+    function ($scope, userWidgetView, user) {
         $scope.widget = userWidgetView;
-
-        
-        $scope.check = function () {
-            console.log(userWidgetView);
-            console.log("SCope");
-            console.log($scope.widget);
-        }
     }
 ])
 ;

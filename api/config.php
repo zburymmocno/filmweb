@@ -114,11 +114,11 @@ class Model
 			$_SESSION["ident"] = $data['nick'];
 			
 			if($privilege=="YES"){
-				$_SESSION['privileges'] = array("edit"=>"true", "add"=>"true");
+				$_SESSION['privileges'] = array("edit"=>1, "add"=>1);
 				return array("nick"=>$data['nick'], "privileges"=>$_SESSION['privileges']);
 			}
 			else{
-				$_SESSION['privileges'] = array("edit"=>"false", "add"=>"false");
+				$_SESSION['privileges'] = array("edit"=>0, "add"=>0);
 				return array("nick"=>$data['nick'], "privileges"=>$_SESSION['privileges']);
 			}
 		}
