@@ -212,6 +212,16 @@ class Model
 		return 0;
 	}
 
+	function logout(){
+		session_start();
+		session_destroy();
+
+		if (session_status() == 1){
+			return 1;
+		}
+		return 0;
+	}
+
 }
 
 
