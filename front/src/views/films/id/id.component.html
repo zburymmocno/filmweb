@@ -1,35 +1,38 @@
+<!--<md-card-title-media>-->
+<!--<div class="md-media-lg card-media">-->
+<!---->
+<!--</div>-->
+<!--</md-card-title-media>-->
+
 <md-card>
+
     <md-card-title>
-        <md-card-title-media>
-            <div class="card-media card-media-custom">
-                <img ng-src="{{film.url_p}}" alt="asds">
-            </div>
+        <md-card-title-media class="md-padding">
+            <img ng-src="{{film.url_p}}" alt="asds">
         </md-card-title-media>
         <md-card-title-text>
-            <span class="md-display-3">{{film.tytul}} <span class="film__year">{{film.rok_premiery}}</span> </span>
-
-            <span class=".md-title">Gatunek</span>
-            <span class="md-subhead">
-                    <span class="genre-list" ng-repeat="genre in film.gatunki">{{genre.nazwa}}</span>
-            </span>
-            <span class=".md-title">Kraj</span>
-            <span class="md-subhead">
-                    <span class="genre-list" ng-repeat="country in film.kraje">{{country.nazwa}}</span>
-            </span>
+            <span class="md-display-1">{{film.tytul}} <span class="film__year">{{film.rok_premiery}}</span></span>
+            <span class="md-title">Gatunek</span>
+            <ul class="film__details">
+                <li ng-repeat="genre in film.gatunki">{{genre.nazwa}}</li>
+            </ul>
+            <span class="md-title">Kraj</span>
+            <ul class="film__details">
+                <li ng-repeat="country in film.kraje">{{country.nazwa}}</li>
+            </ul>
             <md-button ng-href="{{film.url_z}}">Zobacz zwiastun</md-button>
-
         </md-card-title-text>
     </md-card-title>
-    <md-card-actions layout="row" layout-align="end center">
-        <md-button ng-show="user.data.privileges.edit" ui-sref="filmsEdit({id: film.film_id})">Edytuj</md-button>
-    </md-card-actions>
-</md-card>
 
-<md-card>
     <md-card-content>
         <h2>Opis filmu</h2>
         <p>
             {{film.opis}}
         </p>
     </md-card-content>
+
+    <md-card-actions layout="row" layout-align="end center">
+        <md-button ng-show="user.data.privileges.edit" ui-sref="filmsEdit({id: film.film_id})">Edytuj</md-button>
+    </md-card-actions>
 </md-card>
+

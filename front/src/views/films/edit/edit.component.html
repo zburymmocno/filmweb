@@ -1,8 +1,10 @@
-<div layout="column" ng-cloak>
-    <h1>Edycja filmu</h1>
-    <form name="filmForm" novalidate>
-        <md-content layout-gt-sm="column" layout-padding>
-            <md-input-container class="md-block">
+<md-card>
+    <md-card-title>
+        <h1>Edycja filmu o ID {{form.film_id}}</h1>
+    </md-card-title>
+    <md-card-content>
+        <form name="filmForm">
+            <md-input-container class="mfilm_idd-block">
                 <label>Tytuł</label>
                 <input ng-model="form.tytul" required>
             </md-input-container>
@@ -45,13 +47,12 @@
                 <label>Opis</label>
                 <textarea ng-model="form.opis" rows="5" md-select-on-focus required></textarea>
             </md-input-container>
-            <md-input-container class="md-block">
-                <input ng-disabled="!filmForm.$valid" type="submit" ng-click="send()" value="Zapisz">
-            </md-input-container>
-        </md-content>
-    </form>
-
-</div>
+        </form>
+    </md-card-content>
+    <md-card-actions layout="row" layout-align="end center">
+        <md-button class="md-raised md-primary" ng-disabled="!filmForm.$valid" ng-click="send()">Zapisz</md-button>
+    </md-card-actions>
+</md-card>
 
 
 

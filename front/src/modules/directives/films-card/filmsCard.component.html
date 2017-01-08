@@ -1,0 +1,27 @@
+<md-content class="md-margin" layout="row" layout-wrap>
+    <div class="two__column" flex="50" ng-repeat="film in films">
+        <md-card class="two__column__content">
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline">{{film.tytul}}</span>
+                    <span class="md-subhead">{{film.rok_premiery}}</span>
+                        <span class="md-subhead">
+                            <span ng-repeat="genre in film.gatunki">{{genre.nazwa}}, </span>
+                        </span>
+
+                </md-card-title-text>
+                <md-card-title-media>
+                    <div class="md-media-md card-media">
+                        <img class="film-short__image" ng-src="{{film.url_p}}"
+                             alt="alt">
+                    </div>
+                </md-card-title-media>
+            </md-card-title>
+            <md-card-actions layout="row" layout-align="start center">
+                <md-button ui-sref="films({id: film.film_id})">Szczegóły</md-button>
+                <md-button ng-show="user.data.privileges.edit" ui-sref="filmsEdit({id: film.film_id})">Edytuj
+                </md-button>
+            </md-card-actions>
+        </md-card>
+    </div>
+</md-content>

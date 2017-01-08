@@ -1,4 +1,12 @@
-<md-nav-bar md-selected-nav-item="currentNavItem">
-    <md-nav-item md-nav-href="#!/">Strona główna</md-nav-item>
-    <md-nav-item ng-show="user.data.privileges.add" md-nav-href="#!/films/add" name="page2">Dodaj nowy film</md-nav-item>
-</md-nav-bar>
+<md-toolbar class="custom_page-nav">
+    <div class="main-wrapper">
+        <div class="md-toolbar-tools">
+            <md-button md-nav-href="#!/">
+                Strona główne
+            </md-button>
+            <md-button ng-show="user.data.privileges.add" md-nav-href="#!/films/add">
+                Dodaj nowy film
+            </md-button>
+        </div>
+    </div>
+</md-toolbar>

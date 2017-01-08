@@ -6,11 +6,13 @@
 
 </head>
 <body class="flex flex--wrap">
-
 <page-nav><h1>LOADING</h1></page-nav>
-<div layout="row" layout-xs="column">
-    <ui-view flex="70"></ui-view>
-    <side-bar flex="30"></side-bar>
+<div class="main-wrapper">
+    <div layout="row" layout-xs="column">
+        <ui-view flex="70"></ui-view>
+
+        <side-bar flex="30"></side-bar>
+    </div>
 </div>
 </body>
 </html>

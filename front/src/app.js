@@ -9,7 +9,7 @@ angular
         'ngAnimate',
         'app.pageNav',
         'app.sideBar',
-        'app.filmsCards',
+        'app.filmsCard',
         'app.alert',
 
         'jsend.service',

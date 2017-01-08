@@ -31,8 +31,6 @@ angular.module('app.filmsEdit', [
 
                 filmService.get(id, {
                     success: function (data) {
-                        console.log("POBBRANO");
-                        console.log(data);
                         $scope.form = data;
                     }
                 });

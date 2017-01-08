@@ -1,4 +1,41 @@
-<h1>Najnowsze filmy</h1>
-<film-cards array="films"></film-cards>
+<md-card>
+    <md-toolbar class="md-toolbar-custom">
+        <div class="md-toolbar-tools">
+            <md-button ng-click="toggleSearch()">
+                <img class="md-button-img" src="../../assets/img/ic_search_white_24dp_2x.png"/>
+                Wyszukiwarka
+            </md-button>
+        </div>
+    </md-toolbar>
+
+    <div class="closable" ng-show="showSearch">
+        <md-card-content>
+            <md-input-container class="md-block no-margin-bottom no-margin-top">
+                <label>Tytuł</label>
+                <input ng-model="search.tytul">
+                <div class="hint">Wprowadź nazę filmu</div>
+            </md-input-container>
+            <div layout-gt-sm="row">
+                <md-input-container class="md-block " flex-gt-sm>
+                    <label>Gatunki</label>
+                    <md-select multiple ng-model="search.gatunki">
+                        <md-option ng-repeat="genre in genres" ng-value="genre.nazwa">
+                            {{genre.nazwa}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>Kraje</label>
+                    <md-select multiple ng-model="search.kraj">
+                        <md-option ng-repeat="country in countries" ng-value="country.nazwa">
+                            {{country.nazwa}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+            </div>
+        </md-card-content>
+    </div>
+</md-card>
+<films-card films="films"></films-card>
 
 

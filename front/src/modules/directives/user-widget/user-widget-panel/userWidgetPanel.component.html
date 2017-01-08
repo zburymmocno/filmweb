@@ -1,6 +1,8 @@
-<md-content layout-padding>
-    <h3>Witaj {{user.data.nick}}</h3>
-    <md-button ng-click="logout()" class="md-raised md-warn">
-        Wyloguj
-    </md-button>
-</md-content>
+<md-card class="md-padding">
+    <md-card-title>
+        <h3>Witaj {{user.data.nick}}!</h3>
+    </md-card-title>
+    <md-card-actions layout="row" layout-align="end center">
+        <md-button ng-click="logout()" class="md-raised md-primary">Wyloguj</md-button>
+    </md-card-actions>
+</md-card>
