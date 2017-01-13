@@ -23,8 +23,9 @@ angular.module('app.filmsId', [
                     }
                 });
 
-                $scope.$watch('ocena', function (newValue, oldValue) {
-                    $scope.sendScore(newValue);
+                $scope.$watch('rate', function (newValue, oldValue) {
+                    console.log($scope.rate);
+                    $scope.sendScore($scope.rate);
                 });
 
                 $scope.removeFilm = function (ev) {
