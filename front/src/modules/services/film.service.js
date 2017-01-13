@@ -31,6 +31,14 @@ angular
                     url: config.apiUrl + "/films/edit/" + id,
                     headers: {'Content-Type': 'application/json'}
                 }, callback);
+            },
+            filters: function (data, callback) {
+                return jsendService.http({
+                    method: 'POST',
+                    data: JSON.stringify(data),
+                    url: config.apiUrl + "/filteredfilms",
+                    headers: {'Content-Type': 'application/json'}
+                }, callback);
             }
         }
 

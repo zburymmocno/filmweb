@@ -38,5 +38,20 @@ angular.module('app.mainCtrl', [
                 $scope.films = data;
             }
         });
+
+        $scope.sendFilters = function () {
+            console.log("Dane wysłane");
+            console.log($scope.search);
+            filmService.filters({
+                success: function (data) {
+                    console.log("Dane odebrane");
+                    console.log(data);
+                    $scope.search = data;
+                },
+                error: function (data) {
+                    
+                }
+            });
+        }
     }])
 ;

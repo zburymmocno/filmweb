@@ -594,6 +594,21 @@ webpackJsonp([0],[
 	                $scope.films = data;
 	            }
 	        });
+
+	        $scope.sendFilters = function () {
+	            console.log("Dane wysłane");
+	            console.log($scope.search);
+	            filmService.filters({
+	                success: function (data) {
+	                    console.log("Dane odebrane");
+	                    console.log(data);
+	                    $scope.search = data;
+	                },
+	                error: function (data) {
+	                    
+	                }
+	            });
+	        }
 	    }])
 	;
 
@@ -601,7 +616,7 @@ webpackJsonp([0],[
 /* 14 */
 /***/ function(module, exports) {
 
-	module.exports = "<md-card>\n    <md-toolbar class=\"md-toolbar-custom\">\n        <div class=\"md-toolbar-tools\">\n            <md-button ng-click=\"toggleSearch()\">\n                <i class=\"material-icons md-button-img\">search</i>\n                Wyszukiwarka\n            </md-button>\n        </div>\n    </md-toolbar>\n\n    <div class=\"closable\" ng-show=\"showSearch\">\n        <md-card-content>\n            <md-input-container class=\"md-block no-margin-bottom no-margin-top\">\n                <label>Tytuł</label>\n                <input ng-model=\"search.tytul\">\n                <div class=\"hint\">Wprowadź nazę filmu</div>\n            </md-input-container>\n            <div layout-gt-sm=\"row\">\n                <md-input-container class=\"md-block \" flex-gt-sm>\n                    <label>Gatunki</label>\n                    <md-select multiple ng-model=\"search.gatunki\">\n                        <md-option ng-repeat=\"genre in genres\" ng-value=\"genre.nazwa\">\n                            {{genre.nazwa}}\n                        </md-option>\n                    </md-select>\n                </md-input-container>\n                <md-input-container class=\"md-block\" flex-gt-sm>\n                    <label>Kraje</label>\n                    <md-select multiple ng-model=\"search.kraj\">\n                        <md-option ng-repeat=\"country in countries\" ng-value=\"country.nazwa\">\n                            {{country.nazwa}}\n                        </md-option>\n                    </md-select>\n                </md-input-container>\n            </div>\n        </md-card-content>\n    </div>\n</md-card>\n<films-card films=\"films\"></films-card>\n\n\n";
+	module.exports = "<md-card>\n    <md-toolbar class=\"md-toolbar-custom\">\n        <div class=\"md-toolbar-tools\">\n            <md-button ng-click=\"toggleSearch()\">\n                <i class=\"material-icons md-button-img\">search</i>\n                Wyszukiwarka\n            </md-button>\n        </div>\n    </md-toolbar>\n\n    <div class=\"closable\" ng-show=\"showSearch\">\n        <md-card-content>\n            <md-input-container class=\"md-block no-margin-bottom no-margin-top\">\n                <label>Tytuł</label>\n                <input ng-model=\"search.tytul\">\n                <div class=\"hint\">Wprowadź nazę filmu</div>\n            </md-input-container>\n            <div layout-gt-sm=\"row\">\n                <md-input-container class=\"md-block \" flex-gt-sm>\n                    <label>Gatunki</label>\n                    <md-select ng-model=\"search.gatunek\">\n                        <md-option ng-repeat=\"genre in genres\" ng-value=\"genre.nazwa\">\n                            {{genre.nazwa}}\n                        </md-option>\n                    </md-select>\n                </md-input-container>\n                <md-input-container class=\"md-block\" flex-gt-sm>\n                    <label>Kraje</label>\n                    <md-select ng-model=\"search.kraj\">\n                        <md-option ng-repeat=\"country in countries\" ng-value=\"country.nazwa\">\n                            {{country.nazwa}}\n                        </md-option>\n                    </md-select>\n                </md-input-container>\n            </div>\n            <md-button class=\"md-raised md-primary\" ng-click=\"sendFilters()\">Szukaj</md-button>\n        </md-card-content>\n    </div>\n</md-card>\n<films-card films=\"films\"></films-card>\n\n\n";
 
 /***/ },
 /* 15 */
@@ -1063,6 +1078,14 @@ webpackJsonp([0],[
 	                    method: 'POST',
 	                    data: JSON.stringify(data),
 	                    url: config.apiUrl + "/films/edit/" + id,
+	                    headers: {'Content-Type': 'application/json'}
+	                }, callback);
+	            },
+	            filters: function (data, callback) {
+	                return jsendService.http({
+	                    method: 'POST',
+	                    data: JSON.stringify(data),
+	                    url: config.apiUrl + "/filteredfilms",
 	                    headers: {'Content-Type': 'application/json'}
 	                }, callback);
 	            }

@@ -18,7 +18,7 @@
             <div layout-gt-sm="row">
                 <md-input-container class="md-block " flex-gt-sm>
                     <label>Gatunki</label>
-                    <md-select multiple ng-model="search.gatunki">
+                    <md-select ng-model="search.gatunek">
                         <md-option ng-repeat="genre in genres" ng-value="genre.nazwa">
                             {{genre.nazwa}}
                         </md-option>
@@ -26,13 +26,14 @@
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm>
                     <label>Kraje</label>
-                    <md-select multiple ng-model="search.kraj">
+                    <md-select ng-model="search.kraj">
                         <md-option ng-repeat="country in countries" ng-value="country.nazwa">
                             {{country.nazwa}}
                         </md-option>
                     </md-select>
                 </md-input-container>
             </div>
+            <md-button class="md-raised md-primary" ng-click="sendFilters()">Szukaj</md-button>
         </md-card-content>
     </div>
 </md-card>
