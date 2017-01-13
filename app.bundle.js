@@ -568,44 +568,48 @@ webpackJsonp([0],[
 	    ]).controller('homeCtrl', [
 	    '$scope', 'filmService', '$filter', 'genresService', 'countriesService',
 	    function ($scope, filmService, $filter, genresService, countriesService) {
-	        $scope.allFilms = {};
 	        $scope.displayFilms = {};
-	        $scope.searchFilms = {};
-	        $scope.search = {};
 	        $scope.showSearch = false;
+	        $scope.found = true;
 
 	        $scope.$watch('showSearch', function (newValue, oldValue) {
 	            if (newValue) {
-	                $scope.displayFilms = $scope.searchFilms;
+	                //search
+	                $scope.getFilteredFilms();
 	            } else {
-	                $scope.displayFilms = $scope.allFilms;
+	                //all films
+	                $scope.getAllFilms();
 	            }
 	        });
+
 
 	        $scope.toggleSearch = function () {
 	            $scope.showSearch = !$scope.showSearch;
 	        };
-	        $scope.sendFilters = function () {
-	            console.log("Dane wysłane");
-	            console.log($scope.search);
+
+	        $scope.getFilteredFilms = function () {
 	            filmService.filters($scope.search, {
 	                success: function (data) {
-	                    console.log("Success");
-	                    console.log(data);
 	                    $scope.searchFilms = data;
+	                    $scope.found = true;
 	                },
 	                error: function (data) {
-	                    console.log("ERROR");
-	                    console.log(data);
+	                    $scope.found = false;
 	                },
 	                fails: function (data) {
-	                    console.log("FAIL");
-	                    console.log(data);
+	                    $scope.found = false;
 	                }
 	            });
 	        };
 
-	        (function () {
+	        $scope.getAllFilms = function () {
+	            filmService.getAll({
+	                success: function (data) {
+	                    $scope.displayFilms = data;
+	                }
+	            });
+	        };
+	        $scope.getSearchFields = function () {
 	            genresService.getAll({
 	                success: function (data) {
 	                    $scope.genres = data;
@@ -616,12 +620,9 @@ webpackJsonp([0],[
 	                    $scope.countries = data;
 	                }
 	            });
-	            filmService.getAll({
-	                success: function (data) {
-	                    $scope.allFilms = data;
-	                }
-	            });
-	        })();
+	        };
+	        $scope.getAllFilms();
+	        $scope.getSearchFields();
 	    }])
 	;
 
@@ -629,7 +630,7 @@ webpackJsonp([0],[
 /* 14 */
 /***/ function(module, exports) {
 
-	module.exports = "<md-card>\n    <md-toolbar class=\"md-toolbar-custom\">\n        <div class=\"md-toolbar-tools\">\n            <md-button ng-click=\"toggleSearch()\">\n                <i class=\"material-icons md-button-img\">search</i>\n                Wyszukiwarka\n            </md-button>\n        </div>\n    </md-toolbar>\n\n    <div class=\"closable\" ng-show=\"showSearch\">\n        <md-card-content>\n            <md-input-container class=\"md-block no-margin-bottom no-margin-top\">\n                <label>Tytuł</label>\n                <input ng-model=\"search.tytul\">\n                <div class=\"hint\">Wprowadź nazę filmu</div>\n            </md-input-container>\n            <div layout-gt-sm=\"row\">\n                <md-input-container class=\"md-block \" flex-gt-sm>\n                    <label>Gatunki</label>\n                    <md-select ng-model=\"search.gatunek\">\n                        <md-option ng-repeat=\"genre in genres\" ng-value=\"genre.nazwa\">\n                            {{genre.nazwa}}\n                        </md-option>\n                    </md-select>\n                </md-input-container>\n                <md-input-container class=\"md-block\" flex-gt-sm>\n                    <label>Kraje</label>\n                    <md-select ng-model=\"search.kraj\">\n                        <md-option ng-repeat=\"country in countries\" ng-value=\"country.nazwa\">\n                            {{country.nazwa}}\n                        </md-option>\n                    </md-select>\n                </md-input-container>\n            </div>\n            <div layout-gt-sm=\"row\" layout-align=\"end\">\n                <md-button class=\"md-raised md-primary\" ng-click=\"sendFilters()\">Szukaj</md-button>\n            </div>\n        </md-card-content>\n    </div>\n</md-card>\n<films-card films=\"displayFilms\"></films-card>\n\n\n";
+	module.exports = "<md-card>\n    <md-toolbar class=\"md-toolbar-custom\">\n        <div class=\"md-toolbar-tools\">\n            <md-button ng-click=\"toggleSearch()\">\n                <i class=\"material-icons md-button-img\">search</i>\n                Wyszukiwarka\n            </md-button>\n        </div>\n    </md-toolbar>\n\n    <div class=\"closable\" ng-show=\"showSearch\">\n        <md-card-content>\n            <md-input-container class=\"md-block no-margin-bottom no-margin-top\">\n                <label>Tytuł</label>\n                <input ng-model=\"search.tytul\">\n                <div class=\"hint\">Wprowadź nazę filmu</div>\n            </md-input-container>\n            <div layout-gt-sm=\"row\">\n                <md-input-container class=\"md-block \" flex-gt-sm>\n                    <label>Gatunki</label>\n                    <md-select ng-model=\"search.gatunek\">\n                        <md-option ng-repeat=\"genre in genres\" ng-value=\"genre.nazwa\">\n                            {{genre.nazwa}}\n                        </md-option>\n                    </md-select>\n                </md-input-container>\n                <md-input-container class=\"md-block\" flex-gt-sm>\n                    <label>Kraje</label>\n                    <md-select ng-model=\"search.kraj\">\n                        <md-option ng-repeat=\"country in countries\" ng-value=\"country.nazwa\">\n                            {{country.nazwa}}\n                        </md-option>\n                    </md-select>\n                </md-input-container>\n            </div>\n            <div layout-gt-sm=\"row\" layout-align=\"end\">\n                <md-button class=\"md-raised md-primary\" ng-click=\"getFilteredFilms()\">Szukaj</md-button>\n            </div>\n        </md-card-content>\n    </div>\n</md-card>\n<films-card ng-show=\"found\" films=\"displayFilms\"></films-card>\n<md-card ng-hide=\"found\">\n    <md-card-content>\n        <h1>Nie nie znaleziono!</h1>\n    </md-card-content>\n</md-card>\n\n\n\n";
 
 /***/ },
 /* 15 */
@@ -1144,7 +1145,8 @@ webpackJsonp([0],[
 	                    .then(function (response) {
 	                        connect(response, callback)
 	                    }, function (response) {
-	                        toastService.error("Serwer nie odpowiada!");
+	                        console.log(response);
+	                        toastService.error("Serwer nie odpowiada! Sprawdź konsole!");
 	                    });
 	            };
 	            var connect = function (response, callback) {
