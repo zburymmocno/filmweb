@@ -123,7 +123,7 @@ if($uri === $path.'/films') {
 		$status = new JSendResponse('success', array("message"=>"Usunięto film"));
 	}
 	else{
-		$status = new JSendResponse('fail', array("message"=>"Nie usunięto filmu"));		
+        $status = new JSendResponse('error', array("message"=>"Nie udalo sie usunac filmu"), 'Not cool.');
 	}
 	echo json_encode($status); 
 }elseif($uri === $path.'/users/add'){
