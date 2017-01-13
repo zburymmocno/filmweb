@@ -23,7 +23,7 @@ angular.module('app.filmsId', [
                     }
                 });
 
-                $scope.$watch('score', function (newValue, oldValue) {
+                $scope.$watch('ocena', function (newValue, oldValue) {
                     $scope.sendScore(newValue);
                 });
 
