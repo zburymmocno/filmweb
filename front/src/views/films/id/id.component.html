@@ -16,7 +16,7 @@
             </ul>
             <span class="md-title">Ocena użytkowików</span>
             <span class="md-subhead">666/213</span>
-            <!--<div ng-show="user.isLogged">-->
+            <div ng-show="!user.isLogged">
                 <span class="md-title">Twoja ocena:</span>
                 <md-input-container>
                     <label>Oceń film</label>
@@ -24,7 +24,7 @@
                         <md-option ng-repeat="i in [1,2,3,4,5]" ng-value="i">{{i}}</md-option>
                     </md-select>
                 </md-input-container>
-            <!--</div>-->
+            </div>
         </md-card-title-text>
     </md-card-title>
 
