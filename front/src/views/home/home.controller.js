@@ -34,7 +34,7 @@ angular.module('app.mainCtrl', [
         $scope.getFilteredFilms = function () {
             filmService.filters($scope.search, {
                 success: function (data) {
-                    $scope.searchFilms = data;
+                    $scope.displayFilms = data;
                     $scope.found = true;
                 },
                 error: function (data) {
