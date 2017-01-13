@@ -78,10 +78,7 @@ angular.module('app.filmsId', [
                     });
                 };
 
-                $scope.getAverageScore();
-                $scope.getScore();
-
-
-
+                // $scope.getAverageScore();
+                // $scope.getScore();
             }])
 ;

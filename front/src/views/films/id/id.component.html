@@ -15,9 +15,9 @@
                 <li ng-repeat="country in film.kraje">{{country.nazwa}}</li>
             </ul>
             <span class="md-title">Ocena użytkowików</span>
-            <span class="md-subhead">{{averageScore}}</span>
+            <span class="md-subhead">{{averageScore.srednia}}</span>
             <span class="md-title">Twoja ocena</span>
-            <span class="md-subhead">{{userScore}}</span>
+            <span class="md-subhead">{{userScore.ocena}}</span>
 
             <div ng-show="user.isLogged">
                 <span class="md-title">Twoja ocena:</span>
