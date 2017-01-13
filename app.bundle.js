@@ -426,8 +426,8 @@ webpackJsonp([0],[
 	        }
 	    ])
 	    .controller('filmsAddCtrl',
-	        ['$scope', 'filmService', 'countriesService', 'genresService',
-	            function ($scope, filmService, countriesService, genresService) {
+	        ['$scope', 'filmService', 'countriesService', 'genresService', 'toastService', '$state',
+	            function ($scope, filmService, countriesService, genresService, toastService, $state) {
 	                $scope.form = {};
 	                $scope.genres = {};
 	                $scope.countries = {};
@@ -445,7 +445,12 @@ webpackJsonp([0],[
 	                });
 
 	                $scope.send = function () {
-	                    filmService.add($scope.form);
+	                    filmService.add($scope.form, {
+	                        success: function () {
+	                            toastService.success("Film został dodany poprawnie");
+	                            $state.go('home');
+	                        }
+	                    });
 	                };
 	            }])
 	;
@@ -530,8 +535,8 @@ webpackJsonp([0],[
 	        }
 	    ])
 	    .controller('filmsIdCtrl',
-	        ['$scope', '$stateParams', 'filmService', 'user',
-	            function ($scope, $stateParams, filmService, user) {
+	        ['$scope', '$stateParams', 'filmService', 'user', 'toastService', '$state', '$mdDialog',
+	            function ($scope, $stateParams, filmService, user, toastService, $state, $mdDialog) {
 	                var id = $stateParams.id;
 
 	                $scope.user = user;
@@ -540,7 +545,27 @@ webpackJsonp([0],[
 	                    success: function (data) {
 	                        $scope.film = data;
 	                    }
-	                })
+	                });
+
+	                $scope.removeFilm = function () {
+	                    var confirm = $mdDialog.confirm()
+	                            .title("Czy na pewno chcesz usunąć film?")
+	                            .text("Jeśli to zrobisz, film przepadnie bezpowrotnie!")
+	                            .ok('Tak, jestem tego pewnien!')
+	                            .cancel("Nie, jednak nie chcę tego robić")
+	                        ;
+	                    $mdDialog.show(confirm).then(function () {
+	                        filmService.remove($scope.film.film_id, {
+	                            success: function () {
+	                                toastService.success("Film został usunięty poprawnie");
+	                                $state.go('home');
+	                            }
+	                        })
+	                    }, function () {
+	                        toastService.success("Film nie został usunięty");
+	                    });
+
+	                }
 	            }])
 	;
 
@@ -548,7 +573,7 @@ webpackJsonp([0],[
 /* 12 */
 /***/ function(module, exports) {
 
-	module.exports = "<!--<md-card-title-media>-->\n<!--<div class=\"md-media-lg card-media\">-->\n<!---->\n<!--</div>-->\n<!--</md-card-title-media>-->\n\n<md-card>\n\n    <md-card-title>\n        <md-card-title-media class=\"md-padding\">\n            <img ng-src=\"{{film.url_p}}\" alt=\"asds\">\n        </md-card-title-media>\n        <md-card-title-text>\n            <span class=\"md-display-1\">{{film.tytul}} <span class=\"film__year\">{{film.rok_premiery}}</span></span>\n            <span class=\"md-title\">Gatunek</span>\n            <ul class=\"film__details\">\n                <li ng-repeat=\"genre in film.gatunki\">{{genre.nazwa}}</li>\n            </ul>\n            <span class=\"md-title\">Kraj</span>\n            <ul class=\"film__details\">\n                <li ng-repeat=\"country in film.kraje\">{{country.nazwa}}</li>\n            </ul>\n            <md-button ng-href=\"{{film.url_z}}\">Zobacz zwiastun</md-button>\n        </md-card-title-text>\n    </md-card-title>\n\n    <md-card-content>\n        <h2>Opis filmu</h2>\n        <p>\n            {{film.opis}}\n        </p>\n    </md-card-content>\n\n    <md-card-actions layout=\"row\" layout-align=\"end center\">\n        <md-button ng-show=\"user.data.privileges.edit\" ui-sref=\"filmsEdit({id: film.film_id})\">Edytuj</md-button>\n    </md-card-actions>\n</md-card>\n\n";
+	module.exports = "<!--<md-card-title-media>-->\n<!--<div class=\"md-media-lg card-media\">-->\n<!---->\n<!--</div>-->\n<!--</md-card-title-media>-->\n\n<md-card>\n\n    <md-card-title>\n        <md-card-title-media class=\"md-padding\">\n            <img ng-src=\"{{film.url_p}}\" alt=\"asds\">\n        </md-card-title-media>\n        <md-card-title-text>\n            <span class=\"md-display-1\">{{film.tytul}} <span class=\"film__year\">{{film.rok_premiery}}</span></span>\n            <span class=\"md-title\">Gatunek</span>\n            <ul class=\"film__details\">\n                <li ng-repeat=\"genre in film.gatunki\">{{genre.nazwa}}</li>\n            </ul>\n            <span class=\"md-title\">Kraj</span>\n            <ul class=\"film__details\">\n                <li ng-repeat=\"country in film.kraje\">{{country.nazwa}}</li>\n            </ul>\n            <md-button ng-href=\"{{film.url_z}}\">Zobacz zwiastun</md-button>\n        </md-card-title-text>\n    </md-card-title>\n\n    <md-card-content>\n        <h2>Opis filmu</h2>\n        <p>\n            {{film.opis}}\n        </p>\n    </md-card-content>\n\n    <md-card-actions layout=\"row\" layout-align=\"end center\">\n        <md-button ng-show=\"user.data.privileges.edit\" ui-sref=\"filmsEdit({id: film.film_id})\">Edytuj</md-button>\n        <md-button ng-show=\"user.data.privileges.edit\" ng-click=\"removeFilm()\">Usuń</md-button>\n    </md-card-actions>\n</md-card>\n\n";
 
 /***/ },
 /* 13 */
@@ -630,7 +655,7 @@ webpackJsonp([0],[
 /* 14 */
 /***/ function(module, exports) {
 
-	module.exports = "<md-card>\n    <md-toolbar class=\"md-toolbar-custom\">\n        <div class=\"md-toolbar-tools\">\n            <md-button ng-click=\"toggleSearch()\">\n                <i class=\"material-icons md-button-img\">search</i>\n                Wyszukiwarka\n            </md-button>\n        </div>\n    </md-toolbar>\n\n    <div class=\"closable\" ng-show=\"showSearch\">\n        <md-card-content>\n            <md-input-container class=\"md-block no-margin-bottom no-margin-top\">\n                <label>Tytuł</label>\n                <input ng-model=\"search.tytul\">\n                <div class=\"hint\">Wprowadź nazę filmu</div>\n            </md-input-container>\n            <div layout-gt-sm=\"row\">\n                <md-input-container class=\"md-block \" flex-gt-sm>\n                    <label>Gatunki</label>\n                    <md-select ng-model=\"search.gatunek\">\n                        <md-option ng-repeat=\"genre in genres\" ng-value=\"genre.nazwa\">\n                            {{genre.nazwa}}\n                        </md-option>\n                    </md-select>\n                </md-input-container>\n                <md-input-container class=\"md-block\" flex-gt-sm>\n                    <label>Kraje</label>\n                    <md-select ng-model=\"search.kraj\">\n                        <md-option ng-repeat=\"country in countries\" ng-value=\"country.nazwa\">\n                            {{country.nazwa}}\n                        </md-option>\n                    </md-select>\n                </md-input-container>\n            </div>\n            <div layout-gt-sm=\"row\" layout-align=\"end\">\n                <md-button class=\"md-raised md-primary\" ng-click=\"getFilteredFilms()\">Szukaj</md-button>\n            </div>\n        </md-card-content>\n    </div>\n</md-card>\n<films-card ng-show=\"found\" films=\"displayFilms\"></films-card>\n<md-card ng-hide=\"found\">\n    <md-card-content>\n        <h1>Nie nie znaleziono!</h1>\n    </md-card-content>\n</md-card>\n\n\n\n";
+	module.exports = "<md-card>\n    <md-toolbar class=\"md-toolbar-custom\">\n        <div class=\"md-toolbar-tools\">\n            <md-button ng-click=\"toggleSearch()\">\n                <i class=\"material-icons md-button-img\">search</i>\n                Wyszukiwarka\n            </md-button>\n        </div>\n    </md-toolbar>\n\n    <form class=\"closable\" ng-show=\"showSearch\">\n        <md-card-content>\n            <md-input-container class=\"md-block no-margin-bottom no-margin-top\">\n                <label>Tytuł</label>\n                <input ng-model=\"search.tytul\">\n                <div class=\"hint\">Wprowadź nazę filmu</div>\n            </md-input-container>\n            <div layout-gt-sm=\"row\">\n                <md-input-container class=\"md-block \" flex-gt-sm>\n                    <label>Gatunki</label>\n                    <md-select ng-model=\"search.gatunek\">\n                        <md-option ng-repeat=\"genre in genres\" ng-value=\"genre.nazwa\">\n                            {{genre.nazwa}}\n                        </md-option>\n                    </md-select>\n                </md-input-container>\n                <md-input-container class=\"md-block\" flex-gt-sm>\n                    <label>Kraje</label>\n                    <md-select ng-model=\"search.kraj\">\n                        <md-option ng-repeat=\"country in countries\" ng-value=\"country.nazwa\">\n                            {{country.nazwa}}\n                        </md-option>\n                    </md-select>\n                </md-input-container>\n            </div>\n            <div layout-gt-sm=\"row\" layout-align=\"end\">\n                <md-button type=\"submit\" class=\"md-raised md-primary\" ng-click=\"getFilteredFilms()\">Szukaj</md-button>\n            </div>\n        </md-card-content>\n    </form>\n</md-card>\n<films-card ng-show=\"found\" films=\"displayFilms\"></films-card>\n<md-card ng-hide=\"found\">\n    <md-card-content>\n        <h1>Nie nie znaleziono!</h1>\n    </md-card-content>\n</md-card>\n\n\n\n";
 
 /***/ },
 /* 15 */
@@ -686,9 +711,31 @@ webpackJsonp([0],[
 	            }
 	        };
 	    }).controller('filmsCardCtrl', [
-	    '$scope', 'user',
-	    function ($scope, user) {
+	    '$scope', 'user', 'filmService', 'toastService', '$mdDialog',
+	    function ($scope, user, filmService, toastService, $mdDialog) {
 	        $scope.user = user;
+
+	        $scope.removeFilm = function (index, id) {
+	            var confirm = $mdDialog.confirm()
+	                    .title("Czy na pewno chcesz usunąć film?")
+	                    .text("Jeśli to zrobisz, film przepadnie bezpowrotnie!")
+	                    .ok('Tak, jestem tego pewnien!')
+	                    .cancel("Nie, jednak nie chcę tego robić")
+	                ;
+	            $mdDialog.show(confirm).then(function () {
+	                filmService.remove(id, {
+	                    success: function () {
+	                        toastService.success("Film został usunięty poprawnie");
+	                        $scope.films.split(index, 1);
+	                    }
+	                })
+	            }, function () {
+	                toastService.success("Film nie został usunięty");
+	            });
+
+	        }
+
+
 	    }
 	])
 	;
@@ -697,7 +744,7 @@ webpackJsonp([0],[
 /* 17 */
 /***/ function(module, exports) {
 
-	module.exports = "<md-content class=\"md-margin\" layout=\"row\" layout-wrap>\n    <div class=\"two__column\" flex=\"50\" ng-repeat=\"film in films\">\n        <md-card class=\"two__column__content\">\n            <md-card-title>\n                <md-card-title-text>\n                    <span class=\"md-headline\">{{film.tytul}}</span>\n                    <span class=\"md-subhead\">{{film.rok_premiery}}</span>\n                        <span class=\"md-subhead\">\n                            <span ng-repeat=\"genre in film.gatunki\">{{genre.nazwa}}, </span>\n                        </span>\n\n                </md-card-title-text>\n                <md-card-title-media>\n                    <div class=\"md-media-md card-media\">\n                        <img class=\"film-short__image\" ng-src=\"{{film.url_p}}\"\n                             alt=\"alt\">\n                    </div>\n                </md-card-title-media>\n            </md-card-title>\n            <md-card-actions layout=\"row\" layout-align=\"start center\">\n                <md-button ui-sref=\"films({id: film.film_id})\">Szczegóły</md-button>\n                <md-button ng-show=\"user.data.privileges.edit\" ui-sref=\"filmsEdit({id: film.film_id})\">Edytuj\n                </md-button>\n            </md-card-actions>\n        </md-card>\n    </div>\n</md-content>";
+	module.exports = "<md-content class=\"md-margin\" layout=\"row\" layout-wrap>\n    <div class=\"two__column\" flex=\"50\" ng-repeat=\"film in films\">\n        <md-card class=\"two__column__content\">\n            <md-card-title>\n                <md-card-title-text>\n                    <span class=\"md-headline\">{{film.tytul}}</span>\n                    <span class=\"md-subhead\">{{film.rok_premiery}}</span>\n                        <span class=\"md-subhead\">\n                            <span ng-repeat=\"genre in film.gatunki\">{{genre.nazwa}},</span>\n                        </span>\n\n                </md-card-title-text>\n                <md-card-title-media>\n                    <div class=\"md-media-md card-media\">\n                        <img class=\"film-short__image\" ng-src=\"{{film.url_p}}\"\n                             alt=\"alt\">\n                    </div>\n                </md-card-title-media>\n            </md-card-title>\n            <md-card-actions layout=\"row\" layout-align=\"start center\">\n                <md-button ui-sref=\"films({id: film.film_id})\">Szczegóły</md-button>\n                <md-button ng-show=\"user.data.privileges.edit\" ui-sref=\"filmsEdit({id: film.film_id})\">Edytuj\n                </md-button>\n                <md-button ng-show=\"user.data.privileges.edit\" ng-click=\"removeFilm($index,film.film_id)\">Usuń\n                </md-button>\n            </md-card-actions>\n        </md-card>\n    </div>\n</md-content>";
 
 /***/ },
 /* 18 */
@@ -1092,6 +1139,13 @@ webpackJsonp([0],[
 	                    method: 'POST',
 	                    data: JSON.stringify(data),
 	                    url: config.apiUrl + "/films/edit/" + id,
+	                    headers: {'Content-Type': 'application/json'}
+	                }, callback);
+	            },
+	            remove: function (id, callback) {
+	                return jsendService.http({
+	                    method: 'GET',
+	                    url: config.apiUrl + "/films/remove/" + id,
 	                    headers: {'Content-Type': 'application/json'}
 	                }, callback);
 	            },

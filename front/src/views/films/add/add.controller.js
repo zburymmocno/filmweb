@@ -12,8 +12,8 @@ angular.module('app.filmsAdd', [
         }
     ])
     .controller('filmsAddCtrl',
-        ['$scope', 'filmService', 'countriesService', 'genresService',
-            function ($scope, filmService, countriesService, genresService) {
+        ['$scope', 'filmService', 'countriesService', 'genresService', 'toastService', '$state',
+            function ($scope, filmService, countriesService, genresService, toastService, $state) {
                 $scope.form = {};
                 $scope.genres = {};
                 $scope.countries = {};
@@ -31,7 +31,12 @@ angular.module('app.filmsAdd', [
                 });
 
                 $scope.send = function () {
-                    filmService.add($scope.form);
+                    filmService.add($scope.form, {
+                        success: function () {
+                            toastService.success("Film został dodany poprawnie");
+                            $state.go('home');
+                        }
+                    });
                 };
             }])
 ;

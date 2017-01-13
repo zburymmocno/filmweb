@@ -8,7 +8,7 @@
         </div>
     </md-toolbar>
 
-    <div class="closable" ng-show="showSearch">
+    <form class="closable" ng-show="showSearch">
         <md-card-content>
             <md-input-container class="md-block no-margin-bottom no-margin-top">
                 <label>Tytuł</label>
@@ -34,10 +34,10 @@
                 </md-input-container>
             </div>
             <div layout-gt-sm="row" layout-align="end">
-                <md-button class="md-raised md-primary" ng-click="getFilteredFilms()">Szukaj</md-button>
+                <md-button type="submit" class="md-raised md-primary" ng-click="getFilteredFilms()">Szukaj</md-button>
             </div>
         </md-card-content>
-    </div>
+    </form>
 </md-card>
 <films-card ng-show="found" films="displayFilms"></films-card>
 <md-card ng-hide="found">
