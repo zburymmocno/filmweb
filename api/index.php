@@ -8,8 +8,8 @@ require_once('config.php');
 require_once('JSendResponse.php');
 
 
-$obj = new Model("tantor.db.elephantsql.com", "5432", "hxrnzqnh", "hxrnzqnh", "xMhZTJrVOz9zI6MU46M1sGFfyE1JkBlf");
-//$obj = new Model("localhost", "5432", "filmweb", "postgres", "postgres");
+//$obj = new Model("tantor.db.elephantsql.com", "5432", "hxrnzqnh", "hxrnzqnh", "xMhZTJrVOz9zI6MU46M1sGFfyE1JkBlf");
+$obj = new Model("localhost", "5432", "filmweb", "postgres", "postgres");
 
 $path = '/filmweb/api/index.php';
 $pathreg = '\/filmweb\/api\/index.php';
@@ -117,7 +117,7 @@ if($uri === $path.'/films') {
 	echo json_encode($status);
 }elseif(preg_match("/^".$pathreg."\/films\/remove\/[0-9]{1,}$/", $uri, $match)){
 	preg_match('!\d+!', $uri, $matches);
-	//echo $matches[0];
+//	echo $matches[0];
 
 	if($obj->removeMovie($matches[0])){
 		$status = new JSendResponse('success', array("message"=>"Usunięto film"));
@@ -200,6 +200,25 @@ elseif($uri === $path.'/users/logout') {
 	}
 	echo json_encode($status);
 
+
+}elseif($uri === $path.'/filteredfilms') {
+    $data_from_json = json_decode(file_get_contents('php://input'), true);
+//print_r($data_from_json);
+//echo $_POST['gatunek'];
+    $result =  $obj->filteredlist($data_from_json);
+    if(pg_fetch_all($result)){
+        $tab = array();
+        $iter = 0;
+        while ($row = pg_fetch_assoc($result)) {
+            $row['gatunki'] = pg_fetch_all($obj->listGenres($row['film_id']));
+            $row['kraje'] = pg_fetch_all($obj->listCOuntries($row['film_id']));
+            $tab[$iter] = $row;
+            $iter++;
+        }
+        $status = new JSendResponse('success', $tab);
+    }else
+        $status = new JSendResponse('fail', array("message"=>"Błąd serwera"));
+    echo json_encode($status);
 
 }else{
 	header('HTTP/1.1 404 Not Found');
