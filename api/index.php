@@ -226,16 +226,38 @@ elseif($uri === $path.'/users/logout') {
     preg_match('!\d+!', $uri, $matches);
 
     $data_from_json = json_decode(file_get_contents('php://input'), true);
-    $result = $obj->rate($matches[0], $data_from_json);
 
-    if($result==1){
-        $status = new JSendResponse('success', array("message"=>"Film zostal oceniony poprawnie"));
+    if(empty($data_from_json)) {
+    	$mark = $obj->getRate($matches[0]);
+        if ($mark) {
+            $status = new JSendResponse('success', array("ocena" => $mark));
+        }
+        else{
+            $status = new JSendResponse('error', array("message" => "Brak oceny"), 'Not cool.');
+		}
+	}
+    else {
+        $result = $obj->rate($matches[0], $data_from_json);
+
+        if ($result == 1) {
+            $status = new JSendResponse('success', array("message" => "Film zostal oceniony poprawnie"));
+        } elseif ($result == 0) {
+            $status = new JSendResponse('error', array("message" => "Nie udalo sie ocenic filmu"), 'Not cool.');
+        } else {
+            $status = new JSendResponse('fail', array("message" => "Błąd serwera"));
+        }
     }
-    elseif($result==0){
-        $status = new JSendResponse('error', array("message"=>"Nie udalo sie ocenic filmu"), 'Not cool.');
-    }
-    else{
-        $status = new JSendResponse('fail', array("message"=>"Błąd serwera"));
+    echo json_encode($status);
+}elseif(preg_match("/^".$pathreg."\/films\/[0-9]{1,}\/rate\/average$/", $uri, $match)){
+    preg_match('!\d+!', $uri, $matches);
+
+//    $data_from_json = json_decode(file_get_contents('php://input'), true);
+
+    $result = $obj->getAverage($matches[0]);
+    if(is_array($result)){
+        $status = new JSendResponse('success', array("srednia" => $result[0]));
+    }else {
+        $status = new JSendResponse('error', array("message" => "Brak ocen"), 'Not cool.');
     }
     echo json_encode($status);
 }else{
