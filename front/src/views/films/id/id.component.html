@@ -15,15 +15,18 @@
                 <li ng-repeat="country in film.kraje">{{country.nazwa}}</li>
             </ul>
             <span class="md-title">Ocena użytkowików</span>
-            <span class="md-subhead">666/213</span>
+            <span class="md-subhead">{{averageScore}}</span>
+            <span class="md-title">Twoja ocena</span>
+            <span class="md-subhead">{{userScore}}</span>
+
             <div ng-show="user.isLogged">
                 <span class="md-title">Twoja ocena:</span>
-                <md-input-container>
+                <md-input-contaner>
                     <label>Oceń film</label>
                     <md-select ng-model="rate.ocena">
                         <md-option ng-repeat="i in [1,2,3,4,5]" ng-value="i">{{i}}</md-option>
                     </md-select>
-                </md-input-container>
+                </md-input-contaner>
             </div>
         </md-card-title-text>
     </md-card-title>

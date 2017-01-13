@@ -54,6 +54,20 @@ angular
                     url: config.apiUrl + "/films/" + id + "/rate",
                     headers: {'Content-Type': 'application/json'}
                 }, callback);
+            },
+            getRate: function (id, callback) {
+                return jsendService.http({
+                    method: 'GET',
+                    url: config.apiUrl + "/films/" + id + "/rate",
+                    headers: {'Content-Type': 'application/json'}
+                }, callback);
+            },
+            getAverageRate: function (id, callback) {
+                return jsendService.http({
+                    method: 'GET',
+                    url: config.apiUrl + "/films/" + id + "/rate/average",
+                    headers: {'Content-Type': 'application/json'}
+                }, callback);
             }
         }
 

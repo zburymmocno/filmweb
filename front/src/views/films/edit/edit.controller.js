@@ -12,10 +12,20 @@ angular.module('app.filmsEdit', [
         }
     ])
     .controller('filmsEditCtrl',
-        ['$scope', 'filmService', 'countriesService', 'genresService', '$stateParams','toastService',
+        ['$scope', 'filmService', 'countriesService', 'genresService', '$stateParams', 'toastService',
             function ($scope, filmService, countriesService, genresService, $stateParams, toastService) {
                 $scope.form = {};
+
                 var id = $stateParams.id;
+
+
+                $scope.send = function () {
+                    filmService.edit(id, $scope.form, {
+                        success: function () {
+                            toastService.success("FIlm został zaktualizowany");
+                        }
+                    })
+                };
 
                 countriesService.getAll({
                     success: function (data) {
@@ -32,15 +42,9 @@ angular.module('app.filmsEdit', [
                 filmService.get(id, {
                     success: function (data) {
                         $scope.form = data;
+                        angular.extend($scope.countries, $scope.form.kraje);
+                        angular.extend($scope.genres, $scope.form.gatunki);
                     }
                 });
-
-                $scope.send = function () {
-                    filmService.edit(id, $scope.form, {
-                        success: function () {
-                            toastService.success("FIlm został zaktualizowany");
-                        }
-                    })
-                };
             }])
 ;

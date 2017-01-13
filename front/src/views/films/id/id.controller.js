@@ -25,7 +25,9 @@ angular.module('app.filmsId', [
 
                 $scope.$watch('rate', function (newValue, oldValue) {
                     $scope.sendScore($scope.rate);
-                });
+                    $scope.getAverageScore();
+                    $scope.getScore();
+                }, true);
 
                 $scope.removeFilm = function (ev) {
                     var confirm = $mdDialog.confirm()
@@ -53,6 +55,33 @@ angular.module('app.filmsId', [
                             toastService.success("Film został oceniony. Twoje ocena to " + score.ocena + "/5");
                         }
                     })
-                }
+                };
+
+                $scope.getScore = function () {
+                    filmService.getRate($scope.film.film_id, {
+                        success: function (data) {
+                            $scope.userScore = data;
+                        },
+                        error: function () {
+                            toastService.error("Nie oceniłem jeszcze tego filmu :(");
+                        }
+                    });
+                };
+                $scope.getAverageScore = function () {
+                    filmService.getAverageRate($scope.film.film_id, {
+                        success: function (data) {
+                            $scope.averageScore = data;
+                        },
+                        error: function (data) {
+                            toastService.error("Ten film nie posiada żadnych ocen");
+                        }
+                    });
+                };
+
+                $scope.getAverageScore();
+                $scope.getScore();
+
+
+
             }])
 ;
