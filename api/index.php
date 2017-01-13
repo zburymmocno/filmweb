@@ -222,6 +222,23 @@ elseif($uri === $path.'/users/logout') {
 
     echo json_encode($status);
 
+}elseif(preg_match("/^".$pathreg."\/films\/[0-9]{1,}\/rate$/", $uri, $match)){
+    preg_match('!\d+!', $uri, $matches);
+
+    $data_from_json = json_decode(file_get_contents('php://input'), true);
+    print_r($data_from_json);
+    $result = $obj->rate($matches[0], $data_from_json);
+
+    if($result==1){
+        $status = new JSendResponse('success', array("message"=>"Film zostal oceniony poprawnie"));
+    }
+    elseif($result==0){
+        $status = new JSendResponse('error', array("message"=>"Nie udalo sie ocenic filmu"), 'Not cool.');
+    }
+    else{
+        $status = new JSendResponse('fail', array("message"=>"Błąd serwera"));
+    }
+    echo json_encode($status);
 }else{
 	header('HTTP/1.1 404 Not Found');
 	echo '<html><body><h1>Page Not Found</h1></body></html>';

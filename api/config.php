@@ -296,6 +296,21 @@ class Model
         return $result;
     }
 
+    function rate($f_id, $data)
+    {
+        session_start();
+        $user = $_SESSION['ident'];
+
+        $u_id = pg_fetch_array( pg_query("SELECT uzytkownik_id from uzytkownicy WHERE nick = '" . $user . "'"))['uzytkownik_id'];
+        echo $f_id;
+
+        $result = pg_query("INSERT into film_ocena values (" . $data['ocena'] . ", " . $f_id . ", " . $u_id . ")");
+        if($result){
+            return 1;
+        }
+        return 0;
+    }
+
 }
 
 
