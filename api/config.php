@@ -234,37 +234,72 @@ class Model
 
     function filteredlist($data)
     {
+        $tytul = $data['tytul'];
         $gat = $data['gatunek'];
         $kraj = $data['kraj'];
-        echo $gat;
-        echo $kraj;
+//        echo $tytul;
+//        echo $gat;
+//        echo $kraj;
 
-        if ($kraj=="") {
-            if ($gat!="") {
-//               echo $gat;
-                $g_id = pg_fetch_array(pg_query("SELECT gatunek_id from gatunek WHERE nazwa = '" . $gat . "'"))['gatunek_id'];
-                $result = pg_query("SELECT DISTINCT f.film_id, f.tytul, f.rok_premiery, f.opis, fp.url as url_p, fz.url as url_z FROM film f FULL JOIN film_gatunek fg ON f.film_id = fg.film_id LEFT JOIN film_plakat fp ON f.film_id = fp.film_id LEFT JOIN film_zwiastun fz ON f.film_id = fz.film_id WHERE fg.gatunek_id=" . $g_id) or die("nie można wysłać zapytania2");
+        if($tytul == "") {
+            if ($kraj == "") {
+                if ($gat != "") {
+//                                   echo $gat;
+                    $g_id = pg_fetch_array(pg_query("SELECT gatunek_id from gatunek WHERE nazwa = '" . $gat . "'"))['gatunek_id'];
+                    $result = pg_query("SELECT DISTINCT f.film_id, f.tytul, f.rok_premiery, f.opis, fp.url as url_p, fz.url as url_z FROM film f FULL JOIN film_gatunek fg ON f.film_id = fg.film_id LEFT JOIN film_plakat fp ON f.film_id = fp.film_id LEFT JOIN film_zwiastun fz ON f.film_id = fz.film_id WHERE fg.gatunek_id=" . $g_id) or die("nie można wysłać zapytania2");
 
+                } else {
+//                                    echo $gat;
+                    $result = pg_query("SELECT DISTINCT f.film_id, f.tytul, f.rok_premiery, f.opis, fp.url as url_p, fz.url as url_z FROM film f LEFT JOIN film_plakat fp ON f.film_id = fp.film_id LEFT JOIN film_zwiastun fz ON f.film_id = fz.film_id") or die("nie można wysłać zapytania2");
+                }
             } else {
-//                echo $gat;
-                $result = pg_query("SELECT DISTINCT f.film_id, f.tytul, f.rok_premiery, f.opis, fp.url as url_p, fz.url as url_z FROM film f LEFT JOIN film_plakat fp ON f.film_id = fp.film_id LEFT JOIN film_zwiastun fz ON f.film_id = fz.film_id") or die("nie można wysłać zapytania2");
-            }
-        } else {
-            if ($gat!="") {
-//                echo $gat;
+                if ($gat != "") {
+//                                    echo $gat;
 
-                $g_id = pg_fetch_array(pg_query("SELECT gatunek_id from gatunek WHERE nazwa = '" . $gat . "'"))['gatunek_id'];
-                $k_id = pg_fetch_array(pg_query("SELECT kraj_id from kraj WHERE nazwa = '" . $kraj . "'"))['kraj_id'];
-                $result = pg_query("SELECT DISTINCT f.film_id, f.tytul, f.rok_premiery, f.opis, fp.url as url_p, fz.url as url_z FROM film f FULL JOIN film_kraj fk ON f.film_id = fk.film_id FULL JOIN film_gatunek fg ON f.film_id = fg.film_id LEFT JOIN film_plakat fp ON f.film_id = fp.film_id LEFT JOIN film_zwiastun fz ON f.film_id = fz.film_id WHERE fk.kraj_id=" . $k_id . " AND fg.gatunek_id="  . $g_id) or die("nie można wysłać zapytania2");
+                    $g_id = pg_fetch_array(pg_query("SELECT gatunek_id from gatunek WHERE nazwa = '" . $gat . "'"))['gatunek_id'];
+                    $k_id = pg_fetch_array(pg_query("SELECT kraj_id from kraj WHERE nazwa = '" . $kraj . "'"))['kraj_id'];
+                    $result = pg_query("SELECT DISTINCT f.film_id, f.tytul, f.rok_premiery, f.opis, fp.url as url_p, fz.url as url_z FROM film f FULL JOIN film_kraj fk ON f.film_id = fk.film_id FULL JOIN film_gatunek fg ON f.film_id = fg.film_id LEFT JOIN film_plakat fp ON f.film_id = fp.film_id LEFT JOIN film_zwiastun fz ON f.film_id = fz.film_id WHERE fk.kraj_id=" . $k_id . " AND fg.gatunek_id=" . $g_id) or die("nie można wysłać zapytania2");
 
-            } else {
-//                echo $gat;
-                $k_id = pg_fetch_array(pg_query("SELECT kraj_id from kraj WHERE nazwa = '" . $kraj . "'"))['kraj_id'];
+                } else {
+//                                    echo $gat;
+                    $k_id = pg_fetch_array(pg_query("SELECT kraj_id from kraj WHERE nazwa = '" . $kraj . "'"))['kraj_id'];
 
-                $result = pg_query("SELECT DISTINCT f.film_id, f.tytul, f.rok_premiery, f.opis, fp.url as url_p, fz.url as url_z FROM film f FULL JOIN film_kraj fk ON f.film_id = fk.film_id LEFT JOIN film_plakat fp ON f.film_id = fp.film_id LEFT JOIN film_zwiastun fz ON f.film_id = fz.film_id WHERE fk.kraj_id=" . $k_id) or die("nie można wysłać zapytania2");
+                    $result = pg_query("SELECT DISTINCT f.film_id, f.tytul, f.rok_premiery, f.opis, fp.url as url_p, fz.url as url_z FROM film f FULL JOIN film_kraj fk ON f.film_id = fk.film_id LEFT JOIN film_plakat fp ON f.film_id = fp.film_id LEFT JOIN film_zwiastun fz ON f.film_id = fz.film_id WHERE fk.kraj_id=" . $k_id) or die("nie można wysłać zapytania2");
 
+                }
             }
         }
+        else{
+            if ($kraj == "") {
+                if ($gat != "") {
+                    //               echo $gat;
+                    $g_id = pg_fetch_array(pg_query("SELECT gatunek_id from gatunek WHERE nazwa = '" . $gat . "'"))['gatunek_id'];
+                    $result = pg_query("SELECT DISTINCT f.film_id, f.tytul, f.rok_premiery, f.opis, fp.url as url_p, fz.url as url_z FROM film f FULL JOIN film_gatunek fg ON f.film_id = fg.film_id LEFT JOIN film_plakat fp ON f.film_id = fp.film_id LEFT JOIN film_zwiastun fz ON f.film_id = fz.film_id WHERE fg.gatunek_id=" . $g_id . " AND f.tytul = '" . $tytul . "'") or die("nie można wysłać zapytania2");
+
+                } else {
+                    //                echo $gat;
+                    $result = pg_query("SELECT DISTINCT f.film_id, f.tytul, f.rok_premiery, f.opis, fp.url as url_p, fz.url as url_z FROM film f LEFT JOIN film_plakat fp ON f.film_id = fp.film_id LEFT JOIN film_zwiastun fz ON f.film_id = fz.film_id WHERE f.tytul = '" . $tytul . "'") or die("nie można wysłać zapytania2");
+                }
+            } else {
+                if ($gat != "") {
+//                    echo $gat;
+
+                    $g_id = pg_fetch_array(pg_query("SELECT gatunek_id from gatunek WHERE nazwa = '" . $gat . "'"))['gatunek_id'];
+                    $k_id = pg_fetch_array(pg_query("SELECT kraj_id from kraj WHERE nazwa = '" . $kraj . "'"))['kraj_id'];
+                    $result = pg_query("SELECT DISTINCT f.film_id, f.tytul, f.rok_premiery, f.opis, fp.url as url_p, fz.url as url_z FROM film f FULL JOIN film_kraj fk ON f.film_id = fk.film_id FULL JOIN film_gatunek fg ON f.film_id = fg.film_id LEFT JOIN film_plakat fp ON f.film_id = fp.film_id LEFT JOIN film_zwiastun fz ON f.film_id = fz.film_id WHERE fk.kraj_id=" . $k_id . " AND fg.gatunek_id=" . $g_id . " AND f.tytul = '" . $tytul . "'") or die("nie można wysłać zapytania2");
+
+                } else {
+                    //                echo $gat;
+                    $k_id = pg_fetch_array(pg_query("SELECT kraj_id from kraj WHERE nazwa = '" . $kraj . "'"))['kraj_id'];
+
+                    $result = pg_query("SELECT DISTINCT f.film_id, f.tytul, f.rok_premiery, f.opis, fp.url as url_p, fz.url as url_z FROM film f FULL JOIN film_kraj fk ON f.film_id = fk.film_id LEFT JOIN film_plakat fp ON f.film_id = fp.film_id LEFT JOIN film_zwiastun fz ON f.film_id = fz.film_id WHERE fk.kraj_id=" . $k_id . " AND f.tytul = '" . $tytul . "'") or die("nie można wysłać zapytania2");
+
+                }
+            }
+        }
+
+//        print_r(pg_fetch_array($result));
+//        if(!pg_fetch_array($result)) return 0;
 
         return $result;
     }

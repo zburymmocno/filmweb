@@ -8,8 +8,8 @@ require_once('config.php');
 require_once('JSendResponse.php');
 
 
-$obj = new Model("tantor.db.elephantsql.com", "5432", "hxrnzqnh", "hxrnzqnh", "xMhZTJrVOz9zI6MU46M1sGFfyE1JkBlf");
-//$obj = new Model("localhost", "5432", "filmweb", "postgres", "postgres");
+//$obj = new Model("tantor.db.elephantsql.com", "5432", "hxrnzqnh", "hxrnzqnh", "xMhZTJrVOz9zI6MU46M1sGFfyE1JkBlf");
+$obj = new Model("localhost", "5432", "filmweb", "postgres", "postgres");
 
 $path = '/filmweb/api/index.php';
 $pathreg = '\/filmweb\/api\/index.php';
@@ -216,8 +216,10 @@ elseif($uri === $path.'/users/logout') {
             $iter++;
         }
         $status = new JSendResponse('success', $tab);
-    }else
-        $status = new JSendResponse('fail', array("message"=>"Błąd serwera"));
+    }else {
+        $status = new JSendResponse('error', array("message"=>"Nie znaleziono rekordów"), 'Not cool.');
+    }
+
     echo json_encode($status);
 
 }else{
