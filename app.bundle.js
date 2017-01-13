@@ -728,7 +728,7 @@ webpackJsonp([0],[
 	                filmService.remove(id, {
 	                    success: function () {
 	                        toastService.success("Film został usunięty poprawnie");
-	                        $scope.films.split(index, 1);
+	                        $scope.films.splice(index, 1);
 	                    }
 	                })
 	            }, function () {
