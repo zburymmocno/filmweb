@@ -21,7 +21,7 @@
                 <md-button ui-sref="films({id: film.film_id})">Szczegóły</md-button>
                 <md-button ng-show="user.data.privileges.edit" ui-sref="filmsEdit({id: film.film_id})">Edytuj
                 </md-button>
-                <md-button ng-show="user.data.privileges.edit" ng-click="removeFilm($index,film.film_id)">Usuń
+                <md-button ng-show="user.data.privileges.edit" ng-click="removeFilm($index,film.film_id, $event)">Usuń
                 </md-button>
             </md-card-actions>
         </md-card>

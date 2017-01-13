@@ -23,10 +23,11 @@ angular.module('app.filmsId', [
                     }
                 });
 
-                $scope.removeFilm = function () {
+                $scope.removeFilm = function (ev) {
                     var confirm = $mdDialog.confirm()
                             .title("Czy na pewno chcesz usunąć film?")
-                            .text("Jeśli to zrobisz, film przepadnie bezpowrotnie!")
+                            .textContent("Jeśli to zrobisz, film przepadnie bezpowrotnie!")
+                            .targetEvent(ev)
                             .ok('Tak, jestem tego pewnien!')
                             .cancel("Nie, jednak nie chcę tego robić")
                         ;
