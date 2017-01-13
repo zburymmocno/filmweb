@@ -3,6 +3,8 @@ angular
     .service('jsendService', ['$http', 'toastService', '$filter',
         function ($http, toastService, $filter) {
             var http = function (config, callback) {
+                console.log("Dane wysłane na serwer");
+                console.log(config.data);
                 return $http(config)
                     .then(function (response) {
                         connect(response, callback)
@@ -26,6 +28,9 @@ angular
                     fail: function () {
                     }
                 }, callback);
+
+                console.log("odpowiedz serwer");
+                console.log(response);
 
                 if (status == "success") {
                     config.success(data);

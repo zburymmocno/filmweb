@@ -590,7 +590,7 @@ webpackJsonp([0],[
 	        $scope.getFilteredFilms = function () {
 	            filmService.filters($scope.search, {
 	                success: function (data) {
-	                    $scope.searchFilms = data;
+	                    $scope.displayFilms = data;
 	                    $scope.found = true;
 	                },
 	                error: function (data) {
@@ -1141,6 +1141,8 @@ webpackJsonp([0],[
 	    .service('jsendService', ['$http', 'toastService', '$filter',
 	        function ($http, toastService, $filter) {
 	            var http = function (config, callback) {
+	                console.log("Dane wysłane na serwer");
+	                console.log(config.data);
 	                return $http(config)
 	                    .then(function (response) {
 	                        connect(response, callback)
@@ -1164,6 +1166,9 @@ webpackJsonp([0],[
 	                    fail: function () {
 	                    }
 	                }, callback);
+
+	                console.log("odpowiedz serwer");
+	                console.log(response);
 
 	                if (status == "success") {
 	                    config.success(data);
