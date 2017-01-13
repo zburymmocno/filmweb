@@ -479,10 +479,20 @@ webpackJsonp([0],[
 	        }
 	    ])
 	    .controller('filmsEditCtrl',
-	        ['$scope', 'filmService', 'countriesService', 'genresService', '$stateParams','toastService',
+	        ['$scope', 'filmService', 'countriesService', 'genresService', '$stateParams', 'toastService',
 	            function ($scope, filmService, countriesService, genresService, $stateParams, toastService) {
 	                $scope.form = {};
+
 	                var id = $stateParams.id;
+
+
+	                $scope.send = function () {
+	                    filmService.edit(id, $scope.form, {
+	                        success: function () {
+	                            toastService.success("FIlm został zaktualizowany");
+	                        }
+	                    })
+	                };
 
 	                countriesService.getAll({
 	                    success: function (data) {
@@ -499,16 +509,10 @@ webpackJsonp([0],[
 	                filmService.get(id, {
 	                    success: function (data) {
 	                        $scope.form = data;
+	                        angular.extend($scope.countries, $scope.form.kraje);
+	                        angular.extend($scope.genres, $scope.form.gatunki);
 	                    }
 	                });
-
-	                $scope.send = function () {
-	                    filmService.edit(id, $scope.form, {
-	                        success: function () {
-	                            toastService.success("FIlm został zaktualizowany");
-	                        }
-	                    })
-	                };
 	            }])
 	;
 
@@ -516,7 +520,7 @@ webpackJsonp([0],[
 /* 10 */
 /***/ function(module, exports) {
 
-	module.exports = "<md-card>\n    <md-card-title>\n        <h1>Edycja filmu o ID {{form.film_id}}</h1>\n    </md-card-title>\n    <md-card-content>\n        <form name=\"filmForm\">\n            <md-input-container class=\"mfilm_idd-block\">\n                <label>Tytuł</label>\n                <input ng-model=\"form.tytul\" required>\n            </md-input-container>\n\n            <md-input-container class=\"md-block\">\n                <label>Rok premiery</label>\n                <input ng-model=\"form.rok_premiery\" required>\n            </md-input-container>\n\n            <md-input-container class=\"md-block\" flex-gt-sm>\n                <label>Gatunki</label>\n                <md-select multiple ng-model=\"form.gatunki\" required>\n                    <md-option ng-repeat=\"genre in genres\" ng-value=\"genre\">\n                        {{genre.nazwa}}\n                    </md-option>\n                </md-select>\n            </md-input-container>\n\n            <md-input-container class=\"md-block\" flex-gt-sm>\n                <label>Kraje</label>\n                <md-select multiple ng-model=\"form.kraje\" required>\n                    <md-option ng-repeat=\"country in countries\" ng-value=\"country\">\n                        {{country.nazwa}}\n                    </md-option>\n                </md-select>\n            </md-input-container>\n\n\n            <md-input-container class=\"md-block\">\n                <label>Plakat</label>\n                <input ng-model=\"form.url_p\" required>\n            </md-input-container>\n\n            <md-input-container class=\"md-block\">\n                <label>Zwiastun</label>\n                <input ng-model=\"form.url_z\" required>\n            </md-input-container>\n\n            <md-input-container class=\"md-block\">\n                <label>Opis</label>\n                <textarea ng-model=\"form.opis\" rows=\"5\" md-select-on-focus required></textarea>\n            </md-input-container>\n        </form>\n    </md-card-content>\n    <md-card-actions layout=\"row\" layout-align=\"end center\">\n        <md-button class=\"md-raised md-primary\" ng-disabled=\"!filmForm.$valid\" ng-click=\"send()\">Zapisz</md-button>\n    </md-card-actions>\n</md-card>\n\n\n\n\n\n";
+	module.exports = "<md-card>\n    <md-card-title>\n        <h1>Edycja filmu o ID {{form.film_id}}</h1>\n    </md-card-title>\n    <md-card-content>\n        <form name=\"filmForm\">\n            <md-input-container class=\"md-block\">\n                <label>Tytuł</label>\n                <input ng-model=\"form.tytul\" required>\n            </md-input-container>\n\n            <md-input-container class=\"md-block\">\n                <label>Rok premiery</label>\n                <input ng-model=\"form.rok_premiery\" required>\n            </md-input-container>\n            <md-input-container class=\"md-block\">\n                <label>Gatunki</label>\n                <md-select multiple ng-model=\"form.gatunki\" required>\n                    <md-option ng-repeat=\"genre in genres\" ng-value=\"genre\">\n                        {{genre.nazwa}}\n                    </md-option>\n                </md-select>\n            </md-input-container>\n            <md-input-container class=\"md-block\">\n                <label>Kraje</label>\n                <md-select multiple ng-model=\"form.kraje\" required>\n                    <md-option ng-repeat=\"country in countries\" ng-value=\"country\">\n                        {{country.nazwa}}\n                    </md-option>\n                </md-select>\n            </md-input-container>\n            <md-input-container class=\"md-block\">\n                <label>Plakat</label>\n                <input ng-model=\"form.url_p\" required>\n            </md-input-container>\n\n            <md-input-container class=\"md-block\">\n                <label>Zwiastun</label>\n                <input ng-model=\"form.url_z\" required>\n            </md-input-container>\n\n            <md-input-container class=\"md-block\">\n                <label>Opis</label>\n                <textarea ng-model=\"form.opis\" rows=\"5\" md-select-on-focus required></textarea>\n            </md-input-container>\n        </form>\n    </md-card-content>\n    <md-card-actions layout=\"row\" layout-align=\"end center\">\n        <md-button class=\"md-raised md-primary\" ng-disabled=\"!filmForm.$valid\" ng-click=\"send()\">Zapisz</md-button>\n    </md-card-actions>\n</md-card>\n\n\n\n\n\n";
 
 /***/ },
 /* 11 */
@@ -549,7 +553,10 @@ webpackJsonp([0],[
 
 	                $scope.$watch('rate', function (newValue, oldValue) {
 	                    $scope.sendScore($scope.rate);
-	                });
+	                    $scope.getAverageScore();
+	                    $scope.getScore();
+
+	                }, true);
 
 	                $scope.removeFilm = function (ev) {
 	                    var confirm = $mdDialog.confirm()
@@ -577,6 +584,27 @@ webpackJsonp([0],[
 	                            toastService.success("Film został oceniony. Twoje ocena to " + score.ocena + "/5");
 	                        }
 	                    })
+	                };
+
+	                $scope.getScore = function () {
+	                    filmService.getRate($scope.film.film_id, {
+	                        success: function (data) {
+	                            $scope.userScore = data;
+	                        },
+	                        error: function () {
+	                            toastService.error("Nie oceniłem jeszcze tego filmu :(");
+	                        }
+	                    });
+	                };
+	                $scope.getAverageScore = function () {
+	                    filmService.getAverageRate($scope.film.film_id, {
+	                        success: function (data) {
+	                            $scope.averageScore = data;
+	                        },
+	                        error: function (data) {
+	                            toastService.error("Ten film nie posiada żadnych ocen");
+	                        }
+	                    });
 	                }
 	            }])
 	;
@@ -585,7 +613,7 @@ webpackJsonp([0],[
 /* 12 */
 /***/ function(module, exports) {
 
-	module.exports = "<md-card>\n\n    <md-card-title>\n        <md-card-title-media class=\"md-padding\">\n            <img ng-src=\"{{film.url_p}}\" alt=\"asds\">\n        </md-card-title-media>\n        <md-card-title-text>\n            <span class=\"md-display-1\">{{film.tytul}} <span class=\"film__year\">{{film.rok_premiery}}</span></span>\n            <span class=\"md-title\">Gatunek</span>\n            <ul class=\"film__details\">\n                <li ng-repeat=\"genre in film.gatunki\">{{genre.nazwa}}</li>\n            </ul>\n            <span class=\"md-title\">Kraj</span>\n            <ul class=\"film__details\">\n                <li ng-repeat=\"country in film.kraje\">{{country.nazwa}}</li>\n            </ul>\n            <span class=\"md-title\">Ocena użytkowików</span>\n            <span class=\"md-subhead\">666/213</span>\n            <div ng-show=\"user.isLogged\">\n                <span class=\"md-title\">Twoja ocena:</span>\n                <md-input-container>\n                    <label>Oceń film</label>\n                    <md-select ng-model=\"rate.ocena\">\n                        <md-option ng-repeat=\"i in [1,2,3,4,5]\" ng-value=\"i\">{{i}}</md-option>\n                    </md-select>\n                </md-input-container>\n            </div>\n        </md-card-title-text>\n    </md-card-title>\n\n    <md-card-content>\n        <h2>Opis filmu</h2>\n        <p>\n            {{film.opis}}\n        </p>\n    </md-card-content>\n\n    <md-card-actions layout=\"row\" layout-align=\"end center\">\n        <md-button ng-show=\"user.data.privileges.edit\" ui-sref=\"filmsEdit({id: film.film_id})\">Edytuj</md-button>\n        <md-button ng-show=\"user.data.privileges.edit\" ng-click=\"removeFilm($event)\">Usuń</md-button>\n    </md-card-actions>\n</md-card>\n\n";
+	module.exports = "<md-card>\n\n    <md-card-title>\n        <md-card-title-media class=\"md-padding\">\n            <img ng-src=\"{{film.url_p}}\" alt=\"asds\">\n        </md-card-title-media>\n        <md-card-title-text>\n            <span class=\"md-display-1\">{{film.tytul}} <span class=\"film__year\">{{film.rok_premiery}}</span></span>\n            <span class=\"md-title\">Gatunek</span>\n            <ul class=\"film__details\">\n                <li ng-repeat=\"genre in film.gatunki\">{{genre.nazwa}}</li>\n            </ul>\n            <span class=\"md-title\">Kraj</span>\n            <ul class=\"film__details\">\n                <li ng-repeat=\"country in film.kraje\">{{country.nazwa}}</li>\n            </ul>\n            <span class=\"md-title\">Ocena użytkowików</span>\n            <span class=\"md-subhead\">{{averageScore}}</span>\n            <span class=\"md-title\">Twoja ocena</span>\n            <span class=\"md-subhead\">{{userScore}}</span>\n\n            <div ng-show=\"user.isLogged\">\n                <span class=\"md-title\">Twoja ocena:</span>\n                <md-input-contaner>\n                    <label>Oceń film</label>\n                    <md-select ng-model=\"rate.ocena\">\n                        <md-option ng-repeat=\"i in [1,2,3,4,5]\" ng-value=\"i\">{{i}}</md-option>\n                    </md-select>\n                </md-input-contaner>\n            </div>\n        </md-card-title-text>\n    </md-card-title>\n\n    <md-card-content>\n        <h2>Opis filmu</h2>\n        <p>\n            {{film.opis}}\n        </p>\n    </md-card-content>\n\n    <md-card-actions layout=\"row\" layout-align=\"end center\">\n        <md-button ng-show=\"user.data.privileges.edit\" ui-sref=\"filmsEdit({id: film.film_id})\">Edytuj</md-button>\n        <md-button ng-show=\"user.data.privileges.edit\" ng-click=\"removeFilm($event)\">Usuń</md-button>\n    </md-card-actions>\n</md-card>\n\n";
 
 /***/ },
 /* 13 */
@@ -918,7 +946,7 @@ webpackJsonp([0],[
 /* 25 */
 /***/ function(module, exports) {
 
-	module.exports = "<md-card class=\"md-padding\">\n    <md-card-title>\n        <h3>Logowanie</h3>\n    </md-card-title>\n    <md-card-content>\n        <form name=\"loginForm\" layout=\"column\">\n            <md-input-container>\n                <label>Login</label>\n                <input ng-model=\"form.nick\" required>\n                <div ng-messages=\"loginForm.form\">\n                    <div ng-message=\"required\">To pole jest wymagane</div>\n                </div>\n            </md-input-container>\n            <md-input-container>\n                <label>Hasło</label>\n                <input type=\"password\" ng-model=\"form.haslo\" required>\n                <div ng-messages=\"loginForm.form\">\n                    <div ng-message=\"required\">To pole jest wymagane</div>\n                </div>\n            </md-input-container>\n            <md-button class=\"md-raised md-primary\" ng-click=\"submit()\" ng-disabled=\"!loginForm.$valid\">Zaloguj\n            </md-button>\n        </form>\n    </md-card-content>\n    <md-card-actions layout=\"row\" layout-align=\"end center\">\n        <md-button ng-click=\"goToRegister()\">Rejestracja</md-button>\n    </md-card-actions>\n</md-card>";
+	module.exports = "<md-card class=\"md-padding\">\n    <md-card-title>\n        <h3>Logowanie</h3>\n    </md-card-title>\n    <md-card-content>\n        <form name=\"loginForm\" layout=\"column\">\n            <md-input-container>\n                <label>Login</label>\n                <input ng-model=\"form.nick\" required>\n                <div ng-messages=\"loginForm.form\">\n                    <div ng-message=\"required\">To pole jest wymagane</div>\n                </div>\n            </md-input-container>\n            <md-input-container>\n                <label>Hasło</label>\n                <input type=\"password\" ng-model=\"form.haslo\" required>\n                <div ng-messages=\"loginForm.form\">\n                    <div ng-message=\"required\">To pole jest wymagane</div>\n                </div>\n            </md-input-container>\n            <md-button type=\"submit\" class=\"md-raised md-primary\" ng-click=\"submit()\" ng-disabled=\"!loginForm.$valid\">Zaloguj\n            </md-button>\n        </form>\n    </md-card-content>\n    <md-card-actions layout=\"row\" layout-align=\"end center\">\n        <md-button ng-click=\"goToRegister()\">Rejestracja</md-button>\n    </md-card-actions>\n</md-card>";
 
 /***/ },
 /* 26 */
@@ -1005,7 +1033,7 @@ webpackJsonp([0],[
 /* 29 */
 /***/ function(module, exports) {
 
-	module.exports = "<md-card class=\"md-padding\">\n    <md-card-title>\n        <h3>Rejestracja</h3>\n    </md-card-title>\n    <md-card-content>\n        <form name=\"registerForm\" layout=\"column\" novalidate>\n            <md-input-container>\n                <label>Nazwa użytkowika</label>\n                <input ng-model=\"form.nick\" required>\n                <div ng-messages=\"loginForm.form\">\n                    <div ng-message=\"required\">To pole jest wymagane</div>\n                </div>\n            </md-input-container>\n            <md-input-container>\n                <label>Hasło</label>\n                <input ng-model=\"form.haslo\" type=\"password\" required>\n                <div ng-messages=\"loginForm.form\">\n                    <div ng-message=\"required\">To pole jest wymagane</div>\n                </div>\n            </md-input-container>\n            <md-input-container>\n                <label>E-mail</label>\n                <input ng-model=\"form.email\" type=\"email\" required>\n                <div ng-messages=\"loginForm.form\">\n                    <div ng-message=\"required\">To pole jest wymagane</div>\n                </div>\n            </md-input-container>\n            <md-button class=\"md-raised md-primary\" ng-click=\"submit()\" ng-disabled=\"!registerForm.$valid\">Rejestruj\n            </md-button>\n        </form>\n    </md-card-content>\n    <md-card-actions layout=\"row\" layout-align=\"end center\">\n        <md-button class=\"btn1\" ng-click=\"goToLogin()\">Logowanie</md-button>\n    </md-card-actions>\n\n\n</md-card>";
+	module.exports = "<md-card class=\"md-padding\">\n    <md-card-title>\n        <h3>Rejestracja</h3>\n    </md-card-title>\n    <md-card-content>\n        <form name=\"registerForm\" layout=\"column\" novalidate>\n            <md-input-container>\n                <label>Nazwa użytkowika</label>\n                <input ng-model=\"form.nick\" required>\n                <div ng-messages=\"loginForm.form\">\n                    <div ng-message=\"required\">To pole jest wymagane</div>\n                </div>\n            </md-input-container>\n            <md-input-container>\n                <label>Hasło</label>\n                <input ng-model=\"form.haslo\" type=\"password\" required>\n                <div ng-messages=\"loginForm.form\">\n                    <div ng-message=\"required\">To pole jest wymagane</div>\n                </div>\n            </md-input-container>\n            <md-input-container>\n                <label>E-mail</label>\n                <input ng-model=\"form.email\" type=\"email\" required>\n                <div ng-messages=\"loginForm.form\">\n                    <div ng-message=\"required\">To pole jest wymagane</div>\n                </div>\n            </md-input-container>\n            <md-button type=\"submit\" class=\"md-raised md-primary\" ng-click=\"submit()\"\n                       ng-disabled=\"!registerForm.$valid\">Rejestruj\n            </md-button>\n        </form>\n    </md-card-content>\n    <md-card-actions layout=\"row\" layout-align=\"end center\">\n        <md-button class=\"btn1\" ng-click=\"goToLogin()\">Logowanie</md-button>\n    </md-card-actions>\n\n\n</md-card>";
 
 /***/ },
 /* 30 */
@@ -1175,6 +1203,20 @@ webpackJsonp([0],[
 	                    method: 'POST',
 	                    data: JSON.stringify(data),
 	                    url: config.apiUrl + "/films/" + id + "/rate",
+	                    headers: {'Content-Type': 'application/json'}
+	                }, callback);
+	            },
+	            getRate: function (id, callback) {
+	                return jsendService.http({
+	                    method: 'GET',
+	                    url: config.apiUrl + "/films/" + id + "/rate",
+	                    headers: {'Content-Type': 'application/json'}
+	                }, callback);
+	            },
+	            getAverageRate: function (id, callback) {
+	                return jsendService.http({
+	                    method: 'GET',
+	                    url: config.apiUrl + "/films/" + id + "/rate/average",
 	                    headers: {'Content-Type': 'application/json'}
 	                }, callback);
 	            }

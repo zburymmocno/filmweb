@@ -8,8 +8,8 @@ require_once('config.php');
 require_once('JSendResponse.php');
 
 
-//$obj = new Model("tantor.db.elephantsql.com", "5432", "hxrnzqnh", "hxrnzqnh", "xMhZTJrVOz9zI6MU46M1sGFfyE1JkBlf");
-$obj = new Model("localhost", "5432", "filmweb", "postgres", "postgres");
+$obj = new Model("tantor.db.elephantsql.com", "5432", "hxrnzqnh", "hxrnzqnh", "xMhZTJrVOz9zI6MU46M1sGFfyE1JkBlf");
+//$obj = new Model("localhost", "5432", "filmweb", "postgres", "postgres");
 
 $path = '/filmweb/api/index.php';
 $pathreg = '\/filmweb\/api\/index.php';
