@@ -33,10 +33,12 @@
                     </md-select>
                 </md-input-container>
             </div>
-            <md-button class="md-raised md-primary" ng-click="sendFilters()">Szukaj</md-button>
+            <div layout-gt-sm="row" layout-align="end">
+                <md-button class="md-raised md-primary" ng-click="sendFilters()">Szukaj</md-button>
+            </div>
         </md-card-content>
     </div>
 </md-card>
-<films-card films="films"></films-card>
+<films-card films="displayFilms"></films-card>
 
 

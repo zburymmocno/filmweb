@@ -12,33 +12,22 @@ angular.module('app.mainCtrl', [
     ]).controller('homeCtrl', [
     '$scope', 'filmService', '$filter', 'genresService', 'countriesService',
     function ($scope, filmService, $filter, genresService, countriesService) {
-
+        $scope.films = {};
+        $scope.search = {};
+        $scope.displayFilms = {};
         $scope.showSearch = false;
 
+        $scope.$watch('showSearch', function (newValue, oldValue) {
+            if (newValue) {
+                $scope.displayFilms = $scope.search;
+            } else {
+                $scope.displayFilms = $scope.films;
+            }
+        });
+
         $scope.toggleSearch = function () {
-            if ($scope.showSearch)
-                $scope.showSearch = false;
-            else
-                $scope.showSearch = true;
+            $scope.showSearch = !$scope.showSearch;
         };
-
-        genresService.getAll({
-            success: function (data) {
-                $scope.genres = data;
-            }
-        });
-        countriesService.getAll({
-            success: function (data) {
-                $scope.countries = data;
-            }
-        });
-
-        filmService.getAll({
-            success: function (data) {
-                $scope.films = data;
-            }
-        });
-
         $scope.sendFilters = function () {
             console.log("Dane wysłane");
             console.log($scope.search);
@@ -49,9 +38,33 @@ angular.module('app.mainCtrl', [
                     $scope.search = data;
                 },
                 error: function (data) {
-                    
+                    console.log("ERROR");
+                    console.log(data);
+                },
+                fails: function (data) {
+                    console.log("FAIL");
+                    console.log(data);
                 }
             });
-        }
+        };
+
+        (function () {
+            genresService.getAll({
+                success: function (data) {
+                    $scope.genres = data;
+                }
+            });
+            countriesService.getAll({
+                success: function (data) {
+                    $scope.countries = data;
+                }
+            });
+            filmService.getAll({
+                success: function (data) {
+                    $scope.films = data;
+                    $scope.displayFilms = $scope.films;
+                }
+            });
+        })();
     }])
 ;
