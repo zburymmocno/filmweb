@@ -50,7 +50,7 @@ angular.module('app.filmsId', [
                 $scope.sendScore = function (score) {
                     filmService.rate($scope.film.film_id, score, {
                         success: function () {
-                            toastService.success("Film został oceniony. Twoje ocena to " + score + "/5");
+                            toastService.success("Film został oceniony. Twoje ocena to " + score.ocena + "/5");
                         }
                     })
                 }

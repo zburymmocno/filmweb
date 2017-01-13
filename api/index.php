@@ -226,7 +226,6 @@ elseif($uri === $path.'/users/logout') {
     preg_match('!\d+!', $uri, $matches);
 
     $data_from_json = json_decode(file_get_contents('php://input'), true);
-    print_r($data_from_json);
     $result = $obj->rate($matches[0], $data_from_json);
 
     if($result==1){
