@@ -301,8 +301,18 @@ class Model
         session_start();
         $user = $_SESSION['ident'];
 
+
         $u_id = pg_fetch_array( pg_query("SELECT uzytkownik_id from uzytkownicy WHERE nick = '" . $user . "'"))['uzytkownik_id'];
-        echo $f_id;
+//        echo $f_id;
+
+        $res = pg_fetch_array(pg_query("SELECT * FROM film_ocena WHERE  film_id = " . $f_id . " AND uzytkownik_id = " . $u_id ));
+        if ($res) {
+            $result = pg_query("UPDATE film_ocena SET ocena = " . $data['ocena'] . " WHERE  film_id = " . $f_id . " AND uzytkownik_id = " . $u_id);
+            if($result){
+                return 1;
+            }
+            return 0;
+        }
 
         $result = pg_query("INSERT into film_ocena values (" . $data['ocena'] . ", " . $f_id . ", " . $u_id . ")");
         if($result){
