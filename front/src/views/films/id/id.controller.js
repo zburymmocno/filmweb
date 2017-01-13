@@ -23,6 +23,10 @@ angular.module('app.filmsId', [
                     }
                 });
 
+                $scope.$watch('ocena', function (newValue, oldValue) {
+                    $scope.sendScore(newValue);
+                });
+
                 $scope.removeFilm = function (ev) {
                     var confirm = $mdDialog.confirm()
                             .title("Czy na pewno chcesz usunąć film?")
@@ -41,7 +45,14 @@ angular.module('app.filmsId', [
                     }, function () {
                         toastService.success("Film nie został usunięty");
                     });
+                };
 
+                $scope.sendScore = function (score) {
+                    filmService.rate($scope.film.film_id, score, {
+                        success: function () {
+                            toastService.success("Film został oceniont. Twoje ocena to " + score + "/5");
+                        }
+                    })
                 }
             }])
 ;
