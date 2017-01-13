@@ -11,8 +11,8 @@ angular.module('app.filmsId', [
         }
     ])
     .controller('filmsIdCtrl',
-        ['$scope', '$stateParams', 'filmService', 'user',
-            function ($scope, $stateParams, filmService, user) {
+        ['$scope', '$stateParams', 'filmService', 'user', 'toastService', '$state', '$mdDialog',
+            function ($scope, $stateParams, filmService, user, toastService, $state, $mdDialog) {
                 var id = $stateParams.id;
 
                 $scope.user = user;
@@ -21,6 +21,26 @@ angular.module('app.filmsId', [
                     success: function (data) {
                         $scope.film = data;
                     }
-                })
+                });
+
+                $scope.removeFilm = function () {
+                    var confirm = $mdDialog.confirm()
+                            .title("Czy na pewno chcesz usunąć film?")
+                            .text("Jeśli to zrobisz, film przepadnie bezpowrotnie!")
+                            .ok('Tak, jestem tego pewnien!')
+                            .cancel("Nie, jednak nie chcę tego robić")
+                        ;
+                    $mdDialog.show(confirm).then(function () {
+                        filmService.remove($scope.film.film_id, {
+                            success: function () {
+                                toastService.success("Film został usunięty poprawnie");
+                                $state.go('home');
+                            }
+                        })
+                    }, function () {
+                        toastService.success("Film nie został usunięty");
+                    });
+
+                }
             }])
 ;

@@ -32,6 +32,13 @@ angular
                     headers: {'Content-Type': 'application/json'}
                 }, callback);
             },
+            remove: function (id, callback) {
+                return jsendService.http({
+                    method: 'GET',
+                    url: config.apiUrl + "/films/remove/" + id,
+                    headers: {'Content-Type': 'application/json'}
+                }, callback);
+            },
             filters: function (data, callback) {
                 return jsendService.http({
                     method: 'POST',

@@ -12,9 +12,31 @@ angular
             }
         };
     }).controller('filmsCardCtrl', [
-    '$scope', 'user',
-    function ($scope, user) {
+    '$scope', 'user', 'filmService', 'toastService', '$mdDialog',
+    function ($scope, user, filmService, toastService, $mdDialog) {
         $scope.user = user;
+
+        $scope.removeFilm = function (index, id) {
+            var confirm = $mdDialog.confirm()
+                    .title("Czy na pewno chcesz usunąć film?")
+                    .text("Jeśli to zrobisz, film przepadnie bezpowrotnie!")
+                    .ok('Tak, jestem tego pewnien!')
+                    .cancel("Nie, jednak nie chcę tego robić")
+                ;
+            $mdDialog.show(confirm).then(function () {
+                filmService.remove(id, {
+                    success: function () {
+                        toastService.success("Film został usunięty poprawnie");
+                        $scope.films.split(index, 1);
+                    }
+                })
+            }, function () {
+                toastService.success("Film nie został usunięty");
+            });
+
+        }
+
+
     }
 ])
 ;
