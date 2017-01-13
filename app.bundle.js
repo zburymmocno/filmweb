@@ -57,7 +57,7 @@ webpackJsonp([0],[
 	exports.push([module.id, "@import url(https://fonts.googleapis.com/icon?family=Material+Icons);", ""]);
 
 	// module
-	exports.push([module.id, "*, *:after, *:before {\n  box-sizing: border-box; }\n\n.main-wrapper {\n  margin-left: auto;\n  margin-right: auto;\n  max-width: 1100px; }\n\n.genre-list:after {\n  content: ', '; }\n\n.genre-list:last-child:after {\n  content: ''; }\n\n.film__year {\n  font-size: .3em !important; }\n  .film__year:before {\n    content: '('; }\n  .film__year:after {\n    content: ')'; }\n\n.custom_page-nav {\n  background-color: rgba(10, 85, 171, 0.85) !important; }\n\n.card-media-custom img {\n  max-width: 300px;\n  width: 100%;\n  margin-right: 15px; }\n\n.border-top {\n  border-top: 2px solid rgba(0, 0, 0, 0.31); }\n\n.form__fotter {\n  text-align: right;\n  font-size: .6em;\n  margin: 0; }\n\nmd-input-container .hint {\n  position: absolute;\n  left: 2px;\n  right: auto;\n  bottom: 7px;\n  font-size: 12px;\n  line-height: 14px;\n  transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);\n  color: grey; }\n\n.two__column:nth-child(odd) {\n  padding-right: 6px; }\n\n.two__column:nth-child(even) {\n  padding-left: 6px; }\n\n.two__column__content {\n  margin-left: 0;\n  margin-right: 0; }\n\n.no-padding-bottom {\n  padding-bottom: 0 !important; }\n\n.no-padding-top {\n  padding-top: 0 !important; }\n\n.no-margin-top {\n  margin-top: 0 !important; }\n\n.no-margin-bottom {\n  margin-bottom: 0 !important; }\n\n.closable.ng-hide-add {\n  animation: decreaseHeight .5s ease-in-out;\n  transform-origin: 0 0;\n  overflow: hidden; }\n\n.closable.ng-hide-remove {\n  animation: growHeight .5s ease-in-out;\n  transform-origin: 0 0;\n  overflow: hidden; }\n\n@keyframes growHeight {\n  0% {\n    max-height: 0;\n    transform: scaleY(0); }\n  100% {\n    max-height: 160px;\n    transform: scaleY(1); } }\n\n@keyframes decreaseHeight {\n  0% {\n    max-height: 160px;\n    transform: scaleY(1); }\n  100% {\n    max-height: 0;\n    transform: scaleY(0); } }\n\n.md-button-img {\n  width: 2em;\n  vertical-align: middle; }\n\n.md-toolbar-custom {\n  background-color: #bcbcbc !important; }\n", ""]);
+	exports.push([module.id, "*, *:after, *:before {\n  box-sizing: border-box; }\n\n.main-wrapper {\n  margin-left: auto;\n  margin-right: auto;\n  max-width: 1100px; }\n\n.genre-list:after {\n  content: ', '; }\n\n.genre-list:last-child:after {\n  content: ''; }\n\n.film__year {\n  font-size: .3em !important; }\n  .film__year:before {\n    content: '('; }\n  .film__year:after {\n    content: ')'; }\n\n.custom_page-nav {\n  background-color: rgba(10, 85, 171, 0.85) !important; }\n\n.card-media-custom img {\n  max-width: 300px;\n  width: 100%;\n  margin-right: 15px; }\n\n.border-top {\n  border-top: 2px solid rgba(0, 0, 0, 0.31); }\n\n.form__fotter {\n  text-align: right;\n  font-size: .6em;\n  margin: 0; }\n\nmd-input-container .hint {\n  position: absolute;\n  left: 2px;\n  right: auto;\n  bottom: 7px;\n  font-size: 12px;\n  line-height: 14px;\n  transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);\n  color: grey; }\n\n.two__column:nth-child(odd) {\n  padding-right: 6px; }\n\n.two__column:nth-child(even) {\n  padding-left: 6px; }\n\n.two__column__content {\n  margin-left: 0;\n  margin-right: 0; }\n\n.no-padding-bottom {\n  padding-bottom: 0 !important; }\n\n.no-padding-top {\n  padding-top: 0 !important; }\n\n.no-margin-top {\n  margin-top: 0 !important; }\n\n.no-margin-bottom {\n  margin-bottom: 0 !important; }\n\n.md-button-img {\n  width: 2em;\n  vertical-align: middle; }\n\n.md-toolbar-custom {\n  background-color: #bcbcbc !important; }\n", ""]);
 
 	// exports
 
@@ -454,7 +454,7 @@ webpackJsonp([0],[
 /* 8 */
 /***/ function(module, exports) {
 
-	module.exports = "<md-card>\n    <md-card-title>\n        <h1> Dodaj nowy film </h1>\n    </md-card-title>\n    <md-card-content>\n        <form name=\"filmForm\">\n            <md-input-container class=\"md-block\">\n                <label>Tytuł</label>\n                <input ng-model=\"form.tytul\" required>\n            </md-input-container>\n\n            <md-input-container class=\"md-block\">\n                <label>Rok premiery</label>\n                <input ng-model=\"form.rok_premiery\" required>\n            </md-input-container>\n\n            <md-input-container class=\"md-block\" flex-gt-sm>\n                <label>Gatunki</label>\n                <md-select multiple ng-model=\"form.gatunki\" required>\n                    <md-option ng-repeat=\"genre in genres\" ng-value=\"genre\">\n                        {{genre.nazwa}}\n                    </md-option>\n                </md-select>\n            </md-input-container>\n\n            <md-input-container class=\"md-block\" flex-gt-sm>\n                <label>Kraje</label>\n                <md-select multiple ng-model=\"form.kraje\" required>\n                    <md-option ng-repeat=\"country in countries\" ng-value=\"country\">\n                        {{country.nazwa}}\n                    </md-option>\n                </md-select>\n            </md-input-container>\n\n\n            <md-input-container class=\"md-block\">\n                <label>Plakat</label>\n                <input ng-model=\"form.url_p\" required>\n            </md-input-container>\n\n            <md-input-container class=\"md-block\">\n                <label>Zwiastun</label>\n                <input ng-model=\"form.url_z\" required>\n            </md-input-container>\n\n            <md-input-container class=\"md-block\">\n                <label>Opis</label>\n                <textarea ng-model=\"form.opis\" rows=\"5\" md-select-on-focus required></textarea>\n            </md-input-container>\n        </form>\n    </md-card-content>\n    <md-card-actions layout=\"row\" layout-align=\"end center\">\n        <md-button class=\"md-raised md-primary\" ng-disabled=\"!filmForm.$valid\" ng-click=\"send()\">Zapisz</md-button>\n    </md-card-actions>\n</md-card>\n\n\n\n\n\n";
+	module.exports = "<md-card>\n    <md-card-title>\n        <h1> Dodaj nowy film </h1>\n    </md-card-title>\n    <md-card-content>\n        <form name=\"filmForm\">\n            <md-input-container class=\"md-block\">\n                <label>Tytuł</label>\n                <input ng-model=\"form.tytul\" required>\n            </md-input-container>\n\n            <md-input-container class=\"md-block\">\n                <label>Rok premiery</label>\n                <input ng-model=\"form.rok_premiery\" required>\n            </md-input-container>\n\n\n            <md-input-container class=\"md-block\" flex-gt-xs>\n                <label>Gatunki</label>\n                <md-select multiple ng-model=\"form.gatunki\" required>\n                    <md-option ng-repeat=\"genre in genres\" ng-value=\"genre\">\n                        {{genre.nazwa}}\n                    </md-option>\n                </md-select>\n            </md-input-container>\n\n            <md-input-container class=\"md-block\" flex-gt-sm>\n                <label>Kraje</label>\n                <md-select multiple ng-model=\"form.kraje\" required>\n                    <md-option ng-repeat=\"country in countries\" ng-value=\"country\">\n                        {{country.nazwa}}\n                    </md-option>\n                </md-select>\n            </md-input-container>\n\n\n            <md-input-container class=\"md-block\">\n                <label>Plakat</label>\n                <input ng-model=\"form.url_p\" required>\n            </md-input-container>\n\n            <md-input-container class=\"md-block\">\n                <label>Zwiastun</label>\n                <input ng-model=\"form.url_z\" required>\n            </md-input-container>\n\n            <md-input-container class=\"md-block\">\n                <label>Opis</label>\n                <textarea ng-model=\"form.opis\" rows=\"5\" md-select-on-focus required></textarea>\n            </md-input-container>\n        </form>\n    </md-card-content>\n    <md-card-actions layout=\"row\" layout-align=\"end center\">\n        <md-button class=\"md-raised md-primary\" ng-disabled=\"!filmForm.$valid\" ng-click=\"send()\">Zapisz</md-button>\n    </md-card-actions>\n</md-card>\n\n\n\n\n\n";
 
 /***/ },
 /* 9 */
@@ -568,33 +568,22 @@ webpackJsonp([0],[
 	    ]).controller('homeCtrl', [
 	    '$scope', 'filmService', '$filter', 'genresService', 'countriesService',
 	    function ($scope, filmService, $filter, genresService, countriesService) {
-
+	        $scope.films = {};
+	        $scope.search = {};
+	        $scope.displayFilms = {};
 	        $scope.showSearch = false;
 
+	        $scope.$watch('showSearch', function (newValue, oldValue) {
+	            if (newValue) {
+	                $scope.displayFilms = $scope.search;
+	            } else {
+	                $scope.displayFilms = $scope.films;
+	            }
+	        });
+
 	        $scope.toggleSearch = function () {
-	            if ($scope.showSearch)
-	                $scope.showSearch = false;
-	            else
-	                $scope.showSearch = true;
+	            $scope.showSearch = !$scope.showSearch;
 	        };
-
-	        genresService.getAll({
-	            success: function (data) {
-	                $scope.genres = data;
-	            }
-	        });
-	        countriesService.getAll({
-	            success: function (data) {
-	                $scope.countries = data;
-	            }
-	        });
-
-	        filmService.getAll({
-	            success: function (data) {
-	                $scope.films = data;
-	            }
-	        });
-
 	        $scope.sendFilters = function () {
 	            console.log("Dane wysłane");
 	            console.log($scope.search);
@@ -605,10 +594,34 @@ webpackJsonp([0],[
 	                    $scope.search = data;
 	                },
 	                error: function (data) {
-	                    
+	                    console.log("ERROR");
+	                    console.log(data);
+	                },
+	                fails: function (data) {
+	                    console.log("FAIL");
+	                    console.log(data);
 	                }
 	            });
-	        }
+	        };
+
+	        (function () {
+	            genresService.getAll({
+	                success: function (data) {
+	                    $scope.genres = data;
+	                }
+	            });
+	            countriesService.getAll({
+	                success: function (data) {
+	                    $scope.countries = data;
+	                }
+	            });
+	            filmService.getAll({
+	                success: function (data) {
+	                    $scope.films = data;
+	                    $scope.displayFilms = $scope.films;
+	                }
+	            });
+	        })();
 	    }])
 	;
 
@@ -616,7 +629,7 @@ webpackJsonp([0],[
 /* 14 */
 /***/ function(module, exports) {
 
-	module.exports = "<md-card>\n    <md-toolbar class=\"md-toolbar-custom\">\n        <div class=\"md-toolbar-tools\">\n            <md-button ng-click=\"toggleSearch()\">\n                <i class=\"material-icons md-button-img\">search</i>\n                Wyszukiwarka\n            </md-button>\n        </div>\n    </md-toolbar>\n\n    <div class=\"closable\" ng-show=\"showSearch\">\n        <md-card-content>\n            <md-input-container class=\"md-block no-margin-bottom no-margin-top\">\n                <label>Tytuł</label>\n                <input ng-model=\"search.tytul\">\n                <div class=\"hint\">Wprowadź nazę filmu</div>\n            </md-input-container>\n            <div layout-gt-sm=\"row\">\n                <md-input-container class=\"md-block \" flex-gt-sm>\n                    <label>Gatunki</label>\n                    <md-select ng-model=\"search.gatunek\">\n                        <md-option ng-repeat=\"genre in genres\" ng-value=\"genre.nazwa\">\n                            {{genre.nazwa}}\n                        </md-option>\n                    </md-select>\n                </md-input-container>\n                <md-input-container class=\"md-block\" flex-gt-sm>\n                    <label>Kraje</label>\n                    <md-select ng-model=\"search.kraj\">\n                        <md-option ng-repeat=\"country in countries\" ng-value=\"country.nazwa\">\n                            {{country.nazwa}}\n                        </md-option>\n                    </md-select>\n                </md-input-container>\n            </div>\n            <md-button class=\"md-raised md-primary\" ng-click=\"sendFilters()\">Szukaj</md-button>\n        </md-card-content>\n    </div>\n</md-card>\n<films-card films=\"films\"></films-card>\n\n\n";
+	module.exports = "<md-card>\n    <md-toolbar class=\"md-toolbar-custom\">\n        <div class=\"md-toolbar-tools\">\n            <md-button ng-click=\"toggleSearch()\">\n                <i class=\"material-icons md-button-img\">search</i>\n                Wyszukiwarka\n            </md-button>\n        </div>\n    </md-toolbar>\n\n    <div class=\"closable\" ng-show=\"showSearch\">\n        <md-card-content>\n            <md-input-container class=\"md-block no-margin-bottom no-margin-top\">\n                <label>Tytuł</label>\n                <input ng-model=\"search.tytul\">\n                <div class=\"hint\">Wprowadź nazę filmu</div>\n            </md-input-container>\n            <div layout-gt-sm=\"row\">\n                <md-input-container class=\"md-block \" flex-gt-sm>\n                    <label>Gatunki</label>\n                    <md-select ng-model=\"search.gatunek\">\n                        <md-option ng-repeat=\"genre in genres\" ng-value=\"genre.nazwa\">\n                            {{genre.nazwa}}\n                        </md-option>\n                    </md-select>\n                </md-input-container>\n                <md-input-container class=\"md-block\" flex-gt-sm>\n                    <label>Kraje</label>\n                    <md-select ng-model=\"search.kraj\">\n                        <md-option ng-repeat=\"country in countries\" ng-value=\"country.nazwa\">\n                            {{country.nazwa}}\n                        </md-option>\n                    </md-select>\n                </md-input-container>\n            </div>\n            <div layout-gt-sm=\"row\" layout-align=\"end\">\n                <md-button class=\"md-raised md-primary\" ng-click=\"sendFilters()\">Szukaj</md-button>\n            </div>\n        </md-card-content>\n    </div>\n</md-card>\n<films-card films=\"displayFilms\"></films-card>\n\n\n";
 
 /***/ },
 /* 15 */
@@ -712,7 +725,7 @@ webpackJsonp([0],[
 /* 19 */
 /***/ function(module, exports) {
 
-	module.exports = "<md-toolbar class=\"custom_page-nav\">\n    <div class=\"main-wrapper\">\n        <div class=\"md-toolbar-tools\">\n            <i class=\"material-icons md-18\">theaters</i>\n            <md-button md-nav-href=\"#!/\">\n                Strona główne\n            </md-button>\n            <md-button ng-show=\"user.data.privileges.add\" md-nav-href=\"#!/films/add\">\n                Dodaj nowy film\n            </md-button>\n        </div>\n    </div>\n</md-toolbar>\n";
+	module.exports = "<md-toolbar class=\"custom_page-nav\">\n    <div class=\"main-wrapper\">\n        <div class=\"md-toolbar-tools\">\n            <i class=\"material-icons md-18\">theaters</i>\n            <md-button ui-sref=\"home()\">\n                Strona główne\n            </md-button>\n            <md-button ng-show=\"user.data.privileges.add\" ui-sref=\"filmsAdd()\">\n                Dodaj nowy film\n            </md-button>\n        </div>\n    </div>\n</md-toolbar>\n";
 
 /***/ },
 /* 20 */
