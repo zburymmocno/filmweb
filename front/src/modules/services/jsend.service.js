@@ -7,7 +7,8 @@ angular
                     .then(function (response) {
                         connect(response, callback)
                     }, function (response) {
-                        toastService.error("Serwer nie odpowiada!");
+                        console.log(response);
+                        toastService.error("Serwer nie odpowiada! Sprawdź konsole!");
                     });
             };
             var connect = function (response, callback) {

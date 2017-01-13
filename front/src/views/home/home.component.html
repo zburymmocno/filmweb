@@ -34,11 +34,17 @@
                 </md-input-container>
             </div>
             <div layout-gt-sm="row" layout-align="end">
-                <md-button class="md-raised md-primary" ng-click="sendFilters()">Szukaj</md-button>
+                <md-button class="md-raised md-primary" ng-click="getFilteredFilms()">Szukaj</md-button>
             </div>
         </md-card-content>
     </div>
 </md-card>
-<films-card films="displayFilms"></films-card>
+<films-card ng-show="found" films="displayFilms"></films-card>
+<md-card ng-hide="found">
+    <md-card-content>
+        <h1>Nie nie znaleziono!</h1>
+    </md-card-content>
+</md-card>
+
 
 
