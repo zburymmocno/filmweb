@@ -321,6 +321,25 @@ class Model
         return 0;
     }
 
+    function getRate($f_id){
+        session_start();
+        $user = $_SESSION['ident'];
+        $u_id = pg_fetch_array( pg_query("SELECT uzytkownik_id from uzytkownicy WHERE nick = '" . $user . "'"))['uzytkownik_id'];
+
+        $mark = pg_fetch_array(pg_query("SELECT ocena from film_ocena WHERE uzytkownik_id = " . $u_id . " AND film_id = " . $f_id ))['ocena'];
+        return $mark;
+    }
+
+
+    function getAverage($f_id){
+        $avg =  pg_fetch_array(   pg_query("SELECT ROUND(AVG(ocena), 2) FROM film_ocena WHERE film_id = " . $f_id ));
+
+        if($avg[0]) {
+            return $avg;
+        }
+        return 0;
+    }
+
 }
 
 
