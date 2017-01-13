@@ -26,8 +26,6 @@ angular
                     }
                 }, callback);
 
-                console.log(response);
-
                 if (status == "success") {
                     config.success(data);
                 } else if (status == "error") {

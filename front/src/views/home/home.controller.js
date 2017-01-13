@@ -12,16 +12,17 @@ angular.module('app.mainCtrl', [
     ]).controller('homeCtrl', [
     '$scope', 'filmService', '$filter', 'genresService', 'countriesService',
     function ($scope, filmService, $filter, genresService, countriesService) {
-        $scope.films = {};
-        $scope.search = {};
+        $scope.allFilms = {};
         $scope.displayFilms = {};
+        $scope.searchFilms = {};
+        $scope.search = {};
         $scope.showSearch = false;
 
         $scope.$watch('showSearch', function (newValue, oldValue) {
             if (newValue) {
-                $scope.displayFilms = $scope.search;
+                $scope.displayFilms = $scope.searchFilms;
             } else {
-                $scope.displayFilms = $scope.films;
+                $scope.displayFilms = $scope.allFilms;
             }
         });
 
@@ -31,11 +32,11 @@ angular.module('app.mainCtrl', [
         $scope.sendFilters = function () {
             console.log("Dane wysłane");
             console.log($scope.search);
-            filmService.filters({
+            filmService.filters($scope.search, {
                 success: function (data) {
-                    console.log("Dane odebrane");
+                    console.log("Success");
                     console.log(data);
-                    $scope.search = data;
+                    $scope.searchFilms = data;
                 },
                 error: function (data) {
                     console.log("ERROR");
@@ -61,8 +62,7 @@ angular.module('app.mainCtrl', [
             });
             filmService.getAll({
                 success: function (data) {
-                    $scope.films = data;
-                    $scope.displayFilms = $scope.films;
+                    $scope.allFilms = data;
                 }
             });
         })();
