@@ -20,14 +20,12 @@ angular.module('app.filmsId', [
                 filmService.get(id, {
                     success: function (data) {
                         $scope.film = data;
-                        $scope.getAverageScore();
                         $scope.getScore();
                     }
                 });
 
                 $scope.$watch('rate', function (newValue, oldValue) {
                     $scope.sendScore($scope.rate);
-                    $scope.getAverageScore();
                     $scope.getScore();
                 }, true);
 
@@ -62,7 +60,8 @@ angular.module('app.filmsId', [
                 $scope.getScore = function () {
                     filmService.getRate($scope.film.film_id, {
                         success: function (data) {
-                            $scope.userScore = data;
+                            $scope.rate = data;
+                            $scope.getAverageScore();
                         },
                         error: function () {
                             toastService.error("Nie oceniłem jeszcze tego filmu :(");

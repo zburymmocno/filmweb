@@ -16,15 +16,12 @@
             </ul>
             <span class="md-title">Ocena użytkowików</span>
             <span class="md-subhead">{{averageScore.srednia}}</span>
-            <span class="md-title">Twoja ocena</span>
-            <span class="md-subhead">{{userScore.ocena}}</span>
-
             <div ng-show="user.isLogged">
                 <span class="md-title">Twoja ocena:</span>
                 <md-input-contaner>
                     <label>Oceń film</label>
                     <md-select ng-model="rate.ocena">
-                        <md-option ng-repeat="i in [1,2,3,4,5]" ng-value="i">{{i}}</md-option>
+                        <md-option ng-repeat="i in [0,1,2,3,4,5]" ng-value="i">{{i}}</md-option>
                     </md-select>
                 </md-input-contaner>
             </div>
