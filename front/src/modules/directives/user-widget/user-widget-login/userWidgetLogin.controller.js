@@ -22,6 +22,7 @@ angular
                     user.isLogged = true;
                     user.data = data;
                     userWidgetView.view = 1;
+                    $scope.form = {};
                 },
                 error: function () {
                     toastService.error("Niepoprawne dane logowania!");

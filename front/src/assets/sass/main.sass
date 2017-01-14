@@ -82,3 +82,17 @@ md-input-container
 
 .md-toolbar-custom
   background-color: #bcbcbc !important
+
+.my-custom-toast
+  position: fixed
+
+
+  &.error
+    .md-toast-content
+      background-color: #a30000 !important
+  &.success
+    .md-toast-content
+      background-color: #139238 !important
+
+body.md-toast-animating
+  overflow: auto !important

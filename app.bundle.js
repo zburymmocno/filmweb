@@ -57,7 +57,7 @@ webpackJsonp([0],[
 	exports.push([module.id, "@import url(https://fonts.googleapis.com/icon?family=Material+Icons);", ""]);
 
 	// module
-	exports.push([module.id, "*, *:after, *:before {\n  box-sizing: border-box; }\n\n.main-wrapper {\n  margin-left: auto;\n  margin-right: auto;\n  max-width: 1100px; }\n\n.genre-list:after {\n  content: ', '; }\n\n.genre-list:last-child:after {\n  content: ''; }\n\n.film__year {\n  font-size: .3em !important; }\n  .film__year:before {\n    content: '('; }\n  .film__year:after {\n    content: ')'; }\n\n.custom_page-nav {\n  background-color: rgba(10, 85, 171, 0.85) !important; }\n\nmd-card-title-media img {\n  max-width: 200px;\n  width: 100%;\n  margin-right: 15px; }\n\n.border-top {\n  border-top: 2px solid rgba(0, 0, 0, 0.31); }\n\n.form__fotter {\n  text-align: right;\n  font-size: .6em;\n  margin: 0; }\n\nmd-input-container .hint {\n  position: absolute;\n  left: 2px;\n  right: auto;\n  bottom: 7px;\n  font-size: 12px;\n  line-height: 14px;\n  transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);\n  color: grey; }\n\n.two__column:nth-child(odd) {\n  padding-right: 6px; }\n\n.two__column:nth-child(even) {\n  padding-left: 6px; }\n\n.two__column__content {\n  margin-left: 0;\n  margin-right: 0; }\n\n.no-padding-bottom {\n  padding-bottom: 0 !important; }\n\n.no-padding-top {\n  padding-top: 0 !important; }\n\n.no-margin-top {\n  margin-top: 0 !important; }\n\n.no-margin-bottom {\n  margin-bottom: 0 !important; }\n\n.md-button-img {\n  width: 2em;\n  vertical-align: middle; }\n\n.md-toolbar-custom {\n  background-color: #bcbcbc !important; }\n", ""]);
+	exports.push([module.id, "*, *:after, *:before {\n  box-sizing: border-box; }\n\n.main-wrapper {\n  margin-left: auto;\n  margin-right: auto;\n  max-width: 1100px; }\n\n.genre-list:after {\n  content: ', '; }\n\n.genre-list:last-child:after {\n  content: ''; }\n\n.film__year {\n  font-size: .3em !important; }\n  .film__year:before {\n    content: '('; }\n  .film__year:after {\n    content: ')'; }\n\n.custom_page-nav {\n  background-color: rgba(10, 85, 171, 0.85) !important; }\n\nmd-card-title-media img {\n  max-width: 200px;\n  width: 100%;\n  margin-right: 15px; }\n\n.border-top {\n  border-top: 2px solid rgba(0, 0, 0, 0.31); }\n\n.form__fotter {\n  text-align: right;\n  font-size: .6em;\n  margin: 0; }\n\nmd-input-container .hint {\n  position: absolute;\n  left: 2px;\n  right: auto;\n  bottom: 7px;\n  font-size: 12px;\n  line-height: 14px;\n  transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);\n  color: grey; }\n\n.two__column:nth-child(odd) {\n  padding-right: 6px; }\n\n.two__column:nth-child(even) {\n  padding-left: 6px; }\n\n.two__column__content {\n  margin-left: 0;\n  margin-right: 0; }\n\n.no-padding-bottom {\n  padding-bottom: 0 !important; }\n\n.no-padding-top {\n  padding-top: 0 !important; }\n\n.no-margin-top {\n  margin-top: 0 !important; }\n\n.no-margin-bottom {\n  margin-bottom: 0 !important; }\n\n.md-button-img {\n  width: 2em;\n  vertical-align: middle; }\n\n.md-toolbar-custom {\n  background-color: #bcbcbc !important; }\n\n.my-custom-toast {\n  position: fixed; }\n  .my-custom-toast.error .md-toast-content {\n    background-color: #a30000 !important; }\n  .my-custom-toast.success .md-toast-content {\n    background-color: #139238 !important; }\n\nbody.md-toast-animating {\n  overflow: auto !important; }\n", ""]);
 
 	// exports
 
@@ -814,7 +814,7 @@ webpackJsonp([0],[
 /* 19 */
 /***/ function(module, exports) {
 
-	module.exports = "<md-toolbar class=\"custom_page-nav\">\n    <div class=\"main-wrapper\">\n        <div class=\"md-toolbar-tools\">\n            <i class=\"material-icons md-18\">theaters</i>\n            <md-button ui-sref=\"home()\">\n                Strona główne\n            </md-button>\n            <md-button ng-show=\"user.data.privileges.add\" ui-sref=\"filmsAdd()\">\n                Dodaj nowy film\n            </md-button>\n        </div>\n    </div>\n</md-toolbar>\n";
+	module.exports = "<md-toolbar class=\"custom_page-nav\">\n    <div class=\"main-wrapper\">\n        <div class=\"md-toolbar-tools\">\n            <i class=\"material-icons md-18\">theaters</i>\n            <md-button ui-sref=\"home()\">\n                Strona główna\n            </md-button>\n            <md-button ng-show=\"user.data.privileges.add\" ui-sref=\"filmsAdd()\">\n                Dodaj nowy film\n            </md-button>\n        </div>\n    </div>\n</md-toolbar>\n";
 
 /***/ },
 /* 20 */
@@ -928,6 +928,7 @@ webpackJsonp([0],[
 	                    user.isLogged = true;
 	                    user.data = data;
 	                    userWidgetView.view = 1;
+	                    $scope.form = {};
 	                },
 	                error: function () {
 	                    toastService.error("Niepoprawne dane logowania!");
@@ -1018,6 +1019,7 @@ webpackJsonp([0],[
 	            usersService.add($scope.form, {
 	                success: function () {
 	                    toastService.success("Rejestracja przebiegła pomyślnie! Możesz teraz się zalogować.");
+	                    $scope.form = {};
 	                    userWidgetView.setLogin();
 	                },
 	                error: function () {
@@ -1314,7 +1316,7 @@ webpackJsonp([0],[
 
 	        var show = function (template, className, action, callback) {
 	            return $mdToast.show({
-	                    template: '<md-toast>' + template + '</md-toast>',
+	                    template: '<md-toast class="my-custom-toast">' + template + '</md-toast>',
 	                    hideDelay: 3000,
 	                    position: 'top right',
 	                    toastClass: className,

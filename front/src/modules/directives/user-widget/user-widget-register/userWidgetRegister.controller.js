@@ -22,6 +22,7 @@ angular
             usersService.add($scope.form, {
                 success: function () {
                     toastService.success("Rejestracja przebiegła pomyślnie! Możesz teraz się zalogować.");
+                    $scope.form = {};
                     userWidgetView.setLogin();
                 },
                 error: function () {

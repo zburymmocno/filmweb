@@ -4,7 +4,7 @@ angular
 
         var show = function (template, className, action, callback) {
             return $mdToast.show({
-                    template: '<md-toast>' + template + '</md-toast>',
+                    template: '<md-toast class="my-custom-toast">' + template + '</md-toast>',
                     hideDelay: 3000,
                     position: 'top right',
                     toastClass: className,
