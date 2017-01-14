@@ -64,7 +64,7 @@ angular.module('app.filmsId', [
                             $scope.getAverageScore();
                         },
                         error: function () {
-                            toastService.error("Nie oceniłem jeszcze tego filmu :(");
+                            $scope.getAverageScore();
                         }
                     });
                 };
@@ -74,7 +74,6 @@ angular.module('app.filmsId', [
                             $scope.averageScore = data;
                         },
                         error: function (data) {
-                            toastService.error("Ten film nie posiada żadnych ocen");
                         }
                     });
                 };
