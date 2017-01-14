@@ -21,10 +21,11 @@
                 <md-input-contaner>
                     <label>Oceń film</label>
                     <md-select ng-model="rate.ocena">
-                        <md-option ng-repeat="i in [0,1,2,3,4,5]" ng-value="i">{{i}}</md-option>
+                        <md-option ng-repeat="i in [1,2,3,4,5]" ng-value="i">{{i}}</md-option>
                     </md-select>
                 </md-input-contaner>
             </div>
+            <md-button ng-href="{{film.url_z}}">Zobacz zwiastun</md-button>
         </md-card-title-text>
     </md-card-title>
 
