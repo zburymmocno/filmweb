@@ -10,22 +10,16 @@
             </div>
             <p> {{film.opis}} </p>
             <div ng-show="user.isLogged">
-                <span class="md-title">Twoja ocena:</span>
-                <md-input-contaner>
-                    <label>Oceń film</label>
-                    <md-select ng-model="rate.ocena">
+                <div layout="row" layout-align=" center">
+                    <label flex="15">Oceń film</label>
+                    <md-select flex="1" ng-model="rate.ocena">
                         <md-option ng-repeat="i in [1,2,3,4,5]" ng-value="i">{{i}}</md-option>
                     </md-select>
-                </md-input-contaner>
+                </div>
             </div>
             <md-button ng-href="{{film.url_z}}" ng-show="film.url_z">Zobacz zwiastun</md-button>
         </md-card-title-text>
     </md-card-title>
-    <md-card-actions layout="row" layout-align="end center">
-        <md-button ng-show="user.data.privileges.edit" ui-sref="filmsEdit({id: film.film_id})">Edytuj</md-button>
-        <md-button ng-show="user.data.privileges.edit" ng-click="removeFilm($event)">Usuń</md-button>
-    </md-card-actions>
-
     <md-card-content>
         <div flex layout="row" layout-align="center">
             <div flex="50">
@@ -42,5 +36,8 @@
             </div>
         </div>
     </md-card-content>
-
+    <md-card-actions layout="row" layout-align="end center">
+        <md-button ng-show="user.data.privileges.edit" ui-sref="filmsEdit({id: film.film_id})">Edytuj</md-button>
+        <md-button ng-show="user.data.privileges.edit" ng-click="removeFilm($event)">Usuń</md-button>
+    </md-card-actions>
 </md-card>
