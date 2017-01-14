@@ -19,6 +19,7 @@
                 <md-input-container class="md-block " flex-gt-sm>
                     <label>Gatunki</label>
                     <md-select ng-model="search.gatunek">
+                        <md-option value="">Brak</md-option>
                         <md-option ng-repeat="genre in genres" ng-value="genre.nazwa">
                             {{genre.nazwa}}
                         </md-option>
@@ -27,6 +28,7 @@
                 <md-input-container class="md-block" flex-gt-sm>
                     <label>Kraje</label>
                     <md-select ng-model="search.kraj">
+                        <md-option value="">Brak</md-option>
                         <md-option ng-repeat="country in countries" ng-value="country.nazwa">
                             {{country.nazwa}}
                         </md-option>
