@@ -50,6 +50,7 @@ angular.module('app.mainCtrl', [
             filmService.getAll({
                 success: function (data) {
                     $scope.displayFilms = data;
+                    $scope.found = true;
                 }
             });
         };

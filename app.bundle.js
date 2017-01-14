@@ -671,6 +671,7 @@ webpackJsonp([0],[
 	            filmService.getAll({
 	                success: function (data) {
 	                    $scope.displayFilms = data;
+	                    $scope.found = true;
 	                }
 	            });
 	        };
