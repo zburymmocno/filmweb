@@ -668,10 +668,10 @@ webpackJsonp([0],[
 	        };
 
 	        $scope.getAllFilms = function () {
+	            $scope.found = true;
 	            filmService.getAll({
 	                success: function (data) {
 	                    $scope.displayFilms = data;
-	                    $scope.found = true;
 	                }
 	            });
 	        };
