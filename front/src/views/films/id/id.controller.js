@@ -20,6 +20,8 @@ angular.module('app.filmsId', [
                 filmService.get(id, {
                     success: function (data) {
                         $scope.film = data;
+                        $scope.getAverageScore();
+                        $scope.getScore();
                     }
                 });
 
@@ -77,8 +79,5 @@ angular.module('app.filmsId', [
                         }
                     });
                 };
-
-                // $scope.getAverageScore();
-                // $scope.getScore();
             }])
 ;

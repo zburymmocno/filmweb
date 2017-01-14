@@ -520,7 +520,7 @@ webpackJsonp([0],[
 /* 10 */
 /***/ function(module, exports) {
 
-	module.exports = "<md-card>\n    <md-card-title>\n        <h1>Edycja filmu o ID {{form.film_id}}</h1>\n    </md-card-title>\n    <md-card-content>\n        <form name=\"filmForm\">\n            <md-input-container class=\"md-block\">\n                <label>Tytuł</label>\n                <input ng-model=\"form.tytul\" required>\n            </md-input-container>\n\n            <md-input-container class=\"md-block\">\n                <label>Rok premiery</label>\n                <input ng-model=\"form.rok_premiery\" required>\n            </md-input-container>\n            <md-input-container class=\"md-block\">\n                <label>Gatunki</label>\n                <md-select multiple ng-model=\"form.gatunki\" required>\n                    <md-option ng-repeat=\"genre in genres\" ng-value=\"genre\">\n                        {{genre.nazwa}}\n                    </md-option>\n                </md-select>\n            </md-input-container>\n            <md-input-container class=\"md-block\">\n                <label>Kraje</label>\n                <md-select multiple ng-model=\"form.kraje\" required>\n                    <md-option ng-repeat=\"country in countries\" ng-value=\"country\">\n                        {{country.nazwa}}\n                    </md-option>\n                </md-select>\n            </md-input-container>\n            <md-input-container class=\"md-block\">\n                <label>Plakat</label>\n                <input ng-model=\"form.url_p\" required>\n            </md-input-container>\n\n            <md-input-container class=\"md-block\">\n                <label>Zwiastun</label>\n                <input ng-model=\"form.url_z\" required>\n            </md-input-container>\n\n            <md-input-container class=\"md-block\">\n                <label>Opis</label>\n                <textarea ng-model=\"form.opis\" rows=\"5\" md-select-on-focus required></textarea>\n            </md-input-container>\n        </form>\n    </md-card-content>\n    <md-card-actions layout=\"row\" layout-align=\"end center\">\n        <md-button class=\"md-raised md-primary\" ng-disabled=\"!filmForm.$valid\" ng-click=\"send()\">Zapisz</md-button>\n    </md-card-actions>\n</md-card>\n\n\n\n\n\n";
+	module.exports = "<md-card>\n    <md-card-title>\n        <h1>Edycja filmu o ID {{form.film_id}}</h1>\n    </md-card-title>\n    <md-card-content>\n        <form name=\"filmForm\">\n            <md-input-container class=\"md-block\">\n                <label>Tytuł</label>\n                <input ng-model=\"form.tytul\" required>\n            </md-input-container>\n\n            <md-input-container class=\"md-block\">\n                <label>Rok premiery</label>\n                <input ng-model=\"form.rok_premiery\" required>\n            </md-input-container>\n            <md-input-container class=\"md-block\">\n                <label>Gatunki</label>\n                <md-select multiple ng-model=\"form.gatunki\" required>\n                    <md-option ng-repeat=\"genre in genres\" ng-value=\"genre\">\n                        {{genre.nazwa}}\n                    </md-option>\n                </md-select>\n            </md-input-container>\n            <md-input-container class=\"md-block\">\n                <label>Kraje</label>\n                <md-select multiple ng-model=\"form.kraje\" required>\n                    <md-option ng-repeat=\"country in countries\" ng-value=\"country\">\n                        {{country.nazwa}}\n                    </md-option>\n                </md-select>\n            </md-input-container>\n            <md-input-container class=\"md-block\">\n                <label>Plakat</label>\n                <input ng-model=\"form.url_p\" required>\n            </md-input-container>\n\n            <md-input-container class=\"md-block\">\n                <label>Zwiastun</label>\n                <input ng-model=\"form.url_z\">\n            </md-input-container>\n\n            <md-input-container class=\"md-block\">\n                <label>Opis</label>\n                <textarea ng-model=\"form.opis\" rows=\"5\" md-select-on-focus required></textarea>\n            </md-input-container>\n        </form>\n    </md-card-content>\n    <md-card-actions layout=\"row\" layout-align=\"end center\">\n        <md-button class=\"md-raised md-primary\" ng-disabled=\"!filmForm.$valid\" ng-click=\"send()\">Zapisz</md-button>\n    </md-card-actions>\n    <pre>\n        {{filmForm.$valid}}\n    </pre>\n</md-card>\n\n\n\n\n\n";
 
 /***/ },
 /* 11 */
@@ -548,6 +548,8 @@ webpackJsonp([0],[
 	                filmService.get(id, {
 	                    success: function (data) {
 	                        $scope.film = data;
+	                        $scope.getAverageScore();
+	                        $scope.getScore();
 	                    }
 	                });
 
@@ -605,9 +607,6 @@ webpackJsonp([0],[
 	                        }
 	                    });
 	                };
-
-	                // $scope.getAverageScore();
-	                // $scope.getScore();
 	            }])
 	;
 

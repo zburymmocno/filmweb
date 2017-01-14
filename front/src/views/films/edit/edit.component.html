@@ -36,7 +36,7 @@
 
             <md-input-container class="md-block">
                 <label>Zwiastun</label>
-                <input ng-model="form.url_z" required>
+                <input ng-model="form.url_z">
             </md-input-container>
 
             <md-input-container class="md-block">
@@ -48,6 +48,9 @@
     <md-card-actions layout="row" layout-align="end center">
         <md-button class="md-raised md-primary" ng-disabled="!filmForm.$valid" ng-click="send()">Zapisz</md-button>
     </md-card-actions>
+    <pre>
+        {{filmForm.$valid}}
+    </pre>
 </md-card>
 
 
