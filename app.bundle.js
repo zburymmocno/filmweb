@@ -541,8 +541,8 @@ webpackJsonp([0],[
 	    .controller('filmsIdCtrl',
 	        ['$scope', '$stateParams', 'filmService', 'user', 'toastService', '$state', '$mdDialog',
 	            function ($scope, $stateParams, filmService, user, toastService, $state, $mdDialog) {
+	                $scope.rate = {};
 	                var id = $stateParams.id;
-
 	                $scope.user = user;
 
 	                filmService.get(id, {
@@ -551,11 +551,6 @@ webpackJsonp([0],[
 	                        $scope.getScore();
 	                    }
 	                });
-
-	                $scope.$watch('rate', function (newValue, oldValue) {
-	                    $scope.sendScore($scope.rate);
-	                    $scope.getScore();
-	                }, true);
 
 	                $scope.removeFilm = function (ev) {
 	                    var confirm = $mdDialog.confirm()
@@ -577,10 +572,11 @@ webpackJsonp([0],[
 	                    });
 	                };
 
-	                $scope.sendScore = function (score) {
-	                    filmService.rate($scope.film.film_id, score, {
+	                $scope.sendScore = function () {
+	                    filmService.rate($scope.film.film_id, $scope.rate, {
 	                        success: function () {
-	                            toastService.success("Film został oceniony. Twoje ocena to " + score.ocena + "/5");
+	                            toastService.success("Film został oceniony. Twoje ocena to " + $scope.rate.ocena + "/5");
+	                            $scope.getAverageScore();
 	                        }
 	                    })
 	                };
@@ -612,7 +608,7 @@ webpackJsonp([0],[
 /* 12 */
 /***/ function(module, exports) {
 
-	module.exports = "<md-card>\n    <md-card-title>\n        <md-card-title-media class=\"md-padding\">\n            <img ng-src=\"{{film.url_p}}\" alt=\"asds\">\n        </md-card-title-media>\n        <md-card-title-text>\n            <span class=\"md-display-1\">{{film.tytul}} <span class=\"film__year\">{{film.rok_premiery}}</span></span>\n            <div style=\"text-align: right;\" ng-show=\"averageScore.srednia\">\n                <span class=\"md-title\">Ocena {{averageScore.srednia}}/5</span>\n            </div>\n            <p> {{film.opis}} </p>\n            <div ng-show=\"user.isLogged\">\n                <div layout=\"row\" layout-align=\" center\">\n                    <label flex=\"15\">Oceń film</label>\n                    <md-select flex=\"1\" ng-model=\"rate.ocena\">\n                        <md-option ng-repeat=\"i in [1,2,3,4,5]\" ng-value=\"i\">{{i}}</md-option>\n                    </md-select>\n                </div>\n            </div>\n            <md-button ng-href=\"{{film.url_z}}\" ng-show=\"film.url_z\">Zobacz zwiastun</md-button>\n        </md-card-title-text>\n    </md-card-title>\n    <md-card-content>\n        <div flex layout=\"row\" layout-align=\"center\">\n            <div flex=\"50\">\n                <span class=\"md-title\">Gatunek</span>\n                <ul class=\"film__details\">\n                    <li ng-repeat=\"genre in film.gatunki\">{{genre.nazwa}}</li>\n                </ul>\n            </div>\n            <div flex=\"50\">\n                <span class=\"md-title\">Kraj</span>\n                <ul class=\"film__details\">\n                    <li ng-repeat=\"country in film.kraje\">{{country.nazwa}}</li>\n                </ul>\n            </div>\n        </div>\n    </md-card-content>\n    <md-card-actions layout=\"row\" layout-align=\"end center\">\n        <md-button ng-show=\"user.data.privileges.edit\" ui-sref=\"filmsEdit({id: film.film_id})\">Edytuj</md-button>\n        <md-button ng-show=\"user.data.privileges.edit\" ng-click=\"removeFilm($event)\">Usuń</md-button>\n    </md-card-actions>\n</md-card>\n";
+	module.exports = "<md-card>\n    <md-card-title>\n        <md-card-title-media class=\"md-padding\">\n            <img ng-src=\"{{film.url_p}}\" alt=\"asds\">\n        </md-card-title-media>\n        <md-card-title-text>\n            <span class=\"md-display-1\">{{film.tytul}} <span class=\"film__year\">{{film.rok_premiery}}</span></span>\n            <div style=\"text-align: right;\" ng-show=\"averageScore.srednia\">\n                <span class=\"md-title\">Ocena {{averageScore.srednia}}/5</span>\n            </div>\n            <p> {{film.opis}} </p>\n            <div ng-show=\"user.isLogged\">\n                <div layout=\"row\" layout-align=\" center\">\n                    <label flex=\"15\">Oceń film</label>\n                    <md-select flex=\"1\" ng-change=\"sendScore()\" ng-model=\"rate.ocena\">\n                        <md-option  ng-repeat=\"i in [1,2,3,4,5]\" ng-value=\"i\">{{i}}</md-option>\n                    </md-select>\n                </div>\n            </div>\n            <md-button ng-href=\"{{film.url_z}}\" ng-show=\"film.url_z\">Zobacz zwiastun</md-button>\n        </md-card-title-text>\n    </md-card-title>\n    <md-card-content>\n        <div flex layout=\"row\" layout-align=\"center\">\n            <div flex=\"50\">\n                <span class=\"md-title\">Gatunek</span>\n                <ul class=\"film__details\">\n                    <li ng-repeat=\"genre in film.gatunki\">{{genre.nazwa}}</li>\n                </ul>\n            </div>\n            <div flex=\"50\">\n                <span class=\"md-title\">Kraj</span>\n                <ul class=\"film__details\">\n                    <li ng-repeat=\"country in film.kraje\">{{country.nazwa}}</li>\n                </ul>\n            </div>\n        </div>\n    </md-card-content>\n    <md-card-actions layout=\"row\" layout-align=\"end center\">\n        <md-button ng-show=\"user.data.privileges.edit\" ui-sref=\"filmsEdit({id: film.film_id})\">Edytuj</md-button>\n        <md-button ng-show=\"user.data.privileges.edit\" ng-click=\"removeFilm($event)\">Usuń</md-button>\n    </md-card-actions>\n</md-card>\n";
 
 /***/ },
 /* 13 */
@@ -755,13 +751,15 @@ webpackJsonp([0],[
 	    function ($scope, user, filmService, toastService, $mdDialog) {
 	        $scope.user = user;
 
+	        
+
 	        $scope.removeFilm = function (index, id, ev) {
 	            var confirm = $mdDialog.confirm()
 	                    .title("Czy na pewno chcesz usunąć film?")
 	                    .textContent("Jeśli to zrobisz, film przepadnie bezpowrotnie!")
 	                    .targetEvent(ev)
-	                    .ok('Tak, jestem tego pewnien!')
-	                    .cancel("Nie, jednak nie chcę tego robić")
+	                    .ok('Tak, usuń!')
+	                    .cancel("Nie, jednak nie chcę tego robić.")
 	                ;
 	            $mdDialog.show(confirm).then(function () {
 	                filmService.remove(id, {
@@ -773,7 +771,6 @@ webpackJsonp([0],[
 	            }, function () {
 	                toastService.success("Film nie został usunięty");
 	            });
-
 	        }
 
 
@@ -785,7 +782,7 @@ webpackJsonp([0],[
 /* 17 */
 /***/ function(module, exports) {
 
-	module.exports = "<md-content class=\"md-margin\" layout=\"row\" layout-wrap>\n    <div class=\"two__column\" flex=\"50\" ng-repeat=\"film in films\">\n        <md-card class=\"two__column__content\">\n            <md-card-title>\n                <md-card-title-text>\n                    <span class=\"md-headline\">{{film.tytul}}</span>\n                    <span class=\"md-subhead\">{{film.rok_premiery}}</span>\n                        <span class=\"md-subhead\">\n                            <span ng-repeat=\"genre in film.gatunki\">{{genre.nazwa}},</span>\n                        </span>\n\n                </md-card-title-text>\n                <md-card-title-media>\n                    <div class=\"md-media-md card-media\">\n                        <img class=\"film-short__image\" ng-src=\"{{film.url_p}}\"\n                             alt=\"alt\">\n                    </div>\n                </md-card-title-media>\n            </md-card-title>\n            <md-card-actions layout=\"row\" layout-align=\"start center\">\n                <md-button ui-sref=\"films({id: film.film_id})\">Szczegóły</md-button>\n                <md-button ng-show=\"user.data.privileges.edit\" ui-sref=\"filmsEdit({id: film.film_id})\">Edytuj\n                </md-button>\n                <md-button ng-show=\"user.data.privileges.edit\" ng-click=\"removeFilm($index,film.film_id, $event)\">Usuń\n                </md-button>\n            </md-card-actions>\n        </md-card>\n    </div>\n</md-content>";
+	module.exports = "<md-content class=\"md-margin\" layout=\"row\" layout-wrap>\n    <div class=\"two__column card__href\" flex=\"50\" layout-fill ng-repeat=\"film in films\">\n        <md-card class=\"two__column__content\">\n            <md-card-title>\n                <md-card-title-text>\n                    <span class=\"md-headline\">{{film.tytul}}</span>\n                    <span class=\"md-subhead\">{{film.rok_premiery}}</span>\n                        <span class=\"md-subhead\">\n                            <span ng-repeat=\"genre in film.gatunki\">{{genre.nazwa}},</span>\n                        </span>\n                </md-card-title-text>\n                <md-card-title-media>\n                    <div class=\"md-media-md card-media\">\n                        <img class=\"film-short__image\" ng-src=\"{{film.url_p}}\"\n                             alt=\"alt\">\n                    </div>\n                </md-card-title-media>\n            </md-card-title>\n            <md-card-actions layout=\"row\" layout-align=\"start center\">\n                <md-button ui-sref=\"films({id: film.film_id})\">\n                    Szczegóły\n                </md-button>\n                <md-menu ng-show=\"user.data.privileges.edit\">\n                    <md-button aria-label=\"Open demo menu\" class=\"md-icon-button\" ng-click=\"$mdOpenMenu($event)\">\n                        <i class=\"material-icons\">settings</i>\n                    </md-button>\n                    <md-menu-content>\n                        <md-menu-item>\n                            <md-button ui-sref=\"filmsEdit({id: film.film_id})\">\n                                Edytuj\n                            </md-button>\n                        </md-menu-item>\n                        <md-menu-item>\n                            <md-button ng-click=\"removeFilm($index,film.film_id, $event)\">\n                                Usuń\n                            </md-button>\n                        </md-menu-item>\n                    </md-menu-content>\n                </md-menu>\n            </md-card-actions>\n        </md-card>\n    </div>\n</md-content>";
 
 /***/ },
 /* 18 */

@@ -16,13 +16,15 @@ angular
     function ($scope, user, filmService, toastService, $mdDialog) {
         $scope.user = user;
 
+        
+
         $scope.removeFilm = function (index, id, ev) {
             var confirm = $mdDialog.confirm()
                     .title("Czy na pewno chcesz usunąć film?")
                     .textContent("Jeśli to zrobisz, film przepadnie bezpowrotnie!")
                     .targetEvent(ev)
-                    .ok('Tak, jestem tego pewnien!')
-                    .cancel("Nie, jednak nie chcę tego robić")
+                    .ok('Tak, usuń!')
+                    .cancel("Nie, jednak nie chcę tego robić.")
                 ;
             $mdDialog.show(confirm).then(function () {
                 filmService.remove(id, {
@@ -34,7 +36,6 @@ angular
             }, function () {
                 toastService.success("Film nie został usunięty");
             });
-
         }
 
 

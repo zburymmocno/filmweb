@@ -1,5 +1,5 @@
 <md-content class="md-margin" layout="row" layout-wrap>
-    <div class="two__column" flex="50" ng-repeat="film in films">
+    <div class="two__column card__href" flex="50" layout-fill ng-repeat="film in films">
         <md-card class="two__column__content">
             <md-card-title>
                 <md-card-title-text>
@@ -8,7 +8,6 @@
                         <span class="md-subhead">
                             <span ng-repeat="genre in film.gatunki">{{genre.nazwa}},</span>
                         </span>
-
                 </md-card-title-text>
                 <md-card-title-media>
                     <div class="md-media-md card-media">
@@ -18,11 +17,26 @@
                 </md-card-title-media>
             </md-card-title>
             <md-card-actions layout="row" layout-align="start center">
-                <md-button ui-sref="films({id: film.film_id})">Szczegóły</md-button>
-                <md-button ng-show="user.data.privileges.edit" ui-sref="filmsEdit({id: film.film_id})">Edytuj
+                <md-button ui-sref="films({id: film.film_id})">
+                    Szczegóły
                 </md-button>
-                <md-button ng-show="user.data.privileges.edit" ng-click="removeFilm($index,film.film_id, $event)">Usuń
-                </md-button>
+                <md-menu ng-show="user.data.privileges.edit">
+                    <md-button aria-label="Open demo menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                        <i class="material-icons">settings</i>
+                    </md-button>
+                    <md-menu-content>
+                        <md-menu-item>
+                            <md-button ui-sref="filmsEdit({id: film.film_id})">
+                                Edytuj
+                            </md-button>
+                        </md-menu-item>
+                        <md-menu-item>
+                            <md-button ng-click="removeFilm($index,film.film_id, $event)">
+                                Usuń
+                            </md-button>
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>
             </md-card-actions>
         </md-card>
     </div>

@@ -12,8 +12,8 @@
             <div ng-show="user.isLogged">
                 <div layout="row" layout-align=" center">
                     <label flex="15">Oceń film</label>
-                    <md-select flex="1" ng-model="rate.ocena">
-                        <md-option ng-repeat="i in [1,2,3,4,5]" ng-value="i">{{i}}</md-option>
+                    <md-select flex="1" ng-change="sendScore()" ng-model="rate.ocena">
+                        <md-option  ng-repeat="i in [1,2,3,4,5]" ng-value="i">{{i}}</md-option>
                     </md-select>
                 </div>
             </div>

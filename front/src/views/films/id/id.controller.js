@@ -13,8 +13,8 @@ angular.module('app.filmsId', [
     .controller('filmsIdCtrl',
         ['$scope', '$stateParams', 'filmService', 'user', 'toastService', '$state', '$mdDialog',
             function ($scope, $stateParams, filmService, user, toastService, $state, $mdDialog) {
+                $scope.rate = {};
                 var id = $stateParams.id;
-
                 $scope.user = user;
 
                 filmService.get(id, {
@@ -23,11 +23,6 @@ angular.module('app.filmsId', [
                         $scope.getScore();
                     }
                 });
-
-                $scope.$watch('rate', function (newValue, oldValue) {
-                    $scope.sendScore($scope.rate);
-                    $scope.getScore();
-                }, true);
 
                 $scope.removeFilm = function (ev) {
                     var confirm = $mdDialog.confirm()
@@ -49,10 +44,11 @@ angular.module('app.filmsId', [
                     });
                 };
 
-                $scope.sendScore = function (score) {
-                    filmService.rate($scope.film.film_id, score, {
+                $scope.sendScore = function () {
+                    filmService.rate($scope.film.film_id, $scope.rate, {
                         success: function () {
-                            toastService.success("Film został oceniony. Twoje ocena to " + score.ocena + "/5");
+                            toastService.success("Film został oceniony. Twoje ocena to " + $scope.rate.ocena + "/5");
+                            $scope.getAverageScore();
                         }
                     })
                 };
